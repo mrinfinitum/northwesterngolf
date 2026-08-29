@@ -4,6 +4,7 @@ import { Breadcrumbs } from "@/components/commerce/Breadcrumbs";
 import { DalyProductEditorial } from "@/components/commerce/DalyProductEditorial";
 import { DalyProductRail } from "@/components/commerce/DalyProductRail";
 import { ProductConfigurator } from "@/components/commerce/ProductConfigurator";
+import { ProductPageScrollReset } from "@/components/commerce/ProductPageScrollReset";
 import { DalyProductCampaign } from "@/components/content/DalyProductCampaign";
 import { getProduct, getProducts } from "@/lib/shopify";
 import { isRetailCartEnabled } from "@/lib/shopify/commerce-boundary";
@@ -60,6 +61,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <div className={`product-page${isDalyDesignPrototype ? " daly-product-page" : ""}`}>
+      <ProductPageScrollReset productHandle={product.handle} />
       <div className="product-page__inner page-shell page-shell--wide">
         <Breadcrumbs current={product.title} />
         <ProductConfigurator
