@@ -1,0 +1,675 @@
+.daly-product-page {
+  --daly-black: #0a0a0a;
+  --daly-field: #ffffff;
+  --daly-soft: #777773;
+  background: var(--color-white);
+  color: var(--daly-black);
+  overflow: hidden;
+  padding-bottom: 0;
+}
+
+.daly-product-page .product-page__inner {
+  background: var(--color-white);
+  max-width: none;
+  padding-inline: clamp(1.25rem, 3.35vw, 4rem);
+  position: relative;
+}
+
+.daly-product-page .breadcrumbs {
+  color: #696965;
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  margin-inline: auto;
+  max-width: 100rem;
+  padding-block: 0;
+  position: absolute;
+  top: 0.75rem;
+  z-index: 2;
+}
+
+.daly-product-page .product-configurator {
+  align-items: stretch;
+  display: grid;
+  gap: 2rem;
+  margin-inline: auto;
+  max-width: 100rem;
+  min-height: 0;
+  padding-block: 0 2rem;
+}
+
+.daly-product-page .product-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  min-height: 0;
+}
+
+.daly-product-page .product-gallery__thumbs {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  max-height: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.daly-product-page .product-gallery__thumbs button {
+  aspect-ratio: 1;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+  flex: 0 0 3.5rem;
+  opacity: 0.48;
+  overflow: hidden;
+  position: relative;
+  transition: border-color 160ms ease, opacity 160ms ease;
+}
+
+.daly-product-page .product-gallery__thumbs button:hover,
+.daly-product-page .product-gallery__thumbs button.is-active {
+  border-color: var(--daly-black);
+  opacity: 1;
+}
+
+.daly-product-page .product-gallery__thumbs img,
+.daly-product-page .product-gallery__zoom-trigger > img {
+  object-fit: contain;
+}
+
+.daly-product-page .product-gallery__zoom-trigger > img {
+  transform: scale(0.96);
+  transform-origin: center;
+}
+
+.daly-product-page .product-gallery__main {
+  aspect-ratio: auto;
+  background: transparent;
+  border-radius: 0;
+  min-height: 0;
+}
+
+.daly-product-page .product-gallery__arrows {
+  inset: auto 0 1rem;
+  justify-content: center;
+  gap: 0.5rem;
+  transform: none;
+}
+
+.daly-product-page .product-gallery__arrows button {
+  background: transparent;
+  border: 1px solid rgb(10 10 10 / 16%);
+  border-radius: 50%;
+  height: 2rem;
+  transition: border-color 150ms ease;
+  width: 2rem;
+}
+
+.daly-product-page .product-gallery__arrows button:hover {
+  border-color: var(--daly-black);
+}
+
+.daly-product-page .product-gallery__dots {
+  display: none;
+}
+
+.daly-product-page .product-summary {
+  align-self: center;
+  max-width: 31rem;
+  padding: 2rem 0;
+  position: static;
+}
+
+.daly-product-page .product-summary__brand-line,
+.daly-product-page .product-summary__campaign-label,
+.daly-section-kicker {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.daly-product-page .product-summary__brand-line {
+  color: var(--daly-soft);
+  margin-bottom: 1.75rem;
+}
+
+.daly-product-page .product-summary__campaign-label {
+  margin-bottom: 0.75rem;
+}
+
+.daly-product-page .product-summary h1 {
+  font-size: clamp(2.625rem, 4.1vw, 4.875rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.88;
+  margin: 0 0 1.5rem;
+  max-width: 10ch;
+  text-transform: none;
+}
+
+.daly-product-page .product-summary__price {
+  font-size: 1.125rem;
+  font-weight: 700;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.daly-product-page .product-summary__price s {
+  color: var(--daly-soft);
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.daly-product-page .product-summary__description {
+  color: #4f4f4c;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  margin: 0 0 2.25rem;
+  max-width: 35rem;
+}
+
+.daly-product-page .variant-selector {
+  border-top: 1px solid rgb(10 10 10 / 13%);
+  padding-top: 1.5rem;
+}
+
+.daly-product-page .variant-selector fieldset {
+  border: 0;
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+
+.daly-product-page .variant-selector legend {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.daly-product-page .variant-selector legend span {
+  color: var(--daly-soft);
+  font-weight: 400;
+}
+
+.daly-product-page .variant-selector__values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.daly-product-page .variant-selector__values > button {
+  background: transparent;
+  border: 1px solid rgb(10 10 10 / 24%);
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.875rem;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.daly-product-page .variant-selector__values > button:hover,
+.daly-product-page .variant-selector__values > button.is-selected {
+  background: var(--daly-black);
+  border-color: var(--daly-black);
+  color: var(--color-white);
+}
+
+.daly-product-page .purchase-row {
+  display: grid;
+  gap: 0.625rem;
+  grid-template-columns: 3.25rem minmax(0, 1fr);
+}
+
+.daly-product-page .quantity-selector {
+  border: 1px solid rgb(10 10 10 / 24%);
+  border-radius: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 3.75rem;
+  position: relative;
+  width: 3.25rem;
+}
+
+.daly-product-page .quantity-selector button:first-child,
+.daly-product-page .quantity-selector button:last-child {
+  display: none;
+}
+
+.daly-product-page .quantity-selector output {
+  align-items: center;
+  display: flex;
+  font-size: 0.8125rem;
+  justify-content: center;
+}
+
+.daly-product-page .purchase-button {
+  background: var(--daly-black);
+  border: 1px solid var(--daly-black);
+  border-radius: 0.5rem;
+  color: var(--color-white);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  min-height: 3.75rem;
+  opacity: 1;
+}
+
+.daly-product-page .purchase-button:disabled {
+  background: var(--daly-black);
+  color: var(--color-white);
+  cursor: not-allowed;
+  opacity: 0.88;
+}
+
+.daly-product-page .commerce-boundary-note {
+  color: var(--daly-soft);
+  font-size: 0.625rem;
+  line-height: 1.45;
+  margin-top: 0.75rem;
+}
+
+.daly-product-details {
+  background: var(--color-white);
+  padding: clamp(2rem, 3vw, 3rem) clamp(1.25rem, 4vw, 4rem) clamp(4rem, 6vw, 6rem);
+}
+
+.daly-product-details__inner {
+  margin-inline: auto;
+  max-width: 66rem;
+}
+
+.daly-product-details__nav {
+  align-items: center;
+  border-bottom: 1px solid #e8e8e5;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: clamp(2rem, 3vw, 3rem);
+}
+
+.daly-product-details__nav a,
+.daly-product-details__nav span {
+  color: var(--daly-soft);
+  font-size: 0.6875rem;
+  padding: 0 0 0.875rem;
+  position: relative;
+  text-align: center;
+}
+
+.daly-product-details__nav a:hover,
+.daly-product-details__nav a.is-active {
+  color: var(--daly-black);
+}
+
+.daly-product-details__nav a.is-active::after {
+  background: var(--daly-black);
+  bottom: -1px;
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.daly-product-details__nav span[aria-disabled="true"] {
+  opacity: 0.45;
+}
+
+.daly-product-details__content {
+  display: grid;
+  gap: clamp(3rem, 5vw, 5rem);
+}
+
+.daly-product-details__content section {
+  min-width: 0;
+  scroll-margin-top: calc(var(--header-height) + 2rem);
+}
+
+.daly-product-details h2 {
+  font-size: clamp(2rem, 2.65vw, 2.875rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  margin: 0;
+  text-transform: none;
+}
+
+.daly-product-details h2 {
+  margin-top: 0.65rem;
+}
+
+.daly-product-rail h2 {
+  font-size: clamp(2.5rem, 4vw, 4.25rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  margin: 0;
+  text-transform: none;
+}
+
+.daly-specifications {
+  margin: 2rem 0 0;
+}
+
+.daly-specifications > div {
+  display: grid;
+  font-size: 0.8125rem;
+  gap: 1.5rem;
+  grid-template-columns: minmax(7rem, 0.7fr) minmax(0, 1.3fr);
+  padding-block: 0.5rem;
+}
+
+.daly-specifications dt {
+  color: var(--daly-soft);
+}
+
+.daly-specifications dd {
+  margin: 0;
+}
+
+.daly-product-details__description {
+  color: #3e3e3b;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  margin-top: 2rem;
+  max-width: 37rem;
+}
+
+.daly-product-details__description ul {
+  margin: 1.5rem 0;
+  padding-left: 1.1rem;
+}
+
+.daly-product-rail {
+  background: var(--color-white);
+  padding: 2rem 0 clamp(4.5rem, 6vw, 6.5rem) clamp(1.25rem, 4vw, 4rem);
+}
+
+.daly-product-rail__header {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 clamp(1.25rem, 4vw, 4rem) clamp(2rem, 3vw, 3rem) 0;
+}
+
+.daly-product-rail__header .daly-section-kicker {
+  margin-bottom: 0.75rem;
+}
+
+.daly-product-rail__header > p {
+  color: var(--daly-soft);
+  font-size: 0.6875rem;
+  line-height: 1.25;
+  margin: 0;
+  text-align: right;
+  white-space: pre-line;
+}
+
+.daly-product-rail__track {
+  display: grid;
+  gap: 0.75rem;
+  grid-auto-columns: minmax(17.5rem, 24vw);
+  grid-auto-flow: column;
+  overflow-x: auto;
+  padding: 0 clamp(1.25rem, 4vw, 4rem) 1.5rem 0;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.daly-product-rail__track::-webkit-scrollbar {
+  display: none;
+}
+
+.daly-product-rail .product-card {
+  scroll-snap-align: start;
+}
+
+.daly-product-rail .product-card__media {
+  aspect-ratio: 0.9;
+  background: var(--daly-field);
+  border-radius: 0.75rem;
+}
+
+.daly-product-rail .product-card__image {
+  padding: clamp(1rem, 2vw, 2rem);
+}
+
+.daly-product-rail .product-card__badge {
+  background: var(--daly-black);
+  font-size: 0.625rem;
+  left: 0.75rem;
+  top: 0.75rem;
+}
+
+.daly-product-rail .product-card__body {
+  padding: 0.75rem 0.125rem 0;
+}
+
+.daly-product-rail .product-card h3 {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  margin-bottom: 0.15rem;
+}
+
+.daly-product-rail .product-card__price {
+  color: var(--daly-soft);
+  font-size: 0.6875rem;
+}
+
+.daly-product-rail .product-card__price s {
+  font-size: 0.625rem;
+}
+
+.daly-product-campaign {
+  align-items: flex-end;
+  background: var(--daly-black);
+  color: var(--color-white);
+  display: flex;
+  min-height: min(58rem, 84vw);
+  overflow: hidden;
+  padding: clamp(3rem, 5vw, 5rem) clamp(1.25rem, 4vw, 4rem);
+  position: relative;
+}
+
+.daly-product-campaign__image {
+  object-fit: cover;
+  object-position: center 34%;
+}
+
+.daly-product-campaign__shade {
+  background: linear-gradient(90deg, rgb(0 0 0 / 70%) 0%, rgb(0 0 0 / 18%) 58%, transparent 100%);
+  inset: 0;
+  position: absolute;
+}
+
+.daly-product-campaign__content {
+  max-width: 52rem;
+  position: relative;
+}
+
+.daly-product-campaign__content > p {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  margin: 0 0 1.5rem;
+  text-transform: uppercase;
+}
+
+.daly-product-campaign h2 {
+  font-size: clamp(5rem, 13vw, 13rem);
+  font-weight: 700;
+  letter-spacing: -0.07em;
+  line-height: 0.68;
+  margin: 0 0 3rem;
+  text-transform: uppercase;
+}
+
+.daly-product-campaign__content > span {
+  display: block;
+  font-size: clamp(1.5rem, 2.5vw, 2.75rem);
+  letter-spacing: -0.025em;
+  margin-bottom: 2rem;
+}
+
+.daly-product-campaign__cta {
+  background: var(--color-white);
+  border-radius: 0.5rem;
+  color: var(--daly-black);
+  min-width: 10rem;
+}
+
+body:has(.daly-product-page) .site-footer {
+  background: var(--daly-black, #0a0a0a);
+  border-top: 0;
+  color: var(--color-white);
+  overflow: hidden;
+}
+
+body:has(.daly-product-page) .site-footer__inner {
+  max-width: 100rem;
+  padding: 4rem clamp(1.25rem, 4vw, 4rem) 3rem;
+}
+
+body:has(.daly-product-page) .site-footer .brand-logo__default {
+  display: none;
+}
+
+body:has(.daly-product-page) .site-footer img.brand-logo__transparent {
+  display: block;
+}
+
+body:has(.daly-product-page) .site-footer h2,
+body:has(.daly-product-page) .site-footer li,
+body:has(.daly-product-page) .site-footer__legal {
+  color: var(--color-white);
+}
+
+body:has(.daly-product-page) .site-footer li,
+body:has(.daly-product-page) .site-footer__legal {
+  opacity: 0.6;
+}
+
+body:has(.daly-product-page) .site-footer__legal {
+  border-color: rgb(255 255 255 / 24%);
+  max-width: none;
+  padding-inline: clamp(1.25rem, 4vw, 4rem);
+}
+
+body:has(.daly-product-page) .site-footer__wordmark {
+  display: block;
+  font-size: clamp(5.5rem, 16.5vw, 17rem);
+  font-weight: 700;
+  letter-spacing: -0.075em;
+  line-height: 0.7;
+  margin: 3rem 0 0;
+  padding: 0 clamp(1.25rem, 2.6vw, 3rem) 1.5rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (min-width: 62.5rem) {
+  .daly-product-page .product-configurator {
+    gap: clamp(2rem, 3vw, 4rem);
+    grid-template-columns: minmax(0, 2.05fr) minmax(20rem, 0.95fr);
+    padding-block: 0 1rem;
+  }
+
+  .daly-product-page .product-gallery__main {
+    height: clamp(30rem, calc(100svh - 10rem), 38rem);
+    min-height: 30rem;
+  }
+
+  .daly-product-page .product-gallery__zoom-trigger > img {
+    transform: translate(6%, -6%) scale(1.18);
+  }
+
+  .daly-product-page .product-summary {
+    align-self: start;
+    padding-right: clamp(0rem, 2vw, 2rem);
+    padding-top: clamp(3.5rem, 5vw, 5.5rem);
+  }
+
+  .daly-product-details__content {
+    gap: clamp(3rem, 6vw, 6rem);
+    grid-template-columns: minmax(18rem, 0.8fr) minmax(24rem, 1.2fr);
+    margin-inline: auto;
+    max-width: 58rem;
+  }
+}
+
+@media (max-width: 62.4375rem) {
+  .daly-product-page .product-gallery {
+    display: flex;
+  }
+
+  .daly-product-page .product-gallery__thumbs {
+    display: flex;
+  }
+
+  .daly-product-page .product-gallery__main {
+    height: min(105vw, 34rem);
+    min-height: 0;
+  }
+
+  .daly-product-page .product-summary {
+    max-width: 42rem;
+  }
+
+  .daly-product-details__content {
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 43.6875rem) {
+  .daly-product-page .product-configurator {
+    min-height: 0;
+    padding-bottom: 3rem;
+  }
+
+  .daly-product-page .product-summary h1 {
+    font-size: 2.5rem;
+  }
+
+  .daly-product-details__nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 1rem;
+  }
+
+  .daly-product-details__nav a,
+  .daly-product-details__nav span {
+    text-align: left;
+  }
+
+  .daly-product-rail__header > p {
+    display: none;
+  }
+
+  .daly-product-rail__track {
+    grid-auto-columns: 78vw;
+  }
+
+  .daly-product-campaign {
+    min-height: 42rem;
+  }
+
+  .daly-product-campaign__shade {
+    background: linear-gradient(0deg, rgb(0 0 0 / 76%) 0%, transparent 70%);
+  }
+
+  body:has(.daly-product-page) .site-footer__wordmark {
+    font-size: 21vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .daly-product-page *,
+  .daly-product-page *::before,
+  .daly-product-page *::after {
+    scroll-behavior: auto !important;
+  }
+}
