@@ -618,6 +618,12 @@
   aspect-ratio: auto;
   height: clamp(28rem, calc(100svh - var(--header-height) - 8rem), 38rem);
   min-height: 0;
+  touch-action: pan-y pinch-zoom;
+}
+
+.product-gallery__main img {
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 .product-gallery__zoom-trigger {

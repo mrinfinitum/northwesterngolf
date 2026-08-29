@@ -54,6 +54,9 @@ export function MobileNavigation() {
               </button>
             </div>
             <nav>
+              <Link className="mobile-drawer__home" href="/" onClick={() => setOpen(false)}>
+                Home
+              </Link>
               {primaryNavigation.map((item) => (
                 <details key={item.label} open={!item.children}>
                   {item.children ? (

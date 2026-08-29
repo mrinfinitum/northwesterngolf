@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition, type PointerEvent } from "react";
 import { addCartLineAction } from "@/app/cart/actions";
 import { publishCartUpdate } from "@/components/cart/cart-events";
 import type { Product, ProductVariant, ShopifyImage } from "@/lib/shopify";
@@ -42,6 +42,8 @@ export function ProductConfigurator({
   const [isAdding, startAdding] = useTransition();
   const thumbnailRailRef = useRef<HTMLDivElement>(null);
   const zoomDialogRef = useRef<HTMLDialogElement>(null);
+  const swipeStartRef = useRef<{ pointerId: number; x: number; y: number } | null>(null);
+  const suppressZoomRef = useRef(false);
 
   const variant = product.variants.find((candidate) =>
     candidate.selectedOptions.every((option) => selected[option.name] === option.value),
@@ -90,6 +92,34 @@ export function ProductConfigurator({
     setActiveMediaIndex((index + media.length) % media.length);
   }
 
+  function beginMediaSwipe(event: PointerEvent<HTMLDivElement>) {
+    if (event.pointerType === "mouse" || media.length < 2) return;
+    swipeStartRef.current = { pointerId: event.pointerId, x: event.clientX, y: event.clientY };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }
+
+  function endMediaSwipe(event: PointerEvent<HTMLDivElement>) {
+    const start = swipeStartRef.current;
+    swipeStartRef.current = null;
+    if (!start || start.pointerId !== event.pointerId) return;
+
+    const horizontalDistance = event.clientX - start.x;
+    const verticalDistance = event.clientY - start.y;
+    const isHorizontalSwipe = Math.abs(horizontalDistance) >= 44 && Math.abs(horizontalDistance) > Math.abs(verticalDistance) * 1.2;
+    if (!isHorizontalSwipe) return;
+
+    suppressZoomRef.current = true;
+    showMedia(shownIndex + (horizontalDistance < 0 ? 1 : -1));
+    window.setTimeout(() => {
+      suppressZoomRef.current = false;
+    }, 0);
+  }
+
+  function openZoomViewer() {
+    if (suppressZoomRef.current) return;
+    zoomDialogRef.current?.showModal();
+  }
+
   function addToCart() {
     if (!variant || !cartEnabled || !variant.availableForSale) return;
     setCartMessage("");
@@ -106,13 +136,18 @@ export function ProductConfigurator({
   return (
     <div className="product-configurator">
       <section aria-label="Product media" className="product-gallery">
-        <div className="product-gallery__main">
+        <div
+          className="product-gallery__main"
+          onPointerCancel={() => { swipeStartRef.current = null; }}
+          onPointerDown={beginMediaSwipe}
+          onPointerUp={endMediaSwipe}
+        >
           {image ? (
             <button
               aria-haspopup="dialog"
               aria-label={`Enlarge ${image.altText || product.title}`}
               className="product-gallery__zoom-trigger"
-              onClick={() => zoomDialogRef.current?.showModal()}
+              onClick={openZoomViewer}
               type="button"
             >
               <Image
