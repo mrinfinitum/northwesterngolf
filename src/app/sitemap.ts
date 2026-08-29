@@ -1,15 +1,21 @@
 import type { MetadataRoute } from "next";
-import { getCollections, getProducts } from "@/lib/shopify";
+import { getCollections, getProducts, isShopifyConfigured } from "@/lib/shopify";
+
+const staticRoutes: MetadataRoute.Sitemap = [
+  { changeFrequency: "weekly", priority: 1, url: "https://northwestern.golf" },
+  { changeFrequency: "weekly", priority: 0.9, url: "https://northwestern.golf/collections/all" },
+];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  if (!isShopifyConfigured()) return staticRoutes;
+
   const [products, collections] = await Promise.all([
     getProducts({ first: 100, sortKey: "TITLE" }),
     getCollections(100),
   ]);
 
   return [
-    { changeFrequency: "weekly", priority: 1, url: "https://northwestern.golf" },
-    { changeFrequency: "weekly", priority: 0.9, url: "https://northwestern.golf/collections/all" },
+    ...staticRoutes,
     ...collections.map((collection) => ({
       changeFrequency: "weekly" as const,
       lastModified: collection.updatedAt,

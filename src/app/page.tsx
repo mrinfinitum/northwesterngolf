@@ -4,10 +4,12 @@ import { HomeIntro } from "@/components/content/HomeIntro";
 import { ImageOverlay } from "@/components/content/ImageOverlay";
 import { Testimonials } from "@/components/content/Testimonials";
 import { homepageContent } from "@/config/site";
-import { getProducts } from "@/lib/shopify";
+import { getProducts, isShopifyConfigured } from "@/lib/shopify";
 
 export default async function Home() {
-  const products = await getProducts({ first: 6, sortKey: "BEST_SELLING" });
+  const products = isShopifyConfigured()
+    ? await getProducts({ first: 6, sortKey: "BEST_SELLING" })
+    : [];
 
   return (
     <div className="home-page">
@@ -21,7 +23,7 @@ export default async function Home() {
         mobileImage={homepageContent.partnership.mobileImage}
         logo={homepageContent.partnership.logo}
       />
-      <FeaturedCollection products={products} />
+      {products.length ? <FeaturedCollection products={products} /> : null}
       <ImageOverlay
         body={homepageContent.campaign.subheading}
         buttonLabel="Explore the driver"

@@ -59,6 +59,10 @@ type ShopifyFetchOptions = {
   variables?: Record<string, unknown>;
 };
 
+export function isShopifyConfigured() {
+  return Boolean(process.env.SHOPIFY_STORE_DOMAIN?.trim());
+}
+
 function getStoreDomain() {
   const value = process.env.SHOPIFY_STORE_DOMAIN?.trim();
 
