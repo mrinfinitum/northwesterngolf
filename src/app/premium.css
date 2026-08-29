@@ -836,6 +836,11 @@
   margin-top: 2rem;
 }
 
+.site-footer .site-footer__socials {
+  justify-content: center;
+  margin-top: 0;
+}
+
 .site-footer .brand-logo img.brand-logo__default {
   display: none;
 }

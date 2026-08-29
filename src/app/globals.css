@@ -534,14 +534,15 @@ main { min-height: 50vh; }
 .cart-empty--page { min-height: 55vh; }
 
 .site-footer { background: #f8f8f8; border-top: 1px solid #e5e5e5; color: var(--color-ink); }
-.site-footer__inner { display: grid; gap: 2.5rem; margin-inline: auto; max-width: 75rem; padding: 3.125rem 0.9375rem 2rem; text-align: center; }
-.site-footer__brand { display: grid; justify-items: center; }
+.site-footer__inner { display: grid; gap: 2.5rem; grid-template-areas: "brand" "groups" "social"; margin-inline: auto; max-width: 75rem; padding: 3.125rem 0.9375rem 2rem; text-align: center; }
+.site-footer__brand { display: grid; grid-area: brand; justify-items: center; }
 .site-footer .brand-logo { justify-self: center; width: 16.25rem; }
 .social-links { display: flex; gap: 0.75rem; margin-top: 2.5rem; }
+.site-footer__socials { grid-area: social; justify-self: center; margin-top: 0; }
 .social-links a { align-items: center; border: 1px solid #d4d1d8; border-radius: 50%; display: flex; height: 2.6rem; justify-content: center; transition: border-color 180ms ease, color 180ms ease; width: 2.6rem; }
 .social-links a:hover { border-color: var(--color-campaign); color: var(--color-campaign); }
 .social-links svg { height: 1.15rem; width: 1.15rem; }
-.site-footer__groups { display: grid; gap: 2.5rem; }
+.site-footer__groups { display: grid; gap: 2.5rem; grid-area: groups; }
 .site-footer h2 { color: #26222f; font-size: 1.3125rem; font-weight: 600; letter-spacing: 0; margin: 0 0 1rem; text-transform: none; }
 .site-footer ul { list-style: none; margin: 0; padding: 0; }
 .site-footer li { color: #8b8698; font-size: 0.9375rem; margin-bottom: 0.55rem; }
@@ -621,10 +622,10 @@ main { min-height: 50vh; }
   .image-overlay--right .image-overlay__content { margin-left: auto; text-align: right; }
   .image-overlay--right .button { align-self: flex-end; }
   .image-overlay--center { align-items: center; padding-top: 4rem; }
-  .site-footer__inner { grid-template-columns: minmax(16rem, 0.85fr) minmax(0, 1.5fr); text-align: left; }
+  .site-footer__inner { grid-template-areas: "brand groups" "social groups"; grid-template-columns: minmax(16rem, 0.85fr) minmax(0, 1.5fr); text-align: left; }
   .site-footer__brand { justify-items: start; }
   .site-footer .brand-logo { justify-self: start; }
-  .social-links { margin-top: 5.5rem; }
+  .site-footer__socials { align-self: end; justify-self: start; margin-top: 3rem; }
   .site-footer__groups { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .site-footer__legal { text-align: left; }
 }
