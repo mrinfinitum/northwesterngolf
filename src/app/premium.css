@@ -986,7 +986,7 @@
   }
 
   .image-overlay {
-    align-items: flex-end;
+    align-items: center;
     min-height: 42rem;
   }
 
@@ -1036,6 +1036,14 @@
     flex-direction: column;
     gap: 1rem;
     text-align: center;
+  }
+
+  .featured-collection .product-card__body {
+    text-align: center;
+  }
+
+  .featured-collection .product-card__price {
+    justify-content: center;
   }
 
   .featured-collection__track {
