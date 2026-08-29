@@ -964,6 +964,16 @@
     min-height: 44rem;
   }
 
+  .home-hero__content {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .home-hero h2,
+  .home-hero__content > p {
+    margin-inline: auto;
+  }
+
   .home-hero::after,
   .image-overlay__shade {
     background: linear-gradient(0deg, rgb(0 0 0 / 66%), transparent 68%);
@@ -981,6 +991,20 @@
   .image-overlay--branded {
     min-height: 38rem;
     padding: 2.25rem 1.25rem;
+  }
+
+  .image-overlay--branded .image-overlay__content {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .image-overlay--branded .image-overlay__logo {
+    margin-inline: auto;
+    object-position: center;
+  }
+
+  .image-overlay--branded .image-overlay__subheading {
+    margin-inline: auto !important;
   }
 
   .image-overlay--branded .image-overlay__background {
@@ -1003,6 +1027,13 @@
   .featured-collection,
   .daly-product-rail {
     padding-left: 1.25rem;
+  }
+
+  .featured-collection .section-heading {
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
   }
 
   .featured-collection__track {
