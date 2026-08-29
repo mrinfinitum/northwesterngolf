@@ -990,6 +990,15 @@
     min-height: 42rem;
   }
 
+  .image-overlay .image-overlay__content {
+    inset-inline: 1.25rem;
+    margin-inline: auto;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+  }
+
   .image-overlay--branded {
     min-height: 38rem;
     padding: 2.25rem 1.25rem;

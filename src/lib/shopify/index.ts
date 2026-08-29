@@ -25,6 +25,7 @@ export * from "./types";
 
 export const SHOPIFY_API_VERSION = "2026-07";
 const DEFAULT_REVALIDATE_SECONDS = 900;
+const DEFAULT_STORE_DOMAIN = "r1kikk-am.myshopify.com";
 
 type Connection<T> = {
   nodes: T[];
@@ -60,17 +61,11 @@ type ShopifyFetchOptions = {
 };
 
 export function isShopifyConfigured() {
-  return Boolean(process.env.SHOPIFY_STORE_DOMAIN?.trim());
+  return Boolean(process.env.SHOPIFY_STORE_DOMAIN?.trim() || DEFAULT_STORE_DOMAIN);
 }
 
 function getStoreDomain() {
-  const value = process.env.SHOPIFY_STORE_DOMAIN?.trim();
-
-  if (!value) {
-    throw new Error(
-      "SHOPIFY_STORE_DOMAIN is required. Copy .env.example to .env.local and use the permanent myshopify.com domain.",
-    );
-  }
+  const value = process.env.SHOPIFY_STORE_DOMAIN?.trim() || DEFAULT_STORE_DOMAIN;
 
   return value.replace(/^https?:\/\//, "").replace(/\/$/, "");
 }
