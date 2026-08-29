@@ -960,12 +960,14 @@
   }
 
   .home-hero {
+    align-items: center;
     height: 44rem;
     min-height: 44rem;
   }
 
   .home-hero__content {
     margin-inline: auto;
+    padding-bottom: 0;
     text-align: center;
   }
 
