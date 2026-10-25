@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Breadcrumbs } from "@/components/commerce/Breadcrumbs";
-import { DalyProductEditorial } from "@/components/commerce/DalyProductEditorial";
-import { DalyProductRail } from "@/components/commerce/DalyProductRail";
-import { ProductConfigurator } from "@/components/commerce/ProductConfigurator";
 import { ProductPageScrollReset } from "@/components/commerce/ProductPageScrollReset";
-import { DalyProductCampaign } from "@/components/content/DalyProductCampaign";
-import { getProduct, getProducts } from "@/lib/shopify";
+import { PdpSections } from "@/components/product/PdpSections";
+import { ProductMain } from "@/components/product/ProductMain";
+import { getProductPageContent } from "@/lib/product-content";
+import { getProduct } from "@/lib/shopify";
 import { isRetailCartEnabled } from "@/lib/shopify/commerce-boundary";
 import { metadataTitle } from "@/lib/seo";
-import "./daly-product.css";
+import "./product-page.css";
 
-type ProductPageProps = { params: Promise<{ handle: string }> };
+type ProductPageProps = {
+  params: Promise<{ handle: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
 
-export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: Pick<ProductPageProps, "params">): Promise<Metadata> {
   const { handle } = await params;
   const product = await getProduct(handle);
   if (!product) return { title: "Product not found" };
@@ -31,15 +32,16 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   };
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
+export default async function ProductPage({ params, searchParams }: ProductPageProps) {
   const { handle } = await params;
-  const product = await getProduct(handle);
+  const [product, content, query] = await Promise.all([
+    getProduct(handle),
+    getProductPageContent(handle),
+    searchParams,
+  ]);
   if (!product) notFound();
-  const isDalyDesignPrototype = handle === "men-s-thunderbird-driver";
-  const relatedProducts = isDalyDesignPrototype
-    ? (await getProducts({ first: 9 })).filter((item) => item.id !== product.id).slice(0, 7)
-    : [];
 
+  const requestedVariant = typeof query.variant === "string" ? query.variant : undefined;
   const firstVariant = product.variants.find((variant) => variant.availableForSale) ?? product.variants[0];
   const productJsonLd = {
     "@context": "https://schema.org",
@@ -60,30 +62,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
   };
 
   return (
-    <div className={`product-page${isDalyDesignPrototype ? " daly-product-page" : ""}`}>
+    <div className="nwg-pdp" data-template={content.id}>
       <ProductPageScrollReset productHandle={product.handle} />
-      <div className="product-page__inner page-shell page-shell--wide">
-        <Breadcrumbs current={product.title} />
-        <ProductConfigurator
-          brandLine={isDalyDesignPrototype ? "Northwestern Golf × John Daly" : undefined}
-          campaignLabel={isDalyDesignPrototype ? "Daly Clubs" : undefined}
-          cartEnabled={isRetailCartEnabled()}
-          product={product}
-        />
-        {!isDalyDesignPrototype && product.descriptionHtml ? (
-          <section className="product-description rich-text">
-            <h2>Product details</h2>
-            <div dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
-          </section>
-        ) : null}
-      </div>
-      {isDalyDesignPrototype ? (
-        <>
-          <DalyProductEditorial product={product} />
-          <DalyProductRail products={relatedProducts} />
-          <DalyProductCampaign />
-        </>
-      ) : null}
+      <ProductMain
+        cartEnabled={isRetailCartEnabled()}
+        info={content.info}
+        initialVariantId={requestedVariant}
+        key={product.handle}
+        product={product}
+      />
+      <PdpSections handle={product.handle} sections={content.sections} />
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd).replace(/</g, "\\u003c") }}
         type="application/ld+json"

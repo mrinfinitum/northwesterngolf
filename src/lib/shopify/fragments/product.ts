@@ -19,6 +19,7 @@ export const PRODUCT_FRAGMENT = /* GraphQL */ `
     options {
       id
       name
+      optionValues { name swatch { color } }
       values
     }
     priceRange {
