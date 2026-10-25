@@ -7,9 +7,11 @@ import "./premium.css";
 
 const barlow = Barlow({
   display: "swap",
+  style: ["normal", "italic"],
   subsets: ["latin"],
   variable: "--font-barlow",
-  weight: ["400", "500", "700"],
+  // Matches the live theme, which only ships Barlow 400 and 700.
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {

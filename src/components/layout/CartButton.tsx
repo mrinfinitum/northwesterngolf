@@ -82,7 +82,7 @@ export function CartButton({ enabled }: { enabled: boolean }) {
         aria-controls="cart-drawer"
         aria-expanded={open}
         aria-label={enabled ? `Cart with ${itemCount} items` : "Cart setup pending"}
-        className="icon-button cart-trigger"
+        className="header-icon site-header__cart"
         disabled={!enabled}
         onClick={() => setOpen(true)}
         title={enabled ? "Open cart" : "Retail cart is configured but not connected yet"}
@@ -90,7 +90,7 @@ export function CartButton({ enabled }: { enabled: boolean }) {
         type="button"
       >
         <BagIcon />
-        {itemCount > 0 ? <span aria-hidden="true">{itemCount}</span> : null}
+        {itemCount > 0 ? <span aria-hidden="true" className="cart-count">{itemCount}</span> : null}
       </button>
       {open ? (
         <div className="drawer-layer">

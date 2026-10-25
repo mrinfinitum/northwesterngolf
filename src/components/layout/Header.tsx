@@ -1,34 +1,33 @@
-import Link from "next/link";
+import { accountUrl } from "@/config/site";
 import { AccountIcon } from "@/components/ui/icons";
+import { isRetailCartEnabled } from "@/lib/shopify/commerce-boundary";
+import { getMainNavigation } from "@/lib/shopify/navigation";
 import { CartButton } from "./CartButton";
 import { DesktopNavigation } from "./DesktopNavigation";
 import { HeaderFrame } from "./HeaderFrame";
 import { Logo } from "./Logo";
 import { MobileNavigation } from "./MobileNavigation";
 import { SearchShell } from "./SearchShell";
-import { isRetailCartEnabled } from "@/lib/shopify/commerce-boundary";
 
-export function Header() {
+export async function Header() {
+  const navigation = await getMainNavigation();
+
   return (
     <HeaderFrame>
-      <div className="site-header__inner">
+      <div className="site-header__wrapper">
         <div className="site-header__main-nav">
-          <div className="site-header__mobile-actions">
-            <MobileNavigation />
-            <div className="mobile-search-trigger"><SearchShell /></div>
+          <div className="site-header__icons site-header__icons--leading">
+            <MobileNavigation items={navigation} />
+            <SearchShell className="site-header__search-mobile" />
           </div>
-          <DesktopNavigation />
+          <DesktopNavigation items={navigation} />
         </div>
         <Logo />
-        <div className="site-header__actions">
-          <div className="desktop-search-trigger"><SearchShell /></div>
-          <Link
-            aria-label="Customer account"
-            className="icon-button account-link"
-            href="https://northwestern.golf/customer_authentication/redirect?locale=en&region_country=US"
-          >
+        <div className="site-header__icons site-header__secondary-nav">
+          <SearchShell className="site-header__search-desktop" />
+          <a aria-label="Login" className="header-icon site-header__account" href={accountUrl}>
             <AccountIcon />
-          </Link>
+          </a>
           <CartButton enabled={isRetailCartEnabled()} />
         </div>
       </div>

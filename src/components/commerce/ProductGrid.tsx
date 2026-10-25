@@ -9,7 +9,7 @@ export function ProductGrid({ products }: { products: Product[] }) {
   return (
     <div className="product-grid">
       {products.map((product, index) => (
-        <ProductCard key={product.id} priority={index < 4} product={product} />
+        <ProductCard key={product.id} priority={index < 3} product={product} />
       ))}
     </div>
   );

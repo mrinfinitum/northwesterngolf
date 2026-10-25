@@ -1,55 +1,32 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
-const transparentHeaderRoutes = new Set(["/pages/our-story"]);
+/** Routes whose first section sits under a translucent, non-sticky header. */
+const transparentHeaderRoutes = new Set(["/pages/contact", "/pages/our-story"]);
 
 export function HeaderFrame({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const [filled, setFilled] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const previousScrollY = useRef(0);
+  const ref = useRef<HTMLElement>(null);
   const transparent = transparentHeaderRoutes.has(pathname);
 
   useEffect(() => {
-    let animationFrame = 0;
-
+    const header = ref.current;
+    if (!header) return;
+    // Mirrors the theme: expose the rendered header height for sections that
+    // need to tuck beneath it (the nav can wrap to two rows near 1150px).
     const update = () => {
-      const currentScrollY = window.scrollY;
-      const movement = currentScrollY - previousScrollY.current;
-
-      setFilled(currentScrollY > 0);
-
-      if (currentScrollY <= 16) {
-        setHidden(false);
-      } else if (Math.abs(movement) >= 6) {
-        setHidden(movement > 0);
-      }
-
-      previousScrollY.current = currentScrollY;
+      document.documentElement.style.setProperty("--header-height", `${Math.round(header.offsetHeight)}px`);
     };
-
-    const handleScroll = () => {
-      window.cancelAnimationFrame(animationFrame);
-      animationFrame = window.requestAnimationFrame(update);
-    };
-
-    previousScrollY.current = window.scrollY;
+    const observer = new ResizeObserver(update);
+    observer.observe(header);
     update();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.cancelAnimationFrame(animationFrame);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [pathname]);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <header
-      className={`site-header${transparent ? " site-header--transparent" : ""}${filled ? " is-filled" : ""}${hidden ? " is-hidden" : ""}`}
-      onFocusCapture={() => setHidden(false)}
-    >
+    <header className={`site-header${transparent ? " site-header--transparent" : ""}`} ref={ref}>
       {children}
     </header>
   );
