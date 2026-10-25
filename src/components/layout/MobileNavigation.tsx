@@ -1,97 +1,95 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { primaryNavigation } from "@/config/site";
-import { AccountIcon, CloseIcon, FacebookIcon, InstagramIcon, MenuIcon, TikTokIcon } from "@/components/ui/icons";
+import { useEffect, useRef, useState } from "react";
+import { accountUrl, type NavigationItem } from "@/config/site";
+import { ChevronLeftSmallIcon, ChevronRightSmallIcon, CloseIcon, MenuIcon } from "@/components/ui/icons";
+import { SocialLinks } from "./SocialLinks";
+import { useDrawer } from "./use-drawer";
 
-export function MobileNavigation() {
+export function MobileNavigation({ items }: { items: NavigationItem[] }) {
   const [open, setOpen] = useState(false);
+  const [panel, setPanel] = useState<number | null>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const active = panel === null ? null : items[panel];
+
+  const close = () => {
+    setOpen(false);
+    setPanel(null);
+  };
+
+  useDrawer(open, close, drawerRef, triggerRef);
 
   useEffect(() => {
-    if (!open) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
-    };
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open]);
+    drawerRef.current?.querySelector<HTMLElement>(".nav-drawer__panel button, .nav-drawer__panel a")?.focus();
+  }, [panel]);
 
   return (
     <>
       <button
-        aria-controls="mobile-menu"
+        aria-controls="nav-drawer"
         aria-expanded={open}
-        aria-label="Open menu"
-        className="icon-button mobile-menu-trigger"
+        aria-label="Menu"
+        className="header-icon site-header__menu-toggle"
         onClick={() => setOpen(true)}
+        ref={triggerRef}
         type="button"
       >
         <MenuIcon />
       </button>
       {open ? (
-        <div className="drawer-layer">
-          <button
-            aria-label="Close menu"
-            className="drawer-layer__backdrop"
-            onClick={() => setOpen(false)}
-            type="button"
-          />
-          <aside aria-label="Mobile navigation" className="mobile-drawer" id="mobile-menu">
-            <div className="mobile-drawer__header">
-              <span>Menu</span>
-              <button
-                aria-label="Close menu"
-                className="icon-button"
-                onClick={() => setOpen(false)}
-                type="button"
-              >
-                <CloseIcon />
-              </button>
-            </div>
-            <nav>
-              <Link className="mobile-drawer__home" href="/" onClick={() => setOpen(false)}>
-                Home
-              </Link>
-              {primaryNavigation.map((item) => (
-                <details key={item.label} open={!item.children}>
-                  {item.children ? (
-                    <summary>{item.label}</summary>
-                  ) : (
-                    <Link href={item.href} onClick={() => setOpen(false)}>
-                      {item.label}
-                    </Link>
-                  )}
-                  {item.children ? (
-                    <div className="mobile-drawer__children">
-                      <Link href={item.href} onClick={() => setOpen(false)}>
-                        Shop all {item.label}
+        <div className="drawer drawer--left nav-drawer" id="nav-drawer">
+          <button aria-label="Close menu" className="drawer__overlay" onClick={close} tabIndex={-1} type="button" />
+          <div aria-label="Menu" aria-modal="true" className="drawer__content" ref={drawerRef} role="dialog">
+            <button aria-label="Close" className="drawer__close nav-drawer__close" onClick={close} type="button">
+              <CloseIcon />
+            </button>
+            {active?.children ? (
+              <div className="nav-drawer__panel nav-drawer__panel--sub" key={active.label}>
+                <button className="nav-drawer__back" onClick={() => setPanel(null)} type="button">
+                  <ChevronLeftSmallIcon />
+                  {active.label}
+                </button>
+                <ul className="nav-drawer__list">
+                  {active.children.map((child) => (
+                    <li key={child.href}>
+                      <Link className="nav-drawer__link nav-drawer__link--upper" href={child.href} onClick={close}>
+                        <span className="reversed-link">{child.label}</span>
                       </Link>
-                      {item.children.map((child) => (
-                        <Link href={child.href} key={child.href} onClick={() => setOpen(false)}>
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
-                  ) : null}
-                </details>
-              ))}
-            </nav>
-            <div className="mobile-drawer__meta">
-              <Link className="mobile-drawer__account" href="https://northwestern.golf/customer_authentication/redirect?locale=en&region_country=US" onClick={() => setOpen(false)}>
-                <AccountIcon /> Account
-              </Link>
-              <div className="mobile-drawer__socials">
-                <a aria-label="Instagram" href="https://www.instagram.com/northwesterngolf/" rel="noreferrer" target="_blank"><InstagramIcon /></a>
-                <a aria-label="Facebook" href="https://www.facebook.com/northwesterngolf/" rel="noreferrer" target="_blank"><FacebookIcon /></a>
-                <a aria-label="TikTok" href="https://www.tiktok.com/@northwesterngolf" rel="noreferrer" target="_blank"><TikTokIcon /></a>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
-          </aside>
+            ) : (
+              <div className="nav-drawer__panel">
+                <ul className="nav-drawer__list">
+                  {items.map((item, index) => (
+                    <li key={item.label}>
+                      {item.children ? (
+                        <button className="nav-drawer__link nav-drawer__toggle" onClick={() => setPanel(index)} type="button">
+                          <span>{item.label}</span>
+                          <span className="circle-chevron"><ChevronRightSmallIcon /></span>
+                        </button>
+                      ) : item.href ? (
+                        <Link className="nav-drawer__link nav-drawer__link--upper" href={item.href} onClick={close}>
+                          <span className="reversed-link">{item.label}</span>
+                        </Link>
+                      ) : (
+                        <span className="nav-drawer__link nav-drawer__link--upper">{item.label}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+                <div className="nav-drawer__footer">
+                  <SocialLinks />
+                  <div className="nav-drawer__account">
+                    <a href={accountUrl}>Account</a>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       ) : null}
     </>

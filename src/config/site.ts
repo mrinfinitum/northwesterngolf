@@ -1,9 +1,18 @@
+export type NavigationLink = { href: string; label: string };
+
+/** A top-level navigation entry. `href` is absent for Shopify `#` placeholder links. */
 export type NavigationItem = {
-  href: string;
+  children?: NavigationLink[];
+  href?: string;
   label: string;
-  children?: Array<{ href: string; label: string }>;
 };
 
+export type FooterGroup = { heading: string; links: NavigationLink[] };
+
+/**
+ * Static fallbacks for the Shopify `main-menu`, `footer`, `collections`, and
+ * `information` menus. The live menus are loaded from the Storefront API.
+ */
 export const primaryNavigation: NavigationItem[] = [
   {
     href: "/pages/talon-ss",
@@ -24,7 +33,6 @@ export const primaryNavigation: NavigationItem[] = [
     ],
   },
   {
-    href: "/collections/irons",
     label: "Irons",
     children: [
       { href: "/products/men-s-thunderbird-irons-set", label: "Men’s Thunderbird Irons Set" },
@@ -33,7 +41,6 @@ export const primaryNavigation: NavigationItem[] = [
     ],
   },
   {
-    href: "/collections/fairways",
     label: "Woods",
     children: [
       { href: "/products/men-s-thunderbird-fairway", label: "Men’s Thunderbird Fairway" },
@@ -42,7 +49,6 @@ export const primaryNavigation: NavigationItem[] = [
     ],
   },
   {
-    href: "/collections/drivers",
     label: "Driver",
     children: [
       { href: "/products/men-s-thunderbird-driver", label: "Men’s Thunderbird Driver" },
@@ -51,7 +57,6 @@ export const primaryNavigation: NavigationItem[] = [
     ],
   },
   {
-    href: "/collections/hybrids",
     label: "Hybrids",
     children: [
       { href: "/products/men-s-thunderbird-hybrid", label: "Men’s Thunderbird Hybrid" },
@@ -69,11 +74,11 @@ export const primaryNavigation: NavigationItem[] = [
   { href: "/products/thunderbird-golf-bag", label: "Golf Bags" },
 ];
 
-export const footerGroups = [
+export const footerGroups: FooterGroup[] = [
   {
     heading: "About Us",
     links: [
-      { href: "/pages/our-story", label: "Our Story" },
+      { href: "/pages/our-story", label: "About Us" },
       { href: "/pages/contact", label: "Contact" },
     ],
   },
@@ -98,49 +103,68 @@ export const footerGroups = [
       { href: "/policies/terms-of-service", label: "Terms & Conditions" },
     ],
   },
+];
+
+/** Shopify menu handles backing the footer columns, in display order. */
+export const footerMenuHandles = ["footer", "collections", "information"] as const;
+
+export const socialLinks = [
+  { href: "https://www.facebook.com/people/Northwestern-Golf/61577748907586/", label: "Facebook", network: "facebook" },
+  { href: "https://www.instagram.com/northwestern.golf", label: "Instagram", network: "instagram" },
+  { href: "https://www.tiktok.com/@northwesterngolfclubs", label: "TikTok", network: "tiktok" },
 ] as const;
 
+export const accountUrl =
+  "https://northwestern.golf/customer_authentication/redirect?locale=en&region_country=US";
+
 /**
- * Theme-only homepage content, isolated so it can be replaced by exported
- * section data/metaobjects without touching the page components.
+ * Theme-only homepage content extracted from the live Impact theme sections
+ * (video hero, image-with-text overlays, featured collection, review scroller).
  */
 export const homepageContent = {
-  announcement: "Sitewide Sale: Take 30% Off All Products",
-  intro: {
-    accent: "100 years",
-    eyebrow: "Northwestern Golf · Since 1929",
-    heading: "A legacy nearly 100 years in the making.",
-    href: "/pages/our-story",
-    linkLabel: "Discover our story",
-    subheading: "High-performance golf equipment built for real people — not just pros.",
-  },
   hero: {
-    heading: "The Legacy Lives On.",
+    buttonLabel: "SHOP NOW",
+    heading: "THE LEGACY LIVES ON.",
     href: "/collections/all",
-    subheading: "Built for performance, priced for the people.",
     video:
       "https://northwestern.golf/cdn/shop/videos/c/vp/2d3f1e1bc08d494f99ff915b5c39bb09/2d3f1e1bc08d494f99ff915b5c39bb09.HD-1080p-4.8Mbps-64572144.mp4?v=0",
   },
   partnership: {
-    eyebrow: "John Daly × Northwestern",
-    heading: "Grip It. Rip It.\nAfford It.",
     body: "Built for performance, priced for the people.",
+    buttonLabel: "Shop Clubs",
+    heading: "Grip It. Rip It.\nAfford It.",
     href: "/collections/all",
     image:
       "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/daly-shot.jpg?v=1764889357",
+    imageSize: { height: 1000, width: 2000 },
+    logo: "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/nwxjd.png?v=1764816230",
+    logoAlt: "John Daly X Northwestern",
     mobileImage:
       "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/nwxdaly-m-top.jpg?v=1764906675",
-    logo: "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/nwxjd.png?v=1764816230",
+    mobileImageSize: { height: 1438, width: 975 },
+  },
+  featured: {
+    collection: "mens-collection",
+    heading: "Most Wanted",
+    href: "/collections/mens-collection",
+    linkLabel: "View all",
+    limit: 6,
   },
   campaign: {
-    eyebrow: "John Daly × Northwestern Golf",
+    buttonLabel: "SHOP NOW",
     heading: "Send it like Daly.",
     href: "/products/men-s-thunderbird-driver",
     image:
       "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/daly-swing-soft-focus.jpg?v=1765125870",
+    imageSize: { height: 1000, width: 2359 },
     mobileImage:
       "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/daly-swing-closeup-m2.jpg?v=1765076356",
-    subheading: "John Daly attitude. Northwestern clubs. Priced for the people. Performance like the pros.",
+    mobileImageSize: { height: 1000, width: 1329 },
+  },
+  reviews: {
+    eyebrow: "Customer Reviews",
+    heading: "Golfers Are Talking",
+    subheading: "Real feedback from players who choose Northwestern Golf.",
   },
 } as const;
 
@@ -202,16 +226,22 @@ export const ourStoryContent = {
   ],
 } as const;
 
+
 export const testimonials = [
   {
     author: "David P",
     quote:
-      "I used to play only major manufacturer's products. I switched to Northwestern clubs and I experience the same—or better—results with Northwestern clubs at 50-75% the cost!",
+      "I used to play only major manufacturer's products. I switched to Northwestern clubs and I experience the same - or better - results with Northwestern clubs at 50-75% the cost!",
   },
   {
     author: "Michelle P",
     quote:
-      "I hit the ball straighter, higher, and farther than what I played previously. Result—I score better!",
+      "I have more fun playing Northwestern clubs! I hit the ball straighter, higher, and farther than what I played previously! Result - I score better!",
+  },
+  {
+    author: "Rick B",
+    quote:
+      "I could not hit a 3-wood high enough from the fairway to get effective carry and distance. I tried the new Northwestern 3HL 3 wood and I can finally hit a 3 wood from the fairway! Thank-you, Northwestern!",
   },
   {
     author: "Holly G",
@@ -219,24 +249,19 @@ export const testimonials = [
       "I purchased a full set of Northwestern Thunderbird clubs and I LOVE them! They are so easy to hit compared to what I was playing before. 5 stars!",
   },
   {
-    author: "Rick B",
-    quote:
-      "I could not hit a 3-wood high enough from the fairway to get effective carry and distance. The new Northwestern 3HL lets me finally hit a 3 wood from the fairway!",
-  },
-  {
     author: "Mike K",
     quote:
-      "Finally, a company has created high-quality, affordable equipment! Thank you, Northwestern!",
+      "Finally, a company has created high-quality price affordable equipment! Thank you, Northwestern!",
   },
   {
     author: "Jake H",
     quote:
-      "I am playing the Northwestern wedges and they have replaced my $200 wedges in my bag. They are amazingly solid!",
+      "I am playing the Northwestern wedges and they have replaced my $200 wedges in my bag! They are amazingly solid and only $79.99!",
   },
   {
     author: "Steve P",
     quote:
-      "I absolutely love my new Thunderbird irons! I am one club longer, and I love the feel. The 5 hybrid is the best hybrid that I have ever hit!",
+      "I absolutely love my new Thunderbird irons! I am one club longer, and I love the feel! The 5 hybrid is the best hybrid that I have ever hit!",
   },
   {
     author: "Brian P",
@@ -246,6 +271,6 @@ export const testimonials = [
   {
     author: "Verified Customer",
     quote:
-      "I tried the 6HL fairway wood in place of a hybrid and I have never hit an easier fairway wood. Perfect for my 210 distance.",
+      "I tried the 6HL fairway wood in place of a hybrid and I have never hit an easier fairway wood! Perfect for my 210 distance. I highly recommend this club!",
   },
 ] as const;

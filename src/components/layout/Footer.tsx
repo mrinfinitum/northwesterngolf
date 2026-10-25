@@ -1,37 +1,37 @@
+import Image from "next/image";
 import Link from "next/link";
-import { footerGroups } from "@/config/site";
-import { FacebookIcon, InstagramIcon, TikTokIcon } from "@/components/ui/icons";
-import { Logo } from "./Logo";
+import { getFooterNavigation } from "@/lib/shopify/navigation";
+import { LOGO_URL } from "./Logo";
+import { SocialLinks } from "./SocialLinks";
 
-export function Footer() {
+export async function Footer() {
+  const groups = await getFooterNavigation();
+
   return (
     <footer className="site-footer">
-      <div className="site-footer__inner">
-        <div className="site-footer__brand">
-          <Logo />
-        </div>
-        <div className="site-footer__groups">
-          {footerGroups.map((group) => (
-            <section key={group.heading}>
-              <h2>{group.heading}</h2>
-              <ul>
+      <div className="site-footer__container">
+        <div className="site-footer__row site-footer__top">
+          <div className="site-footer__col site-footer__brand">
+            <Link aria-label="Northwestern Golf home" href="/">
+              <Image alt="Northwestern Golf" height={37} src={LOGO_URL} unoptimized width={426} />
+            </Link>
+            <SocialLinks className="site-footer__social" />
+          </div>
+          {groups.map((group) => (
+            <div className="site-footer__col" key={group.heading}>
+              <h2 className="site-footer__heading">{group.heading}</h2>
+              <ul className="site-footer__menu">
                 {group.links.map((link) => (
                   <li key={link.href}><Link href={link.href}>{link.label}</Link></li>
                 ))}
               </ul>
-            </section>
+            </div>
           ))}
         </div>
-        <div className="social-links site-footer__socials">
-          <a aria-label="Northwestern Golf on Instagram" href="https://www.instagram.com/northwesterngolf/" rel="noreferrer" target="_blank"><InstagramIcon /></a>
-          <a aria-label="Northwestern Golf on Facebook" href="https://www.facebook.com/northwesterngolf/" rel="noreferrer" target="_blank"><FacebookIcon /></a>
-          <a aria-label="Northwestern Golf on TikTok" href="https://www.tiktok.com/@northwesterngolf" rel="noreferrer" target="_blank"><TikTokIcon /></a>
-        </div>
       </div>
-      <div className="site-footer__legal">
+      <div className="site-footer__row site-footer__bottom">
         <p>© {new Date().getFullYear()} Northwestern Golf. All rights reserved.</p>
       </div>
-      <p aria-hidden="true" className="site-footer__wordmark">Northwestern</p>
     </footer>
   );
 }
