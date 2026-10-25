@@ -5,6 +5,7 @@ import ProductPage, {
 
 type NestedProductPageProps = {
   params: Promise<{ handle: string; productHandle: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
 export async function generateMetadata({ params }: NestedProductPageProps): Promise<Metadata> {
@@ -12,7 +13,7 @@ export async function generateMetadata({ params }: NestedProductPageProps): Prom
   return generateProductMetadata({ params: Promise.resolve({ handle: productHandle }) });
 }
 
-export default async function NestedProductPage({ params }: NestedProductPageProps) {
+export default async function NestedProductPage({ params, searchParams }: NestedProductPageProps) {
   const { productHandle } = await params;
-  return ProductPage({ params: Promise.resolve({ handle: productHandle }) });
+  return ProductPage({ params: Promise.resolve({ handle: productHandle }), searchParams });
 }

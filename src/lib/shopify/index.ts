@@ -7,6 +7,7 @@ import { MENU_QUERY } from "./queries/menu";
 import { PAGE_QUERY } from "./queries/page";
 import { POLICIES_QUERY } from "./queries/policies";
 import { PRODUCT_QUERY } from "./queries/product";
+import { PRODUCT_RECOMMENDATIONS_QUERY } from "./queries/product-recommendations";
 import { PRODUCTS_QUERY } from "./queries/products";
 import { SEARCH_QUERY } from "./queries/search";
 import type {
@@ -148,6 +149,21 @@ export const getProduct = cache(async (handle: string): Promise<Product | null> 
 
   return data.product ? normalizeProduct(data.product) : null;
 });
+
+export const getProductRecommendations = cache(
+  async (handle: string, intent: "COMPLEMENTARY" | "RELATED" = "RELATED"): Promise<Product[]> => {
+    try {
+      const data = await shopifyFetch<{ productRecommendations: RawProduct[] | null }>({
+        query: PRODUCT_RECOMMENDATIONS_QUERY,
+        tags: [`product:${handle}`, "products"],
+        variables: { handle, intent },
+      });
+      return (data.productRecommendations ?? []).map(normalizeProduct);
+    } catch {
+      return [];
+    }
+  },
+);
 
 export async function getProducts({
   first = 24,

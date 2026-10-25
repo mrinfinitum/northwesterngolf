@@ -23,9 +23,16 @@ export type SelectedOption = {
   value: string;
 };
 
+export type ProductOptionValue = {
+  name: string;
+  swatch: { color: string | null } | null;
+};
+
 export type ProductOption = {
   id: string;
   name: string;
+  /** Includes Shopify swatch metadata (colour options). */
+  optionValues?: ProductOptionValue[];
   values: string[];
 };
 
