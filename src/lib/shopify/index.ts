@@ -9,11 +9,9 @@ import { POLICIES_QUERY } from "./queries/policies";
 import { PRODUCT_QUERY } from "./queries/product";
 import { PRODUCT_RECOMMENDATIONS_QUERY } from "./queries/product-recommendations";
 import { PRODUCTS_QUERY } from "./queries/products";
-import { SEARCH_QUERY } from "./queries/search";
 import type {
   Collection,
   Product,
-  SearchResult,
   ShopifyGraphqlResponse,
   ShopifyImage,
   ShopifyMenu,
@@ -41,18 +39,6 @@ type RawProduct = Omit<Product, "images" | "variants"> & {
 type RawCollection = Omit<Collection, "products"> & {
   products: Connection<RawProduct>;
 };
-
-type RawSearchNode =
-  | (RawProduct & { __typename: "Product" })
-  | (ShopifyPage & { __typename: "Page" })
-  | {
-      __typename: "Article";
-      blog: { handle: string };
-      excerpt: string | null;
-      handle: string;
-      id: string;
-      title: string;
-    };
 
 type ShopifyFetchOptions = {
   cache?: RequestCache;
@@ -272,28 +258,6 @@ export const getPolicy = cache(async (handle: string): Promise<ShopifyPolicy | n
   );
   return policies.find((policy) => policy.handle === handle) ?? null;
 });
-
-export async function searchStore(query: string, first = 24): Promise<SearchResult[]> {
-  if (!query.trim()) return [];
-
-  const data = await shopifyFetch<{ search: Connection<RawSearchNode> }>({
-    query: SEARCH_QUERY,
-    tags: [`search:${query.toLowerCase()}`],
-    variables: { first, query },
-  });
-
-  return data.search.nodes.map((node) => {
-    if (node.__typename === "Product") {
-      return { ...normalizeProduct(node), resultType: "product" as const };
-    }
-
-    if (node.__typename === "Page") {
-      return { ...node, resultType: "page" as const };
-    }
-
-    return { ...node, resultType: "article" as const };
-  });
-}
 
 export function getSiteUrl() {
   return (process.env.SITE_URL || "https://northwestern.golf").replace(/\/$/, "");

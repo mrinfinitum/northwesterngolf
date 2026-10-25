@@ -119,18 +119,6 @@ export type ShopifyPolicy = {
   url: string;
 };
 
-export type SearchResult =
-  | ({ resultType: "product" } & Product)
-  | ({ resultType: "page" } & ShopifyPage)
-  | {
-      resultType: "article";
-      excerpt: string | null;
-      handle: string;
-      id: string;
-      title: string;
-      blog: { handle: string };
-    };
-
 export type ShopifyGraphqlResponse<T> = {
   data?: T;
   errors?: Array<{

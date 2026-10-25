@@ -172,61 +172,6 @@ export const homepageContent = {
  * Approved theme-owned Our Story content. This stays isolated from Shopify Page
  * body data until the custom sections have a structured Shopify content model.
  */
-export const ourStoryContent = {
-  hero: {
-    body: "Since 1929, we’ve built clubs for real people — not just pros. Today, we carry that legacy forward with innovative, affordable gear for golfers of all ages, genders, and skill levels.",
-    image: "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/Northwestern20Bldg202-scaled.webp?v=1761208992",
-    title: "Our Story",
-  },
-  legacy: {
-    image: "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/SB_00034.jpg?v=1765124541",
-    paragraphs: [
-      "NORTHWESTERN GOLF isn’t just a brand, it’s a legacy nearly 100 years in the making. Since 1929, we’ve believed that golf should be accessible, affordable, and enjoyable for everyone, not just the elite few. For decades, we outfitted millions of everyday players, becoming one of the most trusted and widely played names in the game.",
-      "Today, we’re back with a fresh perspective, a modern product line, and the same mission that built our name: to deliver high-performance gear without the premium price tag. Designed by world-class engineer Jeff Sheets and built in the same factories trusted by leading brands, our clubs are made for real golfers; men, women, and seniors of every skill level.",
-      "We don’t make equipment for show. We make it for the 80% of golfers who just want to play better, swing easier, and enjoy the game without breaking the bank.",
-      "Whether you’re a first-timer, a weekend regular, or just someone who loves the game in jeans and a T-shirt — NORTHWESTERN GOLF is for you.",
-    ],
-    title: "Our Legacy, Reimagined",
-  },
-  valueGroups: [
-    [
-      {
-        body: "We believe everyone deserves to play great golf — regardless of age, gender, skill level, or budget.",
-        image: "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/002-access.webp?v=1761216782",
-        title: "Accessibility",
-      },
-      {
-        body: "Our clubs are designed by leading engineers and built with real-game results in mind — forgiving, consistent, and confidence-boosting.",
-        image: "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/001-golfing.webp?v=1761216859",
-        title: "Performance",
-      },
-      {
-        body: "We deliver premium-quality gear without the premium price tag, because great equipment shouldn’t be out of reach.",
-        image: "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/003-funding.webp?v=1761216949",
-        title: "Affordability",
-      },
-    ],
-    [
-      {
-        body: "From men and women to seniors and beginners, our products are made for all swings, all styles, and all players.",
-        image: "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/004-inclusive.webp?v=1761219371",
-        title: "Inclusivity",
-      },
-      {
-        body: "No elitism. No ego. Just honest gear for honest golfers — on public courses, in jeans, with friends.",
-        image: "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/006-insurance.webp?v=1761219375",
-        title: "Authenticity",
-      },
-      {
-        body: "We’re pushing the boundaries of innovation without breaking your wallet. Our patent pending technologies will help you hit it further and make playing more enjoyable.",
-        image: "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/light-bulb.webp?v=1761219376",
-        title: "Innovation",
-      },
-    ],
-  ],
-} as const;
-
-
 export const testimonials = [
   {
     author: "David P",
