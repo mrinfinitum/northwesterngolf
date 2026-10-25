@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { OurStory } from "@/components/content/OurStory";
+import { pageSections } from "@/components/pages/page-sections";
+import { PageSections } from "@/components/pages/PageSections";
 import { getPage } from "@/lib/shopify";
 import { metadataTitle } from "@/lib/seo";
+import "../pages.css";
 
-type ContentPageProps = { params: Promise<{ handle: string }> };
+type ContentPageProps = {
+  params: Promise<{ handle: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
 
 export async function generateMetadata({ params }: ContentPageProps): Promise<Metadata> {
   const { handle } = await params;
@@ -20,16 +25,23 @@ export async function generateMetadata({ params }: ContentPageProps): Promise<Me
   };
 }
 
-export default async function ContentPage({ params }: ContentPageProps) {
+export default async function ContentPage({ params, searchParams }: ContentPageProps) {
   const { handle } = await params;
   const page = await getPage(handle);
   if (!page) notFound();
-  if (handle === "our-story") return <OurStory />;
+
+  const sections = pageSections[handle];
+  if (sections) {
+    const posted = (await searchParams).contact_posted === "true";
+    return <PageSections contactPosted={posted} sections={sections} />;
+  }
 
   return (
-    <article className="content-page page-shell page-shell--narrow">
-      <h1>{page.title}</h1>
-      <div className="rich-text" dangerouslySetInnerHTML={{ __html: page.body }} />
-    </article>
+    <div className="nwg-page-default">
+      <article className="nwg-page-default__inner">
+        <h1 className="nwg-page-default__title">{page.title}</h1>
+        <div className="nwg-prose" dangerouslySetInnerHTML={{ __html: page.body }} />
+      </article>
+    </div>
   );
 }

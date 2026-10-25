@@ -1,0 +1,124 @@
+/*
+ * Search page (prefix: nwg-search-). Listing styles come from
+ * ../collections/collection.css; values measured from northwestern.golf.
+ */
+.nwg-search-banner {
+  background: rgb(26 26 26 / 5%);
+  display: grid;
+  gap: 24px;
+  padding-top: 32px;
+}
+.nwg-search-title {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+.nwg-search-form {
+  display: grid;
+  gap: 24px;
+  justify-items: center;
+}
+.nwg-search-input {
+  align-items: center;
+  border-bottom: 2px solid rgb(26 26 26 / 12%);
+  display: flex;
+  gap: 16px;
+  padding-bottom: 10px;
+  width: min(490px, 66.667vw);
+}
+.nwg-search-input input {
+  background: none;
+  border: 0;
+  color: inherit;
+  flex: 1;
+  font: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.6;
+  min-width: 0;
+  outline: 0;
+  padding: 0;
+}
+.nwg-search-input input::placeholder {
+  color: rgb(26 26 26 / 50%);
+}
+.nwg-search-input input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+.nwg-search-input button {
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: grid;
+  padding: 0;
+}
+.nwg-search-tabs {
+  display: flex;
+  justify-content: center;
+}
+.nwg-search-tabs a {
+  color: inherit;
+  font-weight: 700;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+.nwg-search-tabs a[aria-current="page"] {
+  background: #fff;
+}
+.nwg-search-prompt {
+  display: grid;
+  gap: 20px;
+  justify-items: center;
+  margin: 48px 0;
+}
+.nwg-search-content {
+  display: grid;
+  gap: 12px;
+  list-style: none;
+  margin: 32px auto 48px;
+  max-width: 1210px;
+  padding: 0;
+  text-align: center;
+}
+.nwg-search-content a {
+  color: inherit;
+  font-weight: 700;
+  text-decoration: none;
+}
+.nwg-search-content a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (min-width: 700px) {
+  .nwg-search-banner {
+    gap: 32px;
+    padding-top: 48px;
+  }
+  .nwg-search-title {
+    font-size: 48px;
+  }
+  .nwg-search-form {
+    gap: 48px;
+  }
+  .nwg-search-input {
+    padding-bottom: 12px;
+  }
+  .nwg-search-input input {
+    font-size: 32px;
+  }
+  .nwg-search-tabs a {
+    padding: 16px 24px;
+  }
+  .nwg-search-prompt {
+    gap: 32px;
+    margin-block: 128px;
+  }
+  .nwg-search-content {
+    margin-block: 48px 96px;
+  }
+}

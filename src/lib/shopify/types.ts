@@ -181,3 +181,34 @@ export type CheckoutActionResult = {
   ok: boolean;
   url: string | null;
 };
+
+export type ProductFilterValue = {
+  count: number;
+  id: string;
+  /** JSON-encoded Storefront `ProductFilter` input, e.g. `{"available":true}`. */
+  input: string;
+  label: string;
+};
+
+export type ProductFilterGroup = {
+  id: string;
+  label: string;
+  type: string;
+  values: ProductFilterValue[];
+};
+
+/** Storefront API `ProductFilter` input (the subset listing pages use). */
+export type ProductFilterInput = {
+  available?: boolean;
+  price?: { max?: number; min?: number };
+};
+
+export type ProductListing = {
+  filters: ProductFilterGroup[];
+  products: Product[];
+  totalCount: number;
+};
+
+export type ContentSearchResult =
+  | { resultType: "page"; handle: string; id: string; title: string }
+  | { resultType: "article"; blog: { handle: string }; handle: string; id: string; title: string };

@@ -1,11 +1,13 @@
 import Link from "next/link";
+import "./pages/pages.css";
 
 export default function NotFound() {
   return (
-    <div className="not-found page-shell page-shell--narrow">
-      <p>404</p>
-      <h1>We couldn’t find that page.</h1>
-      <Link className="button button--primary" href="/collections/all">Continue shopping</Link>
+    <div className="nwg-not-found">
+      <div className="nwg-not-found__content">
+        <h1>Page not found</h1>
+        <Link href="/collections/all">Continue shopping</Link>
+      </div>
     </div>
   );
 }

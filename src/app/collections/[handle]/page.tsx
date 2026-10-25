@@ -1,58 +1,64 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CollectionHeader } from "@/components/collection/CollectionHeader";
+import { allProductsCollection, collectionDefaultSort, FALLBACK_COLLECTION_SORT } from "@/components/collection/collection-config";
 import {
-  CollectionControls,
-  CollectionFilterSidebar,
-  type CollectionFilterState,
-} from "@/components/collection/CollectionControls";
-import { ProductGrid } from "@/components/commerce/ProductGrid";
-import { getCollection, getProducts } from "@/lib/shopify";
+  activeFilterInputs,
+  COLLECTION_SORT_OPTIONS,
+  parseListingState,
+  priceCeiling,
+  type SearchParamsRecord,
+} from "@/components/collection/listing-state";
+import { ListingEmptyState, ProductListing } from "@/components/collection/ProductListing";
+import {
+  getAllProductsListing,
+  getCollectionListing,
+  type CollectionSortKey,
+  type ProductSortKey,
+} from "@/lib/shopify/listing";
 import { metadataTitle } from "@/lib/seo";
+import "../collection.css";
 
 type CollectionPageProps = {
   params: Promise<{ handle: string }>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
+  searchParams: Promise<SearchParamsRecord>;
 };
 
-const sortOptions = {
-  "best-selling": { sortKey: "BEST_SELLING", reverse: false },
-  "created-ascending": { sortKey: "CREATED", reverse: true },
-  "created-descending": { sortKey: "CREATED", reverse: false },
-  featured: { sortKey: "COLLECTION_DEFAULT", reverse: false },
-  "price-ascending": { sortKey: "PRICE", reverse: false },
-  "price-descending": { sortKey: "PRICE", reverse: true },
-  "title-ascending": { sortKey: "TITLE", reverse: false },
-  "title-descending": { sortKey: "TITLE", reverse: true },
-} as const;
+const collectionSortKeys: Record<string, [CollectionSortKey, boolean]> = {
+  "best-selling": ["BEST_SELLING", false],
+  "created-ascending": ["CREATED", false],
+  "created-descending": ["CREATED", true],
+  manual: ["MANUAL", false],
+  "most-relevant": ["RELEVANCE", false],
+  "price-ascending": ["PRICE", false],
+  "price-descending": ["PRICE", true],
+  "title-ascending": ["TITLE", false],
+  "title-descending": ["TITLE", true],
+};
 
-async function resolveCollection(handle: string, state?: CollectionFilterState) {
-  if (handle === "all") {
-    let products = await getProducts({ first: 48, sortKey: "BEST_SELLING" });
-    if (state?.availability) products = products.filter((product) => product.availableForSale);
-    if (state?.minPrice !== undefined) products = products.filter((product) => Number(product.priceRange.minVariantPrice.amount) >= state.minPrice!);
-    if (state?.maxPrice !== undefined) products = products.filter((product) => Number(product.priceRange.minVariantPrice.amount) <= state.maxPrice!);
-    if (state?.sort.startsWith("title")) products.sort((a, b) => a.title.localeCompare(b.title) * (state.sort.endsWith("descending") ? -1 : 1));
-    if (state?.sort.startsWith("price")) products.sort((a, b) => (Number(a.priceRange.minVariantPrice.amount) - Number(b.priceRange.minVariantPrice.amount)) * (state.sort.endsWith("descending") ? -1 : 1));
-    return {
-      description: "",
-      handle: "all",
-      products,
-      seo: { description: null, title: null },
-      title: "Shop All",
-    };
-  }
-  const sort = state ? sortOptions[state.sort as keyof typeof sortOptions] ?? sortOptions.featured : sortOptions.featured;
-  const filters = state ? [
-    ...(state.availability ? [{ available: true }] : []),
-    ...(state.minPrice !== undefined || state.maxPrice !== undefined ? [{ price: { max: state.maxPrice, min: state.minPrice } }] : []),
-  ] : [];
-  return getCollection(handle, { filters, reverse: sort.reverse, sortKey: sort.sortKey });
-}
+const productSortKeys: Record<string, [ProductSortKey, boolean]> = {
+  "best-selling": ["BEST_SELLING", false],
+  "created-ascending": ["CREATED_AT", false],
+  "created-descending": ["CREATED_AT", true],
+  manual: ["BEST_SELLING", false],
+  "most-relevant": ["RELEVANCE", false],
+  "price-ascending": ["PRICE", false],
+  "price-descending": ["PRICE", true],
+  "title-ascending": ["TITLE", false],
+  "title-descending": ["TITLE", true],
+};
+
+const DEFAULT_COLLECTION_QUERY = { filters: [], reverse: false, sortKey: "COLLECTION_DEFAULT" as const };
 
 export async function generateMetadata({ params }: CollectionPageProps): Promise<Metadata> {
   const { handle } = await params;
-  const collection = await resolveCollection(handle);
+  if (handle === "all") {
+    return {
+      title: metadataTitle(allProductsCollection.title),
+      alternates: { canonical: "/collections/all" },
+      openGraph: { title: allProductsCollection.title, url: "/collections/all" },
+    };
+  }
+  const collection = await getCollectionListing(handle, DEFAULT_COLLECTION_QUERY);
   if (!collection) return { title: "Collection not found" };
   const title = collection.seo.title || collection.title;
   const description = collection.seo.description || collection.description || `Shop ${collection.title} from Northwestern Golf.`;
@@ -67,31 +73,52 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
 
 export default async function CollectionPage({ params, searchParams }: CollectionPageProps) {
   const { handle } = await params;
-  const query = await searchParams;
-  const single = (value: string | string[] | undefined) => Array.isArray(value) ? value[0] : value;
-  const parsePrice = (value: string | undefined) => value && Number.isFinite(Number(value)) ? Number(value) : undefined;
-  const requestedSort = single(query.sort_by) || "featured";
-  const state: CollectionFilterState = {
-    availability: single(query.availability) === "in-stock",
-    maxPrice: parsePrice(single(query.price_max)),
-    minPrice: parsePrice(single(query.price_min)),
-    sort: requestedSort in sortOptions ? requestedSort : "featured",
-  };
-  const [baseCollection, collection] = await Promise.all([
-    resolveCollection(handle),
-    resolveCollection(handle, state),
-  ]);
-  if (!collection) notFound();
-  if (!baseCollection) notFound();
-  const maximumPrice = Math.max(0, ...baseCollection.products.map((product) => Number(product.priceRange.maxVariantPrice.amount)));
+  const state = parseListingState(await searchParams, COLLECTION_SORT_OPTIONS);
+  const filters = activeFilterInputs(state);
+  const pathname = `/collections/${handle}`;
+
+  let title: string;
+  let effectiveSort: string;
+  let listing;
+  if (handle === "all") {
+    effectiveSort = allProductsCollection.defaultSort;
+    const [sortKey, reverse] = productSortKeys[state.sort ?? effectiveSort];
+    listing = await getAllProductsListing({ filters, reverse, sortKey });
+    title = allProductsCollection.title;
+  } else {
+    effectiveSort = collectionDefaultSort[handle] ?? FALLBACK_COLLECTION_SORT;
+    const [sortKey, reverse] = state.sort ? collectionSortKeys[state.sort] : (["COLLECTION_DEFAULT", false] as const);
+    const collection = await getCollectionListing(handle, { filters, reverse, sortKey });
+    if (!collection) notFound();
+    listing = collection;
+    title = collection.title;
+  }
+
+  const isFiltered = filters.length > 0;
 
   return (
-    <div className="collection-page page-shell page-shell--wide">
-      <CollectionHeader title={collection.title} />
-      <CollectionControls count={collection.products.length} handle={handle} maximumPrice={maximumPrice} state={state} />
-      <div className="collection-content">
-        <CollectionFilterSidebar handle={handle} maximumPrice={maximumPrice} state={state} />
-        <ProductGrid products={collection.products} />
+    <div className="nwg-col">
+      <header className="nwg-col-header">
+        <h1 className="nwg-col-title">{title}</h1>
+      </header>
+      <div className="nwg-col-container">
+        {!listing.products.length && !isFiltered ? (
+          <ListingEmptyState actionHref="/collections/all" actionLabel="Continue shopping" title="This collection is empty" />
+        ) : (
+          <ProductListing
+            clearHref={pathname}
+            config={{
+              baseParams: {},
+              effectiveSort,
+              pathname,
+              priceMax: priceCeiling(listing.filters),
+              showAvailability: listing.filters.some((filter) => filter.id === "filter.v.availability"),
+              sortOptions: COLLECTION_SORT_OPTIONS,
+              state,
+            }}
+            products={listing.products}
+          />
+        )}
       </div>
     </div>
   );
