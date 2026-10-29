@@ -55,7 +55,7 @@ export function isShopifyConfigured() {
   return Boolean(process.env.SHOPIFY_STORE_DOMAIN?.trim() || DEFAULT_STORE_DOMAIN);
 }
 
-function getStoreDomain() {
+export function getStoreDomain() {
   const value = process.env.SHOPIFY_STORE_DOMAIN?.trim() || DEFAULT_STORE_DOMAIN;
 
   return value.replace(/^https?:\/\//, "").replace(/\/$/, "");

@@ -12,6 +12,7 @@ import {
   readCartId,
   writeCartId,
 } from "@/lib/shopify/cart-session";
+import { getStoreDomain } from "@/lib/shopify";
 import { isRetailCartEnabled } from "@/lib/shopify/commerce-boundary";
 import type {
   CartActionResult,
@@ -43,19 +44,24 @@ function messageFor(error: unknown) {
   return "Shopify could not update the cart. Please try again.";
 }
 
+/**
+ * Shopify returns checkout URLs on the store's primary Online Store domain.
+ * After the headless cutover that is a Shopify-hosted subdomain (for example
+ * checkout.northwestern.golf), so any HTTPS host on the brand domain is
+ * accepted, along with the permanent *.myshopify.com domain.
+ */
+const BRAND_DOMAIN = "northwestern.golf";
+
 function expectedCheckoutUrl(value: string) {
   try {
     const url = new URL(value);
-    const storeHost = process.env.SHOPIFY_STORE_DOMAIN
-      ?.trim()
-      .replace(/^https?:\/\//, "")
-      .replace(/\/$/, "")
-      .toLowerCase();
-    const siteHost = new URL(process.env.SITE_URL || "https://northwestern.golf")
-      .hostname
-      .toLowerCase();
-    const allowedHosts = new Set([storeHost, siteHost].filter(Boolean));
-    return url.protocol === "https:" && allowedHosts.has(url.hostname.toLowerCase());
+    const host = url.hostname.toLowerCase();
+    return (
+      url.protocol === "https:" &&
+      (host === getStoreDomain().toLowerCase() ||
+        host === BRAND_DOMAIN ||
+        host.endsWith(`.${BRAND_DOMAIN}`))
+    );
   } catch {
     return false;
   }
