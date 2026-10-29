@@ -14,9 +14,5 @@ export default async function CartPage() {
   const enabled = isRetailCartEnabled();
   const result = enabled ? await getCartAction() : null;
 
-  return (
-    <div className="cart-page page-shell page-shell--wide">
-      <CartPageClient enabled={enabled} initialCart={result?.cart ?? null} />
-    </div>
-  );
+  return <CartPageClient enabled={enabled} initialCart={result?.cart ?? null} />;
 }

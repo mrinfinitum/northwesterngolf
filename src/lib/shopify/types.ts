@@ -111,6 +111,36 @@ export type ShopifyPage = {
   updatedAt: string;
 };
 
+export type ShopifyArticleSummary = {
+  excerpt: string | null;
+  handle: string;
+  id: string;
+  image: ShopifyImage | null;
+  publishedAt: string;
+  title: string;
+};
+
+export type ShopifyBlog = {
+  articles: ShopifyArticleSummary[];
+  handle: string;
+  id: string;
+  seo: Seo;
+  title: string;
+};
+
+export type ShopifyArticle = ShopifyArticleSummary & {
+  authorV2: { name: string } | null;
+  blog: { handle: string; title: string };
+  contentHtml: string;
+  seo: Seo;
+};
+
+export type ShopifyContentIndex = {
+  articles: Array<{ blogHandle: string; handle: string; publishedAt: string }>;
+  blogs: string[];
+  pages: Array<{ handle: string; updatedAt: string }>;
+};
+
 export type ShopifyPolicy = {
   body: string;
   handle: string;

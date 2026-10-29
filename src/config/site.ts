@@ -114,8 +114,21 @@ export const socialLinks = [
   { href: "https://www.tiktok.com/@northwesterngolfclubs", label: "TikTok", network: "tiktok" },
 ] as const;
 
-export const accountUrl =
-  "https://northwestern.golf/customer_authentication/redirect?locale=en&region_country=US";
+/**
+ * Wholesale Gorilla app pages. The live theme serves them with `noindex` and
+ * omits them from the sitemap; their app UI only runs inside the Shopify theme.
+ */
+export const noindexPageHandles = new Set([
+  "wholesale-registration-form",
+  "ws-account-create",
+  "ws-account-login",
+  "ws-cart",
+  "ws-proxy",
+  "ws-quick-order-form",
+]);
+
+/** Redirects to Shopify customer accounts (see next.config.ts). */
+export const accountUrl = "/account";
 
 /**
  * Theme-only homepage content extracted from the live Impact theme sections

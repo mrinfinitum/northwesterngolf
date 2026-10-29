@@ -1,6 +1,7 @@
 import "server-only";
 
 import { cache } from "react";
+import { ARTICLE_QUERY, BLOG_QUERY, CONTENT_INDEX_QUERY } from "./queries/blog";
 import { COLLECTION_QUERY } from "./queries/collection";
 import { COLLECTIONS_QUERY } from "./queries/collections";
 import { MENU_QUERY } from "./queries/menu";
@@ -12,6 +13,9 @@ import { PRODUCTS_QUERY } from "./queries/products";
 import type {
   Collection,
   Product,
+  ShopifyArticle,
+  ShopifyBlog,
+  ShopifyContentIndex,
   ShopifyGraphqlResponse,
   ShopifyImage,
   ShopifyMenu,
@@ -258,6 +262,53 @@ export const getPolicy = cache(async (handle: string): Promise<ShopifyPolicy | n
   );
   return policies.find((policy) => policy.handle === handle) ?? null;
 });
+
+export const getBlog = cache(async (handle: string): Promise<ShopifyBlog | null> => {
+  const data = await shopifyFetch<{
+    blog: (Omit<ShopifyBlog, "articles"> & { articles: { nodes: ShopifyBlog["articles"] } }) | null;
+  }>({
+    query: BLOG_QUERY,
+    tags: [`blog:${handle}`],
+    variables: { first: 50, handle },
+  });
+  if (!data.blog) return null;
+  return { ...data.blog, articles: data.blog.articles.nodes };
+});
+
+export const getArticle = cache(
+  async (blogHandle: string, articleHandle: string): Promise<ShopifyArticle | null> => {
+    const data = await shopifyFetch<{
+      blog: {
+        handle: string;
+        title: string;
+        articleByHandle: Omit<ShopifyArticle, "blog"> | null;
+      } | null;
+    }>({
+      query: ARTICLE_QUERY,
+      tags: [`blog:${blogHandle}`],
+      variables: { articleHandle, blogHandle },
+    });
+    const article = data.blog?.articleByHandle;
+    if (!data.blog || !article) return null;
+    return { ...article, blog: { handle: data.blog.handle, title: data.blog.title } };
+  },
+);
+
+/** Pages, blogs, and articles for the sitemap. */
+export async function getContentIndex(): Promise<ShopifyContentIndex> {
+  const data = await shopifyFetch<{
+    blogs: { nodes: Array<{ handle: string; articles: { nodes: Array<{ handle: string; publishedAt: string }> } }> };
+    pages: { nodes: Array<{ handle: string; updatedAt: string }> };
+  }>({ query: CONTENT_INDEX_QUERY, tags: ["pages", "blogs"] });
+
+  return {
+    articles: data.blogs.nodes.flatMap((blog) =>
+      blog.articles.nodes.map((article) => ({ ...article, blogHandle: blog.handle })),
+    ),
+    blogs: data.blogs.nodes.map((blog) => blog.handle),
+    pages: data.pages.nodes,
+  };
+}
 
 export function getSiteUrl() {
   return (process.env.SITE_URL || "https://northwestern.golf").replace(/\/$/, "");

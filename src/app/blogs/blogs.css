@@ -1,0 +1,121 @@
+/* Blog listing and article routes (the empty blog uses <EmptyState>). */
+
+.nwg-blog,
+.nwg-article {
+  color: rgb(26 26 26);
+  margin: 0 auto;
+  padding: 48px 20px 64px;
+}
+.nwg-blog {
+  max-width: 1460px;
+}
+.nwg-blog__title,
+.nwg-article__header h1 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+  text-transform: uppercase;
+}
+.nwg-blog__title {
+  font-size: 36px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+.nwg-blog__grid {
+  display: grid;
+  gap: 40px 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nwg-blog-card {
+  color: inherit;
+  display: grid;
+  gap: 12px;
+  text-decoration: none;
+}
+.nwg-blog-card__image {
+  aspect-ratio: 3 / 2;
+  border-radius: 12px;
+  height: auto;
+  object-fit: cover;
+  width: 100%;
+}
+.nwg-blog-card time,
+.nwg-article__header p {
+  color: rgb(26 26 26 / 0.65);
+  font-size: 14px;
+  margin: 0;
+}
+.nwg-blog-card h2 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+}
+.nwg-blog-card p {
+  margin: 0;
+}
+
+.nwg-article {
+  display: grid;
+  gap: 32px;
+  max-width: 1000px;
+}
+.nwg-article__header {
+  display: grid;
+  gap: 12px;
+  text-align: center;
+}
+.nwg-article__header a {
+  color: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.nwg-article__header h1 {
+  font-size: 32px;
+}
+.nwg-article__image {
+  border-radius: 12px;
+  height: auto;
+  width: 100%;
+}
+.nwg-article__body {
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0 auto;
+  max-width: 80ch;
+  width: 100%;
+}
+.nwg-article__body img {
+  height: auto;
+  max-width: 100%;
+}
+
+@media (min-width: 700px) {
+  .nwg-blog,
+  .nwg-article {
+    padding: 64px 32px 96px;
+  }
+  .nwg-blog__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .nwg-blog__title {
+    font-size: 60px;
+  }
+  .nwg-article__header h1 {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .nwg-blog,
+  .nwg-article {
+    padding-inline: 48px;
+  }
+  .nwg-blog__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { pageSections } from "@/components/pages/page-sections";
 import { PageSections } from "@/components/pages/PageSections";
+import { noindexPageHandles } from "@/config/site";
 import { getPage } from "@/lib/shopify";
 import { metadataTitle } from "@/lib/seo";
 import "../pages.css";
@@ -22,6 +23,7 @@ export async function generateMetadata({ params }: ContentPageProps): Promise<Me
     description,
     alternates: { canonical: `/pages/${page.handle}` },
     openGraph: { description, title, url: `/pages/${page.handle}` },
+    robots: noindexPageHandles.has(page.handle) ? { follow: true, index: false } : undefined,
   };
 }
 
