@@ -169,45 +169,21 @@ export const homepageContent = {
   },
   featured: {
     collection: "mens-collection",
-    heading: "Full Collection",
+    heading: "Most Wanted",
     href: "/collections/mens-collection",
     linkLabel: "View all",
     limit: 6,
   },
-  // Split feature: copy on the left, framed image on the right. Swap the
-  // photo by changing `image` (any aspect; it is cropped to 4:3 around `focus`).
-  // Copy is from the Men's Thunderbird Driver product page.
   campaign: {
-    body: "Engineered to help you hit the longest, straightest drives of your life. A classic shape with modern, high-launch technology. Stop fixing your slice. Start splitting fairways.",
-    buttonLabel: "Shop the driver",
-    eyebrow: "Thunderbird Titanium Driver",
+    buttonLabel: "SHOP NOW",
     heading: "Send it like Daly.",
     href: "/products/men-s-thunderbird-driver",
-    image: {
-      alt: "Northwestern Thunderbird driver with John Daly's signature, held out by Daly",
-      focus: "50% 36%",
-      height: 2400,
-      src: "/images/daly-driver.jpg",
-      width: 1600,
-    },
-    specs: ["Aerospace-grade titanium face", "Deep, low CG for high launch", "Speedflex shaft"],
-    subheading: "Unleash the thunder.",
-    /** "dark" (ink) or "light" (warm grey). */
-    theme: "dark" as "dark" | "light",
-  },
-  // Every claim here is sourced from existing site copy (Our Story, the
-  // Wedges page, and the PDP returns/warranty blocks).
-  proof: {
-    body: "We started building clubs for everyday golfers nearly 100 years ago. We still do: modern designs, honest prices, and a guarantee behind every set.",
-    eyebrow: "Making golf easier since 1929",
-    heading: "Clubs for real golfers. Not just pros.",
-    link: { href: "/pages/our-story", label: "Our story" },
-    points: [
-      { label: "Heritage", text: "For decades, one of the most widely played golf brands in America.", value: "1929" },
-      { label: "Wedge lineage", text: "Brian Symonds Signature Wedges, shaped under 1944 PGA Champion Bob Hamilton.", value: "1944" },
-      { label: "Returns", text: "Play them. If they don’t feel right, send them back.", unit: "days", value: "30" },
-      { label: "Warranty", text: "If craftsmanship or materials fail, we’ll take care of it.", unit: "year", value: "1" },
-    ],
+    image:
+      "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/daly-swing-soft-focus.jpg?v=1765125870",
+    imageSize: { height: 1000, width: 2359 },
+    mobileImage:
+      "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/daly-swing-closeup-m2.jpg?v=1765076356",
+    mobileImageSize: { height: 1000, width: 1329 },
   },
   reviews: {
     eyebrow: "Customer Reviews",
