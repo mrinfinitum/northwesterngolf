@@ -40,7 +40,7 @@ Do these in order; each step is reversible until step 4.
    in Shopify. If added, point the `/account` redirect in `next.config.ts` at
    `https://account.northwestern.golf` instead of
    `https://shopify.com/72808693923/account`.
-3. **Vercel domains.** Add `northwestern.golf` and `www.northwestern.golf` to
+3. ✅ **Vercel domains** (done November 4, 2026: `northwestern.golf` on Production, `www` as a 308 redirect to the apex; no TXT verification was needed. Vercel wants `CNAME @ → f685364ff4673557.vercel-dns-017.com` and `CNAME www → f685364ff4673557.vercel-dns-017.com`, both DNS only, for step 5). Add `northwestern.golf` and `www.northwestern.golf` to
    the Vercel project (as `dev.northwestern.golf` already is). Vercel shows
    the exact DNS values to use; don't change DNS yet.
 4. **Switch Shopify's primary domain** to `checkout.northwestern.golf`
