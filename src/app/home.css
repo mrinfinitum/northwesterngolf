@@ -392,7 +392,8 @@
   color: var(--fs-fg);
   isolation: isolate;
   overflow: hidden;
-  padding: clamp(48px, 6vw, 88px) var(--container-gutter);
+  --fs-pad-y: clamp(48px, 6vw, 88px);
+  padding: var(--fs-pad-y) var(--container-gutter);
   position: relative;
 }
 /*
@@ -494,9 +495,17 @@
 @media (min-width: 900px) {
   /* Wider image column; the copy column stays tight. */
   .feature-split__inner { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.35fr); }
-  /* Photo bleeds off the right edge of the viewport; copy keeps the left margin. */
+  /* Photo runs top to bottom and off the right edge; copy keeps the left margin. */
+  .feature-split__inner {
+    align-items: stretch;
+    gap: clamp(56px, 7vw, 128px);
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr);
+    min-height: clamp(520px, 42vw, 720px);
+  }
+  .feature-split__copy { align-self: center; }
   .feature-split__media {
-    aspect-ratio: 16 / 11;
+    aspect-ratio: auto;
+    margin-block: calc(-1 * var(--fs-pad-y));
     margin-right: calc(-1 * (var(--container-gutter) + max(0px, (100vw - 2 * var(--container-gutter) - 1320px) / 2)));
     width: auto;
   }
