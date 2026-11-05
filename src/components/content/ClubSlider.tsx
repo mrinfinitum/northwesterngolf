@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@/components/ui/icons";
 
+const AUTOPLAY_MS = 4000;
+
 export type ClubSlide = {
   compareAtPrice?: string;
   eyebrow?: string;
@@ -55,16 +57,65 @@ export function ClubSlider({
     };
   }, []);
 
-  const step = (direction: 1 | -1) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  /** Set once the shopper swipes, scrolls or uses the arrows: autoplay stops for good. */
+  const userTookOver = useRef(false);
+
+  const step = (direction: 1 | -1, { auto = false } = {}) => {
     const track = trackRef.current;
     const card = track?.firstElementChild as HTMLElement | null;
     if (!track || !card) return;
+    if (!auto) userTookOver.current = true;
+    const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+    if (auto && atEnd) {
+      track.scrollTo({ behavior: "smooth", left: 0 });
+      return;
+    }
     const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
     track.scrollBy({ behavior: "smooth", left: direction * (card.offsetWidth + gap) });
   };
 
+  // Autoplay: one card every few seconds while the row is on screen, paused
+  // on hover/focus, skipped for reduced motion, stopped after user input.
+  useEffect(() => {
+    const section = sectionRef.current;
+    const track = trackRef.current;
+    if (!section || !track || slides.length < 2) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let visible = false;
+    let hovered = false;
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }, { threshold: 0.6 });
+    observer.observe(section);
+
+    const takeOver = () => { userTookOver.current = true; };
+    const enter = () => { hovered = true; };
+    const leave = () => { hovered = false; };
+    track.addEventListener("pointerdown", takeOver);
+    track.addEventListener("wheel", takeOver, { passive: true });
+    track.addEventListener("touchstart", takeOver, { passive: true });
+    section.addEventListener("pointerenter", enter);
+    section.addEventListener("pointerleave", leave);
+
+    const timer = window.setInterval(() => {
+      const focused = section.contains(document.activeElement);
+      if (userTookOver.current || !visible || hovered || focused || document.hidden) return;
+      step(1, { auto: true });
+    }, AUTOPLAY_MS);
+
+    return () => {
+      window.clearInterval(timer);
+      observer.disconnect();
+      track.removeEventListener("pointerdown", takeOver);
+      track.removeEventListener("wheel", takeOver);
+      track.removeEventListener("touchstart", takeOver);
+      section.removeEventListener("pointerenter", enter);
+      section.removeEventListener("pointerleave", leave);
+    };
+  }, [slides.length]);
+
   return (
-    <section aria-label={heading} className="club-row">
+    <section aria-label={heading} className="club-row" ref={sectionRef}>
       <div className="club-row__header">
         <h2 className="club-row__heading">{heading}</h2>
         <Link className="club-row__all" href={href}>{linkLabel}</Link>

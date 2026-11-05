@@ -305,6 +305,77 @@
   .club-row__track { --club-gap: 28px; grid-auto-columns: calc((100% - 2 * var(--container-gutter) - 3 * var(--club-gap)) / 4); }
 }
 
+/* ---------- Proof points (brand statement + numbered facts) ---------- */
+
+.proof { background: var(--color-white); padding: clamp(64px, 9vw, 128px) var(--container-gutter); }
+.proof__inner { display: grid; gap: clamp(40px, 6vw, 96px); margin-inline: auto; max-width: 1200px; }
+.proof__eyebrow,
+.proof__label,
+.proof__link {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  margin: 0;
+  text-transform: uppercase;
+}
+.proof__eyebrow { color: var(--color-campaign); }
+.proof__heading {
+  font-size: clamp(2.5rem, 5.4vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  margin: 18px 0 0;
+  text-transform: uppercase;
+}
+.proof__body { color: var(--color-ink-subdued); font-size: 1.0625rem; line-height: 1.6; margin: 24px 0 0; max-width: 34ch; }
+.proof__link { align-items: center; display: inline-flex; gap: 12px; margin-top: 28px; }
+.proof__link::after {
+  background: currentColor;
+  content: "";
+  height: 10px;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 10'%3E%3Cpath d='M0 5h16M12 1l4 4-4 4' fill='none' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform 200ms ease;
+  width: 18px;
+}
+.proof__link:hover::after { transform: translateX(4px); }
+
+.proof__list { border-top: 1px solid var(--color-ink); counter-reset: proof; list-style: none; margin: 0; padding: 0; }
+.proof__item {
+  align-items: baseline;
+  border-bottom: 1px solid var(--color-rule);
+  display: grid;
+  gap: 8px 28px;
+  grid-template-columns: minmax(0, 1fr);
+  padding: 24px 0;
+}
+.proof__value {
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  margin: 0;
+}
+.proof__unit { font-size: 0.32em; letter-spacing: 0.08em; margin-left: 0.35em; text-transform: uppercase; vertical-align: 0.9em; }
+.proof__label { color: var(--color-campaign); }
+.proof__label::before { color: var(--color-muted); content: counter(proof, decimal-leading-zero) "\2002"; counter-increment: proof; }
+.proof__text { color: var(--color-ink-subdued); font-size: 0.9375rem; line-height: 1.55; margin: 6px 0 0; max-width: 40ch; }
+
+@media (min-width: 700px) {
+  .proof__item { align-items: center; grid-template-columns: minmax(160px, 0.8fr) minmax(0, 1fr); padding: 28px 0; }
+}
+@media (min-width: 1000px) {
+  .proof__inner { align-items: start; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+  .proof__intro { position: sticky; top: calc(var(--header-height, 91px) + 32px); }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .proof__item { animation: partnership-rise linear both; animation-range: entry 10% entry 90%; animation-timeline: view(); }
+  }
+}
+
 /* ---------- Reviews (store-authored "review card scroller" section) ---------- */
 
 .reviews { background: #f8f8f8; overflow: hidden; padding: 80px 0; }

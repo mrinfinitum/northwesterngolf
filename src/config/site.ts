@@ -185,6 +185,20 @@ export const homepageContent = {
       "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/daly-swing-closeup-m2.jpg?v=1765076356",
     mobileImageSize: { height: 1000, width: 1329 },
   },
+  // Every claim here is sourced from existing site copy (Our Story, the
+  // Wedges page, and the PDP returns/warranty blocks).
+  proof: {
+    body: "We started building clubs for everyday golfers nearly 100 years ago. We still do: modern designs, honest prices, and a guarantee behind every set.",
+    eyebrow: "Making golf easier since 1929",
+    heading: "Clubs for real golfers. Not just pros.",
+    link: { href: "/pages/our-story", label: "Our story" },
+    points: [
+      { label: "Heritage", text: "For decades, one of the most widely played golf brands in America.", value: "1929" },
+      { label: "Wedge lineage", text: "Brian Symonds Signature Wedges, shaped under 1944 PGA Champion Bob Hamilton.", value: "1944" },
+      { label: "Returns", text: "Play them. If they don’t feel right, send them back.", unit: "days", value: "30" },
+      { label: "Warranty", text: "If craftsmanship or materials fail, we’ll take care of it.", unit: "year", value: "1" },
+    ],
+  },
   reviews: {
     eyebrow: "Customer Reviews",
     heading: "Golfers Are Talking",

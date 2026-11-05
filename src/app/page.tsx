@@ -5,6 +5,7 @@ import { ClubSlider, type ClubSlide } from "@/components/content/ClubSlider";
 import { formatMoney } from "@/components/commerce/Money";
 import { Hero } from "@/components/content/Hero";
 import { ImageOverlay } from "@/components/content/ImageOverlay";
+import { ProofPoints } from "@/components/content/ProofPoints";
 import { Testimonials } from "@/components/content/Testimonials";
 import { homepageContent } from "@/config/site";
 import { getCollection, getProducts, type Product } from "@/lib/shopify";
@@ -87,6 +88,7 @@ export default async function Home() {
           <p className="partnership__body">{partnership.body}</p>
         </div>
       </ImageOverlay>
+      <ProofPoints />
       <ImageOverlay
         buttonLabel={campaign.buttonLabel}
         className="image-banner--campaign"
