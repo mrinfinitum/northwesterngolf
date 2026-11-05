@@ -1,7 +1,7 @@
 # Northwestern Golf — Headless Cutover Runbook
 
 Date: October 29, 2026
-Status: **PREPARED — NOT EXECUTED**
+Status: **CUT OVER — November 4, 2026** (northwestern.golf is served by Vercel)
 
 ## Current state
 
@@ -47,10 +47,10 @@ Do these in order; each step is reversible until step 4.
    (Settings → Domains → Change primary). Cart `checkoutUrl`s then use that
    host; `src/app/cart/actions.ts` already allows any `*.northwestern.golf`
    host plus `r1kikk-am.myshopify.com`.
-5. **Repoint the apex and www** in Cloudflare to the Vercel values from
+5. ✅ **Repoint the apex and www** (done November 4, 2026: `@` and `www` are DNS-only CNAMEs to `f685364ff4673557.vercel-dns-017.com`. Vercel certificates took about 7 minutes. `www` was removed from Shopify. The apex was **kept** in Shopify, because `checkout`/`account` are listed under it and Shopify Email depends on the root domain, and it receives no traffic now). in Cloudflare to the Vercel values from
    step 3 (DNS only). Remove `northwestern.golf` and `www` from Shopify's
    domain list afterwards so Shopify stops redirecting them.
-6. **Production env:** set `SITE_URL=https://northwestern.golf` in Vercel.
+6. ✅ **Production env:** not needed. `SITE_URL` already defaults to `https://northwestern.golf` in `src/lib/shopify/index.ts`. set `SITE_URL=https://northwestern.golf` in Vercel.
 
 ## Verification
 
@@ -69,5 +69,14 @@ can query `mario.ns.cloudflare.com` directly.
 
 ## Rollback
 
-Restore the apex `A 23.227.38.65` and `www CNAME shops.myshopify.com`, and
+Restore the apex `A 23.227.38.65` (it is now a CNAME to Vercel; switch the type back) and `www CNAME shops.myshopify.com`, and
 set `northwestern.golf` back as Shopify's primary domain.
+
+## Post-cutover results (November 4, 2026)
+
+- `https://northwestern.golf` → `server: Vercel`; `www` 308 → apex (path kept).
+- All 47 sitemap URLs return 200; an unknown product handle returns 404.
+- `/account` → `https://account.northwestern.golf/`.
+- Add to cart → checkout on `northwestern.golf` reaches Shopify checkout (Shop Pay).
+- MX (ppe-hosted), SPF and DMARC are unchanged.
+- Still to do: submit `https://northwestern.golf/sitemap.xml` in Search Console; send a test email; delete the "ZZ Headless Cart Test" product.
