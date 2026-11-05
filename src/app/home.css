@@ -24,8 +24,11 @@
 
 @media (max-width: 749px) {
   .home-hero { height: 600px; }
-  .home-hero h1 { font-size: 2rem; line-height: 1.1; }
-  .home-hero__button { margin-top: 22px; padding: 4px 20px; }
+  .home-hero h1 { font-size: 2.25rem; line-height: 1.05; text-shadow: 0 2px 24px rgb(0 0 0 / 45%); text-wrap: balance; }
+  /* Soft scrim so the headline holds up over the busy video frame. */
+  .home-hero::after { background: radial-gradient(70% 45% at 50% 50%, rgb(0 0 0 / 38%), transparent 75%); content: ""; inset: 0; pointer-events: none; position: absolute; z-index: 1; }
+  .home-hero__content { width: calc(100% - 2 * var(--container-gutter)); }
+  .home-hero__button { margin-top: 20px; padding: 12px 28px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-hero__video { display: none; }
@@ -365,12 +368,24 @@
 .proof__label::before { color: var(--color-muted); content: counter(proof, decimal-leading-zero) "\2002"; counter-increment: proof; }
 .proof__text { color: var(--color-ink-subdued); font-size: 0.9375rem; line-height: 1.55; margin: 6px 0 0; max-width: 40ch; }
 
+@media (max-width: 699px) {
+  /* 2 x 2 on phones: half the scroll of four stacked rows. */
+  .proof { padding-block: 44px; }
+  .proof__inner { gap: 28px; }
+  .proof__heading { font-size: 2.125rem; margin-top: 10px; text-wrap: balance; }
+  .proof__body { font-size: 0.9375rem; line-height: 1.55; margin-top: 12px; }
+  .proof__link { margin-top: 16px; }
+  .proof__list { column-gap: 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proof__item { align-content: start; gap: 6px; padding: 16px 0; }
+  .proof__value { font-size: 2.25rem; }
+  .proof__label { font-size: 0.6875rem; letter-spacing: 0.12em; }
+  .proof__text { font-size: 0.8125rem; line-height: 1.45; margin-top: 2px; }
+}
 @media (min-width: 700px) {
   .proof__item { align-items: center; grid-template-columns: minmax(160px, 0.8fr) minmax(0, 1fr); padding: 28px 0; }
 }
 @media (min-width: 1000px) {
   .proof__inner { align-items: start; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
-  .proof__intro { position: sticky; top: calc(var(--header-height, 91px) + 32px); }
 }
 
 @supports (animation-timeline: view()) {
@@ -491,6 +506,11 @@
 
 @media (max-width: 899px) {
   .feature-split__media { order: -1; }
+  /* Centred stack on phones and small tablets. */
+  .feature-split__copy { align-items: center; display: flex; flex-direction: column; text-align: center; }
+  .feature-split__body { margin-inline: auto; }
+  .feature-split__specs { width: 100%; }
+  .feature-split__specs li { justify-content: center; }
 }
 @media (min-width: 900px) {
   /* Wider image column; the copy column stays tight. */
