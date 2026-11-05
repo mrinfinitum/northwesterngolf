@@ -35,7 +35,7 @@ Do these in order; each step is reversible until step 4.
 1. ✅ **Checkout domain** (done November 4, 2026: CNAME added, connected in Shopify, TLS issued). In Cloudflare add `CNAME checkout →
    shops.myshopify.com` (DNS only). In Shopify Admin → Settings → Domains,
    connect `checkout.northwestern.golf` and wait for its SSL certificate.
-2. **Customer accounts domain** (optional, recommended). Add `CNAME account →
+2. ✅ **Customer accounts domain** (done November 4, 2026: `account.northwestern.golf` is the primary customer accounts domain and `next.config.ts` redirects there). Add `CNAME account →
    shops.myshopify.com` (DNS only) and set it as the customer accounts domain
    in Shopify. If added, point the `/account` redirect in `next.config.ts` at
    `https://account.northwestern.golf` instead of

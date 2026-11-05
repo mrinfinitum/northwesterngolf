@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
-// Shopify customer accounts (new) for shop 72808693923; matches the live
-// storefront's /account and /customer_authentication redirects.
-const SHOPIFY_CUSTOMER_ACCOUNT_URL = "https://shopify.com/72808693923/account";
+// Shopify customer accounts (new) for shop 72808693923, served on its primary
+// customer accounts domain (shopify.com/72808693923/account redirects here).
+const SHOPIFY_CUSTOMER_ACCOUNT_URL = "https://account.northwestern.golf/";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
