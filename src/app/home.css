@@ -103,6 +103,122 @@
   .image-banner h3 { margin-top: 32px; }
 }
 
+/* ---------- Partnership banner (Northwestern x John Daly) ---------- */
+
+.image-banner--partnership { overflow: hidden; }
+/* Legibility scrim: top-down on the portrait crop, left-to-right on desktop. */
+.image-banner--partnership::after {
+  background: linear-gradient(180deg, rgb(0 0 0 / 50%) 0%, rgb(0 0 0 / 0%) 38%, rgb(0 0 0 / 0%) 62%, rgb(0 0 0 / 60%) 100%);
+  content: "";
+  grid-area: 1 / 1;
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+/* Mobile: logo + headline in the sky, tagline + button over the grass. */
+.image-banner--partnership .image-banner__content { align-items: stretch; padding-block: 32px 28px; z-index: 1; }
+.image-banner--partnership .image-banner__prose { align-items: center; display: flex; flex-direction: column; padding: 0 20px; }
+.image-banner--partnership .image-banner__intro { display: contents; }
+.image-banner--partnership .image-banner__logo { margin-inline: auto; max-width: 260px; padding-top: 0; width: 72%; }
+
+.image-banner h2.partnership__headline {
+  display: grid;
+  font-size: clamp(2.25rem, 10.5vw, 3.25rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+  margin: 20px 0 0;
+  text-transform: uppercase;
+}
+.image-banner h2.partnership__headline .is-accent { color: var(--color-campaign); }
+.image-banner .partnership__body {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.6;
+  margin: auto auto 0;
+  max-width: 30ch;
+  padding-top: 24px;
+  opacity: 0.88;
+  text-transform: uppercase;
+}
+
+.image-banner--partnership .image-banner__button {
+  align-items: center;
+  background: var(--color-white);
+  border-radius: 0;
+  color: var(--color-ink);
+  display: inline-flex;
+  font-size: 0.8125rem;
+  gap: 14px;
+  letter-spacing: 0.14em;
+  margin-top: 20px;
+  min-width: 0;
+  padding: 16px 28px;
+  text-transform: uppercase;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+.image-banner--partnership .image-banner__button::after {
+  background: currentColor;
+  content: "";
+  height: 10px;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 10'%3E%3Cpath d='M0 5h16M12 1l4 4-4 4' fill='none' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform 200ms ease;
+  width: 18px;
+}
+.image-banner--partnership .image-banner__button:hover { background: var(--color-campaign); color: var(--color-white); opacity: 1; }
+.image-banner--partnership .image-banner__button:hover::after { transform: translateX(4px); }
+
+@media (min-width: 700px) {
+  .image-banner--partnership::after {
+    background: linear-gradient(90deg, rgb(0 0 0 / 55%) 0%, rgb(0 0 0 / 30%) 35%, rgb(0 0 0 / 0%) 60%);
+  }
+  .image-banner--partnership .image-banner__content { align-items: center; padding-block: var(--container-gutter); }
+  .image-banner--partnership .image-banner__prose { align-items: flex-start; display: block; max-width: 640px; padding: 0; }
+  .image-banner--partnership .image-banner__intro { display: block; }
+  .image-banner--partnership .image-banner__logo { margin-inline: 0; max-width: min(420px, 32vw); width: 100%; }
+  .image-banner h2.partnership__headline { font-size: clamp(3rem, 7.2vw, 7.5rem); margin-top: clamp(20px, 2.5vw, 36px); }
+  .image-banner .partnership__body { font-size: 0.875rem; margin: 28px 0 0; padding-top: 0; }
+  .image-banner--partnership .image-banner__button { margin-top: 40px; padding: 18px 32px; }
+}
+
+/*
+ * Scroll-linked motion (CSS only, no JS): the photo settles from a slight zoom
+ * as the section scrolls in, and the copy reveals line by line. Browsers
+ * without scroll-driven animations, and reduced-motion visitors, get the
+ * static layout above.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .image-banner--partnership .image-banner__image {
+      animation: partnership-settle linear both;
+      animation-range: entry 0% exit 0%;
+      animation-timeline: view();
+    }
+    .image-banner--partnership .image-banner__logo,
+    .image-banner h2.partnership__headline > span,
+    .image-banner .partnership__body,
+    .image-banner--partnership .image-banner__button {
+      animation: partnership-rise linear both;
+      animation-timeline: view();
+    }
+    .image-banner--partnership .image-banner__logo { animation-range: entry 10% entry 50%; }
+    .image-banner h2.partnership__headline > span:nth-child(1) { animation-range: entry 20% entry 60%; }
+    .image-banner h2.partnership__headline > span:nth-child(2) { animation-range: entry 30% entry 70%; }
+    .image-banner h2.partnership__headline > span:nth-child(3) { animation-range: entry 40% entry 80%; }
+    .image-banner .partnership__body { animation-range: entry 50% entry 90%; }
+    .image-banner--partnership .image-banner__button { animation-range: entry 55% entry 100%; }
+  }
+}
+@keyframes partnership-settle {
+  from { transform: scale(1.12); }
+  to { transform: scale(1); }
+}
+@keyframes partnership-rise {
+  from { clip-path: inset(0 0 100% 0); opacity: 0; transform: translateY(0.6em); }
+  to { clip-path: inset(0 0 0 0); opacity: 1; transform: none; }
+}
+
 /* ---------- Featured collection ---------- */
 
 .featured-collection { padding: var(--section-spacing) var(--container-padding); }

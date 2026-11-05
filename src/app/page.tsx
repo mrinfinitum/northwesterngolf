@@ -42,9 +42,14 @@ export default async function Home() {
         mobileImageSize={partnership.mobileImageSize}
       >
         <div className="image-banner__intro">
-          <Image alt={partnership.logoAlt} className="image-banner__logo" height={183} sizes="(max-width: 749px) 100vw, 546px" src={partnership.logo} width={1263} />
-          <h2>{partnership.heading.replace(/\s+/g, " ")}</h2>
-          <h3>{partnership.body}</h3>
+          <Image alt={partnership.logoAlt} className="image-banner__logo" height={183} sizes="(max-width: 749px) 80vw, 420px" src={partnership.logo} width={1263} />
+          {/* One line per beat: "Grip It." / "Rip It." / "Afford It." (last one accented). */}
+          <h2 className="partnership__headline">
+            {partnership.heading.split(/(?<=\.)\s+/).map((line, index, lines) => (
+              <span className={index === lines.length - 1 ? "is-accent" : undefined} key={line}>{line}</span>
+            ))}
+          </h2>
+          <p className="partnership__body">{partnership.body}</p>
         </div>
       </ImageOverlay>
       {products.length ? (
