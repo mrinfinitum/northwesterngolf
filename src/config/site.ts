@@ -179,10 +179,10 @@ export const homepageContent = {
   // Copy is from the Men's Thunderbird Driver product page.
   campaign: {
     body: "Engineered to help you hit the longest, straightest drives of your life. A classic shape with modern, high-launch technology. Stop fixing your slice. Start splitting fairways.",
-    buttonLabel: "Shop the driver",
+    buttonLabel: "Shop clubs",
     eyebrow: "Thunderbird Titanium Driver",
     heading: "Send it like Daly.",
-    href: "/products/men-s-thunderbird-driver",
+    href: "/collections/all",
     image: {
       alt: "Northwestern Thunderbird driver with John Daly's signature, held out by Daly",
       focus: "50% 36%",

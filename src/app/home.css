@@ -392,7 +392,7 @@
   color: var(--fs-fg);
   isolation: isolate;
   overflow: hidden;
-  --fs-pad-y: clamp(48px, 6vw, 88px);
+  --fs-pad-y: clamp(40px, 4.5vw, 72px);
   padding: var(--fs-pad-y) var(--container-gutter);
   position: relative;
 }
@@ -500,7 +500,7 @@
     align-items: stretch;
     gap: clamp(56px, 7vw, 128px);
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr);
-    min-height: clamp(520px, 42vw, 720px);
+    min-height: clamp(440px, 33vw, 580px);
   }
   .feature-split__copy { align-self: center; }
   .feature-split__media {
