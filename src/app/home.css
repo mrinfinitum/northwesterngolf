@@ -494,6 +494,12 @@
 @media (min-width: 900px) {
   /* Wider image column; the copy column stays tight. */
   .feature-split__inner { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.35fr); }
+  /* Photo bleeds off the right edge of the viewport; copy keeps the left margin. */
+  .feature-split__media {
+    aspect-ratio: 16 / 11;
+    margin-right: calc(-1 * (var(--container-gutter) + max(0px, (100vw - 2 * var(--container-gutter) - 1320px) / 2)));
+    width: auto;
+  }
 }
 
 @supports (animation-timeline: view()) {
