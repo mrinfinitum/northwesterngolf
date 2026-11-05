@@ -41,7 +41,7 @@ export function PdpPressScroller({ section }: { section: PressScrollerSection })
             <img alt="" height={3000} loading="lazy" src={item.image} width={3000} />
             <div className="nwg-pdp-press__content">
               <span className="nwg-pdp-press__counter">{counter(index)}</span>
-              <h3>{item.quote}</h3>
+              <p className="nwg-pdp-press__quote">{item.quote}</p>
             </div>
           </div>
         ))}
@@ -58,7 +58,7 @@ export function PdpPressScroller({ section }: { section: PressScrollerSection })
               }}
             >
               <span className="nwg-pdp-press__counter">{counter(index)}</span>
-              <h3>{item.quote}</h3>
+              <p className="nwg-pdp-press__quote">{item.quote}</p>
             </div>
           ))}
         </div>

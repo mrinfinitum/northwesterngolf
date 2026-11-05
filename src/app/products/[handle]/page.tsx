@@ -7,7 +7,7 @@ import { ProductMain } from "@/components/product/ProductMain";
 import { getProductPageContent } from "@/lib/product-content";
 import { getProduct } from "@/lib/shopify";
 import { isRetailCartEnabled } from "@/lib/shopify/commerce-boundary";
-import { metadataTitle } from "@/lib/seo";
+import { metadataTitle, openGraphBase } from "@/lib/seo";
 import "./product-page.css";
 
 type ProductPageProps = {
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Pick<ProductPageProps, "param
     title: metadataTitle(title),
     description,
     alternates: { canonical: `/products/${product.handle}` },
-    openGraph: { description, images, title, type: "website", url: `/products/${product.handle}` },
+    openGraph: { ...openGraphBase, description, images, title, url: `/products/${product.handle}` },
     twitter: { card: "summary_large_image", description, images: images.map((image) => image.url), title },
   };
 }

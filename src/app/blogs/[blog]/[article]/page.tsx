@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getArticle } from "@/lib/shopify";
-import { metadataTitle } from "@/lib/seo";
+import { metadataTitle, openGraphBase } from "@/lib/seo";
 import "../../blogs.css";
 
 type ArticlePageProps = { params: Promise<{ article: string; blog: string }> };
@@ -20,6 +20,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     description,
     alternates: { canonical: url },
     openGraph: {
+      ...openGraphBase,
       description,
       images: article.image ? [article.image.url] : undefined,
       title,

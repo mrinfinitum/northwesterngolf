@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { openGraphBase } from "@/lib/seo";
 import Image from "next/image";
 import { FeaturedCollection } from "@/components/content/FeaturedCollection";
 import { Hero } from "@/components/content/Hero";
@@ -6,6 +8,11 @@ import { Testimonials } from "@/components/content/Testimonials";
 import { homepageContent } from "@/config/site";
 import { getCollection, getProducts, type Product } from "@/lib/shopify";
 import "./home.css";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: { ...openGraphBase, url: "/" },
+};
 
 async function getFeaturedProducts(): Promise<Product[]> {
   const { collection, limit } = homepageContent.featured;

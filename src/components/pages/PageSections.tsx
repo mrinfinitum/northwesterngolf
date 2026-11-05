@@ -149,9 +149,20 @@ function Section({ contactPosted, first, section }: { contactPosted: boolean; fi
   }
 }
 
-export function PageSections({ contactPosted = false, sections }: { contactPosted?: boolean; sections: PageSection[] }) {
+export function PageSections({
+  contactPosted = false,
+  sections,
+  title,
+}: {
+  contactPosted?: boolean;
+  sections: PageSection[];
+  title: string;
+}) {
+  // Banner sections render the page H1; image-led landing pages need a hidden one.
+  const hasHeading = sections.some((section) => section.type === "banner");
   return (
     <article className="nwg-page">
+      {hasHeading ? null : <h1 className="nwg-visually-hidden">{title}</h1>}
       {sections.map((section, index) => <Section contactPosted={contactPosted} first={index === 0} key={index} section={section} />)}
     </article>
   );

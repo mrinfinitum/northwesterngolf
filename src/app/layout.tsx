@@ -22,7 +22,8 @@ export const metadata: Metadata = {
   },
   description:
     "Northwestern Golf creates performance golf equipment priced for the people.",
-  alternates: { canonical: "/" },
+  // No canonical here: it would be inherited by every route that doesn't set
+  // its own (cart, 404s), pointing them all at the homepage.
   openGraph: {
     locale: "en_US",
     siteName: "Northwestern Golf",

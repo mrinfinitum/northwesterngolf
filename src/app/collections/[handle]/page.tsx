@@ -15,7 +15,7 @@ import {
   type CollectionSortKey,
   type ProductSortKey,
 } from "@/lib/shopify/listing";
-import { metadataTitle } from "@/lib/seo";
+import { metadataTitle, openGraphBase } from "@/lib/seo";
 import "../collection.css";
 
 type CollectionPageProps = {
@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
     return {
       title: metadataTitle(allProductsCollection.title),
       alternates: { canonical: "/collections/all" },
-      openGraph: { title: allProductsCollection.title, url: "/collections/all" },
+      openGraph: { ...openGraphBase, title: allProductsCollection.title, url: "/collections/all" },
     };
   }
   const collection = await getCollectionListing(handle, DEFAULT_COLLECTION_QUERY);
@@ -67,7 +67,7 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
     title: metadataTitle(title),
     description,
     alternates: { canonical: `/collections/${collection.handle}` },
-    openGraph: { description, title, url: `/collections/${collection.handle}` },
+    openGraph: { ...openGraphBase, description, title, url: `/collections/${collection.handle}` },
   };
 }
 

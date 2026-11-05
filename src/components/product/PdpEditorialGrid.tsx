@@ -10,7 +10,7 @@ export function PdpEditorialGrid({ section }: { section: EditorialGridSection })
             <div className="nwg-pdp-editorial__media">
               <img alt="" loading="lazy" src={column.image} />
             </div>
-            <h3 className="nwg-pdp-editorial__heading">{column.heading}</h3>
+            <h2 className="nwg-pdp-editorial__heading">{column.heading}</h2>
             <div className="nwg-pdp-editorial__body" dangerouslySetInnerHTML={{ __html: column.bodyHtml }} />
           </div>
         ))}

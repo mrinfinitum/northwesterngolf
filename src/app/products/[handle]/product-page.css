@@ -652,7 +652,7 @@
 /* ---------------------------------------------------------------- press scroller */
 
 .nwg-pdp-press { padding: 0 var(--pdp-gutter) var(--pdp-section-space); }
-.nwg-pdp-press h3 {
+.nwg-pdp-press__quote {
   font-size: 24px;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -685,7 +685,7 @@
     margin-inline: auto;
     max-width: 1210px;
   }
-  .nwg-pdp-press h3 { font-size: 36px; }
+  .nwg-pdp-press__quote { font-size: 36px; }
   .nwg-pdp-press__counter { gap: 24px; }
   .nwg-pdp-press__counter::before { width: 40px; }
   .nwg-pdp-press__list { display: grid; grid-auto-rows: var(--press-media); }

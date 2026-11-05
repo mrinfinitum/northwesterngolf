@@ -45,7 +45,7 @@ export function ContactSection({ posted, section }: { posted: boolean; section: 
         </div>
         <div className="nwg-page-contact__content">
           <div className="nwg-page-contact__info">
-            <h4 className="nwg-page-contact__small-title">{section.smallTitle}</h4>
+            <p className="nwg-page-contact__small-title">{section.smallTitle}</p>
             <div className="nwg-page-contact__item">
               <p className="nwg-page-contact__label nwg-page-contact__label--address"><PinIcon />Address</p>
               <p className="nwg-page-contact__text">

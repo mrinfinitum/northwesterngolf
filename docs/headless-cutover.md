@@ -57,15 +57,15 @@ Do these in order; each step is reversible until step 4.
 Check from outside the local network (its router intercepts DNS); digwebinterface.com
 can query `mario.ns.cloudflare.com` directly.
 
-- `https://northwestern.golf` and `www` serve the Vercel build (header
-  `server: Vercel`); `www` redirects to the apex.
+- `https://www.northwestern.golf` serves the Vercel build (header
+  `server: Vercel`); the apex 308s to `www` (path kept).
 - Every URL in the old sitemap returns 200, unknown handles return 404.
 - Add to cart → `/cart` → checkout lands on `checkout.northwestern.golf`
   with the same prices and variants.
 - `/account` reaches Shopify customer login.
 - MX, SPF, DMARC, DKIM (Shopify Email `dcn`/`dcn2`, Mandrill, SMTP2GO,
   Mailgun) are unchanged; send a test email.
-- Search Console: submit `https://northwestern.golf/sitemap.xml`.
+- Search Console: submit `https://www.northwestern.golf/sitemap.xml`.
 
 ## Rollback
 
@@ -79,4 +79,15 @@ set `northwestern.golf` back as Shopify's primary domain.
 - `/account` → `https://account.northwestern.golf/`.
 - Add to cart → checkout on `northwestern.golf` reaches Shopify checkout (Shop Pay).
 - MX (ppe-hosted), SPF and DMARC are unchanged.
-- Still to do: submit `https://northwestern.golf/sitemap.xml` in Search Console; send a test email; delete the "ZZ Headless Cart Test" product.
+- Still to do: submit `https://www.northwestern.golf/sitemap.xml` in Search Console; send a test email; delete the "ZZ Headless Cart Test" product.
+
+## www as the canonical origin (November 4, 2026)
+
+- Vercel: `www.northwestern.golf` is the Production domain; `northwestern.golf`
+  308s to it (path kept). DNS is unchanged.
+- Code: `siteUrl` in `src/config/site.ts` drives `metadataBase`, canonicals,
+  `og:url`, the sitemap, robots and product JSON-LD.
+- SEO pass: one H1 per page (hidden H1 on image-led landing pages; policy
+  bodies keep their own), no inherited homepage canonical on `/cart` or 404s,
+  and every route's `openGraph` spreads `openGraphBase` so `og:site_name` and
+  `og:locale` survive Next's non-merging metadata.
