@@ -4,10 +4,10 @@ import { homepageContent } from "@/config/site";
 
 /** Homepage product feature: copy on the left, framed image on the right. */
 export function FeatureSplit() {
-  const { body, buttonLabel, eyebrow, heading, href, image, specs, subheading } = homepageContent.campaign;
+  const { body, buttonLabel, eyebrow, heading, href, image, specs, subheading, theme } = homepageContent.campaign;
 
   return (
-    <section className="feature-split">
+    <section className={`feature-split${theme === "light" ? " feature-split--light" : ""}`}>
       <div className="feature-split__inner">
         <div className="feature-split__copy">
           <p className="feature-split__eyebrow">{eyebrow}</p>
@@ -24,7 +24,7 @@ export function FeatureSplit() {
             alt={image.alt}
             className="feature-split__image"
             fill
-            sizes="(max-width: 899px) 100vw, 46vw"
+            sizes="(max-width: 899px) 100vw, 60vw"
             src={image.src}
             style={{ objectPosition: image.focus }}
           />

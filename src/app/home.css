@@ -377,8 +377,28 @@
 
 /* ---------- Feature split (copy left, framed image right, on ink) ---------- */
 
-.feature-split { background: #111; color: var(--color-white); overflow: hidden; padding: clamp(64px, 9vw, 128px) var(--container-gutter); }
-.feature-split__inner { align-items: center; display: grid; gap: clamp(40px, 6vw, 96px); margin-inline: auto; max-width: 1200px; }
+.feature-split {
+  --fs-bg: #111;
+  --fs-fg: var(--color-white);
+  --fs-muted: rgb(255 255 255 / 72%);
+  --fs-rule: rgb(255 255 255 / 18%);
+  --fs-cta-bg: var(--color-white);
+  --fs-cta-fg: var(--color-ink);
+  background: var(--fs-bg);
+  color: var(--fs-fg);
+  overflow: hidden;
+  padding: clamp(48px, 6vw, 88px) var(--container-gutter);
+}
+/* Light option (campaign.theme = "light" in site config). */
+.feature-split--light {
+  --fs-bg: #f3f3f1;
+  --fs-fg: var(--color-ink);
+  --fs-muted: var(--color-ink-subdued);
+  --fs-rule: rgb(26 26 26 / 14%);
+  --fs-cta-bg: var(--color-ink);
+  --fs-cta-fg: var(--color-white);
+}
+.feature-split__inner { align-items: center; display: grid; gap: clamp(32px, 4.5vw, 72px); margin-inline: auto; max-width: 1320px; }
 .feature-split__eyebrow,
 .feature-split__cta,
 .feature-split__specs li {
@@ -390,26 +410,26 @@
 }
 .feature-split__eyebrow { color: var(--color-campaign); margin: 0; }
 .feature-split__heading {
-  font-size: clamp(2.75rem, 5.6vw, 5rem);
+  font-size: clamp(2.25rem, 4.2vw, 3.75rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 0.92;
-  margin: 18px 0 0;
+  margin: 14px 0 0;
   text-transform: uppercase;
 }
-.feature-split__subheading { font-size: clamp(1.125rem, 1.6vw, 1.375rem); font-weight: 700; letter-spacing: 0.02em; margin: 20px 0 0; text-transform: uppercase; }
-.feature-split__body { color: rgb(255 255 255 / 72%); font-size: 1.0625rem; line-height: 1.6; margin: 18px 0 0; max-width: 46ch; }
-.feature-split__specs { border-top: 1px solid rgb(255 255 255 / 18%); list-style: none; margin: 32px 0 0; max-width: 460px; padding: 0; }
-.feature-split__specs li { align-items: center; border-bottom: 1px solid rgb(255 255 255 / 18%); display: flex; gap: 14px; padding: 14px 0; }
-.feature-split__specs li::before { background: var(--color-campaign); content: ""; height: 6px; width: 6px; }
+.feature-split__subheading { font-size: clamp(1rem, 1.3vw, 1.1875rem); font-weight: 700; letter-spacing: 0.02em; margin: 14px 0 0; text-transform: uppercase; }
+.feature-split__body { color: var(--fs-muted); font-size: 1rem; line-height: 1.6; margin: 12px 0 0; max-width: 44ch; }
+.feature-split__specs { border-top: 1px solid var(--fs-rule); list-style: none; margin: 22px 0 0; max-width: 440px; padding: 0; }
+.feature-split__specs li { align-items: center; border-bottom: 1px solid var(--fs-rule); display: flex; gap: 14px; padding: 11px 0; }
+.feature-split__specs li::before { background: var(--color-campaign); content: ""; flex: none; height: 6px; width: 6px; }
 .feature-split__cta {
   align-items: center;
-  background: var(--color-white);
-  color: var(--color-ink);
+  background: var(--fs-cta-bg);
+  color: var(--fs-cta-fg);
   display: inline-flex;
   gap: 14px;
-  margin-top: 36px;
-  padding: 18px 30px;
+  margin-top: 26px;
+  padding: 16px 28px;
   transition: background-color 200ms ease, color 200ms ease;
 }
 .feature-split__cta::after {
@@ -423,15 +443,15 @@
 .feature-split__cta:hover { background: var(--color-campaign); color: var(--color-white); }
 .feature-split__cta:hover::after { transform: translateX(4px); }
 
-.feature-split__media { aspect-ratio: 4 / 5; overflow: hidden; position: relative; width: 100%; }
+.feature-split__media { aspect-ratio: 4 / 3; overflow: hidden; position: relative; width: 100%; }
 .feature-split__image { object-fit: cover; }
 
 @media (max-width: 899px) {
-  /* Image first on small screens, cropped wider so it doesn't dominate. */
-  .feature-split__media { aspect-ratio: 4 / 3; order: -1; }
+  .feature-split__media { order: -1; }
 }
 @media (min-width: 900px) {
-  .feature-split__inner { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+  /* Wider image column; the copy column stays tight. */
+  .feature-split__inner { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.35fr); }
 }
 
 @supports (animation-timeline: view()) {

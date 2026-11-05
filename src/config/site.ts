@@ -169,13 +169,13 @@ export const homepageContent = {
   },
   featured: {
     collection: "mens-collection",
-    heading: "Most Wanted",
+    heading: "Full Collection",
     href: "/collections/mens-collection",
     linkLabel: "View all",
     limit: 6,
   },
   // Split feature: copy on the left, framed image on the right. Swap the
-  // photo by changing `image` (any aspect; it is cropped to 4:5 from `focus`).
+  // photo by changing `image` (any aspect; it is cropped to 4:3 around `focus`).
   // Copy is from the Men's Thunderbird Driver product page.
   campaign: {
     body: "Engineered to help you hit the longest, straightest drives of your life. A classic shape with modern, high-launch technology. Stop fixing your slice. Start splitting fairways.",
@@ -184,14 +184,16 @@ export const homepageContent = {
     heading: "Send it like Daly.",
     href: "/products/men-s-thunderbird-driver",
     image: {
-      alt: "John Daly with the Northwestern Thunderbird titanium driver",
-      focus: "38% 50%",
-      height: 1000,
-      src: "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/daly-swing-closeup-m2.jpg?v=1765076356",
-      width: 1329,
+      alt: "Northwestern Thunderbird driver with John Daly's signature, held out by Daly",
+      focus: "50% 36%",
+      height: 2400,
+      src: "/images/daly-driver.jpg",
+      width: 1600,
     },
     specs: ["Aerospace-grade titanium face", "Deep, low CG for high launch", "Speedflex shaft"],
     subheading: "Unleash the thunder.",
+    /** "dark" (ink) or "light" (warm grey). */
+    theme: "dark" as "dark" | "light",
   },
   // Every claim here is sourced from existing site copy (Our Story, the
   // Wedges page, and the PDP returns/warranty blocks).
