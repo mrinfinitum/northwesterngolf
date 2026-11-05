@@ -1,3 +1,6 @@
+/** Canonical storefront origin (no trailing slash). The apex redirects here. */
+export const siteUrl = "https://www.northwestern.golf";
+
 export type NavigationLink = { href: string; label: string };
 
 /** A top-level navigation entry. `href` is absent for Shopify `#` placeholder links. */
@@ -140,7 +143,7 @@ export const homepageContent = {
     heading: "THE LEGACY LIVES ON.",
     href: "/collections/all",
     video:
-      "https://northwestern.golf/cdn/shop/videos/c/vp/2d3f1e1bc08d494f99ff915b5c39bb09/2d3f1e1bc08d494f99ff915b5c39bb09.HD-1080p-4.8Mbps-64572144.mp4?v=0",
+      "https://cdn.shopify.com/videos/c/vp/2d3f1e1bc08d494f99ff915b5c39bb09/2d3f1e1bc08d494f99ff915b5c39bb09.HD-1080p-4.8Mbps-64572144.mp4",
   },
   partnership: {
     body: "Built for performance, priced for the people.",
