@@ -22,9 +22,9 @@ Status: **PREPARED — NOT EXECUTED**
    `dev.northwestern.golf` was verified for this project on November 4 by
    replacing another Vercel account's `_vercel` TXT record. Expect the apex
    and `www` to need their own `_vercel` TXT verification at step 3.
-2. **Wholesale Gorilla** decision: its `/pages/ws-*` UI only runs inside the
-   Shopify theme. Either keep wholesale on a Shopify-hosted subdomain or
-   accept that it stops working at cutover.
+2. ~~**Wholesale Gorilla**~~ — not in use (decided November 4, 2026). Its
+   `/pages/ws-*` pages stay `noindex` on the headless site; the app and those
+   pages can be removed from Shopify whenever convenient.
 3. **Contact form** posts to the Online Store `/contact` endpoint; keep the
    Online Store channel enabled (it also hosts checkout and Shopify Email).
 
@@ -32,7 +32,7 @@ Status: **PREPARED — NOT EXECUTED**
 
 Do these in order; each step is reversible until step 4.
 
-1. **Checkout domain.** In Cloudflare add `CNAME checkout →
+1. ✅ **Checkout domain** (done November 4, 2026: CNAME added, connected in Shopify, TLS issued). In Cloudflare add `CNAME checkout →
    shops.myshopify.com` (DNS only). In Shopify Admin → Settings → Domains,
    connect `checkout.northwestern.golf` and wait for its SSL certificate.
 2. **Customer accounts domain** (optional, recommended). Add `CNAME account →
