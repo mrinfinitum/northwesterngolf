@@ -3,6 +3,7 @@ import { openGraphBase } from "@/lib/seo";
 import Image from "next/image";
 import { ClubSlider, type ClubSlide } from "@/components/content/ClubSlider";
 import { formatMoney } from "@/components/commerce/Money";
+import { FeatureSplit } from "@/components/content/FeatureSplit";
 import { Hero } from "@/components/content/Hero";
 import { ImageOverlay } from "@/components/content/ImageOverlay";
 import { ProofPoints } from "@/components/content/ProofPoints";
@@ -60,7 +61,7 @@ function toSlide(product: Product): ClubSlide {
 
 export default async function Home() {
   const products = await getFeaturedProducts();
-  const { campaign, featured, partnership } = homepageContent;
+  const { featured, partnership } = homepageContent;
 
   return (
     <div className="home-page">
@@ -89,17 +90,7 @@ export default async function Home() {
         </div>
       </ImageOverlay>
       <ProofPoints />
-      <ImageOverlay
-        buttonLabel={campaign.buttonLabel}
-        className="image-banner--campaign"
-        href={campaign.href}
-        image={campaign.image}
-        imageSize={campaign.imageSize}
-        mobileImage={campaign.mobileImage}
-        mobileImageSize={campaign.mobileImageSize}
-      >
-        <h2 className="image-banner__title">{campaign.heading}</h2>
-      </ImageOverlay>
+      <FeatureSplit />
       <Testimonials />
     </div>
   );
