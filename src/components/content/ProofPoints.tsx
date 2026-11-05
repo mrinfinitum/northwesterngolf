@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { LOGO_URL } from "@/components/layout/Logo";
 import { homepageContent } from "@/config/site";
 
 /** Brand statement with three heritage milestones (homepage, between banners). */
@@ -9,6 +11,7 @@ export function ProofPoints() {
     <section className="proof">
       <div className="proof__inner">
         <div className="proof__intro">
+          <Image alt="Northwestern Golf" className="proof__logo" height={37} src={LOGO_URL} unoptimized width={426} />
           <p className="proof__eyebrow">{eyebrow}</p>
           <h2 className="proof__heading">{heading}</h2>
           <p className="proof__body">{body}</p>
