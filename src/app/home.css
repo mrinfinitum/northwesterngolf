@@ -386,8 +386,33 @@
   --fs-cta-fg: var(--color-ink);
   background: var(--fs-bg);
   color: var(--fs-fg);
+  isolation: isolate;
   overflow: hidden;
   padding: clamp(48px, 6vw, 88px) var(--container-gutter);
+  position: relative;
+}
+/*
+ * Drip texture traced from the John Daly box: a faint tone-on-tone stain hanging
+ * from the top edge across the full section, fading out into the background.
+ */
+.feature-split::before {
+  aspect-ratio: 1240 / 800;
+  background: linear-gradient(180deg, rgb(255 255 255 / 7%), rgb(255 255 255 / 3%) 45%, rgb(255 255 255 / 0) 90%);
+  content: "";
+  left: 0;
+  mask:
+    url("/images/paint-splash.svg") top center / 100% 100% no-repeat,
+    linear-gradient(#000, #000);
+  mask-composite: intersect;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+.feature-split--light::before { background: linear-gradient(180deg, rgb(26 26 26 / 6%), rgb(26 26 26 / 0) 90%); }
+@media (max-width: 899px) {
+  .feature-split::before { left: 50%; translate: -50% 0; width: 180%; }
 }
 /* Light option (campaign.theme = "light" in site config). */
 .feature-split--light {
@@ -459,6 +484,7 @@
     .feature-split__image { animation: partnership-settle linear both; animation-range: entry 0% exit 0%; animation-timeline: view(); }
   }
 }
+
 
 /* ---------- Reviews (store-authored "review card scroller" section) ---------- */
 
