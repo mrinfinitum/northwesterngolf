@@ -26,6 +26,19 @@ async function getFeaturedProducts(): Promise<Product[]> {
   }
 }
 
+/** Tags that describe audience or channel rather than the club itself. */
+const NON_CATEGORY_TAGS = new Set(["men", "women", "senior", "seniors", "retail", "wholesale"]);
+const SERIES = ["Talon SS", "Thunderbird"];
+
+/** "Thunderbird · Irons" from tags like ["Irons", "Men", "Thunderbird"]. */
+function clubEyebrow(tags: string[]) {
+  const series = SERIES.find((name) => tags.some((tag) => tag.toLowerCase() === name.toLowerCase()));
+  const category = tags.find(
+    (tag) => !NON_CATEGORY_TAGS.has(tag.toLowerCase()) && !SERIES.some((name) => name.toLowerCase() === tag.toLowerCase()),
+  );
+  return [series, category].filter(Boolean).join(" · ") || undefined;
+}
+
 function toSlide(product: Product): ClubSlide {
   const image = product.featuredImage ?? product.images[0];
   const price = product.priceRange.minVariantPrice;
@@ -33,6 +46,7 @@ function toSlide(product: Product): ClubSlide {
   const priceVaries = Number(product.priceRange.maxVariantPrice.amount) > Number(price.amount);
   return {
     compareAtPrice: Number(compareAt.amount) > Number(price.amount) ? formatMoney(compareAt) : undefined,
+    eyebrow: clubEyebrow(product.tags),
     handle: product.handle,
     image: image
       ? { alt: image.altText || product.title, height: image.height ?? 1000, url: image.url, width: image.width ?? 1000 }
@@ -51,7 +65,7 @@ export default async function Home() {
     <div className="home-page">
       <Hero />
       {products.length ? (
-        <ClubSlider eyebrow={featured.heading} href={featured.href} linkLabel={featured.linkLabel} slides={products.map(toSlide)} />
+        <ClubSlider heading={featured.heading} href={featured.href} linkLabel={featured.linkLabel} slides={products.map(toSlide)} />
       ) : null}
       <ImageOverlay
         buttonLabel={partnership.buttonLabel}
