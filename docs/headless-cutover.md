@@ -43,7 +43,7 @@ Do these in order; each step is reversible until step 4.
 3. ✅ **Vercel domains** (done November 4, 2026: `northwestern.golf` on Production, `www` as a 308 redirect to the apex; no TXT verification was needed. Vercel wants `CNAME @ → f685364ff4673557.vercel-dns-017.com` and `CNAME www → f685364ff4673557.vercel-dns-017.com`, both DNS only, for step 5). Add `northwestern.golf` and `www.northwestern.golf` to
    the Vercel project (as `dev.northwestern.golf` already is). Vercel shows
    the exact DNS values to use; don't change DNS yet.
-4. **Switch Shopify's primary domain** to `checkout.northwestern.golf`
+4. ✅ **Switch Shopify's primary domain** (done November 4, 2026; the live theme now 301s the apex and `www` to `checkout.northwestern.golf`, and headless checkout still hands off to Shopify). to `checkout.northwestern.golf`
    (Settings → Domains → Change primary). Cart `checkoutUrl`s then use that
    host; `src/app/cart/actions.ts` already allows any `*.northwestern.golf`
    host plus `r1kikk-am.myshopify.com`.
