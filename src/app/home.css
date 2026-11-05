@@ -209,6 +209,10 @@
     .image-banner--partnership .image-banner__button { animation-range: entry 55% entry 100%; }
   }
 }
+@keyframes tag-write {
+  from { clip-path: inset(-20% 100% -20% -5%); }
+  to { clip-path: inset(-20% -5% -20% -5%); }
+}
 @keyframes partnership-settle {
   from { transform: scale(1.12); }
   to { transform: scale(1); }
@@ -442,6 +446,19 @@
   margin: 14px 0 0;
   text-transform: uppercase;
 }
+.feature-split__heading { position: relative; width: fit-content; }
+.feature-split__tag {
+  aspect-ratio: 3140 / 1311;
+  background: var(--color-campaign);
+  mask: url("/images/daly-signature.svg") center / contain no-repeat;
+  pointer-events: none;
+  position: absolute;
+  right: -8%;
+  rotate: -5deg;
+  top: 58%;
+  width: 52%;
+}
+.feature-split__heading + .feature-split__subheading { margin-top: clamp(44px, 4.6vw, 64px); }
 .feature-split__subheading { font-size: clamp(1rem, 1.3vw, 1.1875rem); font-weight: 700; letter-spacing: 0.02em; margin: 14px 0 0; text-transform: uppercase; }
 .feature-split__body { color: var(--fs-muted); font-size: 1rem; line-height: 1.6; margin: 12px 0 0; max-width: 44ch; }
 .feature-split__specs { border-top: 1px solid var(--fs-rule); list-style: none; margin: 22px 0 0; max-width: 440px; padding: 0; }
@@ -482,6 +499,8 @@
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .feature-split__image { animation: partnership-settle linear both; animation-range: entry 0% exit 0%; animation-timeline: view(); }
+    /* The signature writes on, left to right. */
+    .feature-split__tag { animation: tag-write linear both; animation-range: entry 60% cover 40%; animation-timeline: view(); }
   }
 }
 

@@ -11,7 +11,11 @@ export function FeatureSplit() {
       <div className="feature-split__inner">
         <div className="feature-split__copy">
           <p className="feature-split__eyebrow">{eyebrow}</p>
-          <h2 className="feature-split__heading">{heading}</h2>
+          <h2 className="feature-split__heading">
+            {heading}
+            {/* Daly's signature (Logos/John Daly Signature.ai), tagged across the headline. */}
+            <span aria-hidden="true" className="feature-split__tag" />
+          </h2>
           <p className="feature-split__subheading">{subheading}</p>
           <p className="feature-split__body">{body}</p>
           <ul className="feature-split__specs">
