@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Barlow } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { siteUrl } from "@/config/site";
 import "./globals.css";
 
 const barlow = Barlow({
@@ -14,7 +15,7 @@ const barlow = Barlow({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://northwestern.golf"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Northwestern Golf",
     template: "%s | Northwestern Golf",

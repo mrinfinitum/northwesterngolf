@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { noindexPageHandles } from "@/config/site";
+import { noindexPageHandles, siteUrl } from "@/config/site";
 import {
   getCollections,
   getContentIndex,
@@ -7,7 +7,7 @@ import {
   isShopifyConfigured,
 } from "@/lib/shopify";
 
-const SITE = "https://northwestern.golf";
+const SITE = siteUrl;
 
 const staticRoutes: MetadataRoute.Sitemap = [
   { changeFrequency: "weekly", priority: 1, url: SITE },

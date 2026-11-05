@@ -1,6 +1,7 @@
 import "server-only";
 
 import { cache } from "react";
+import { siteUrl } from "@/config/site";
 import { ARTICLE_QUERY, BLOG_QUERY, CONTENT_INDEX_QUERY } from "./queries/blog";
 import { COLLECTION_QUERY } from "./queries/collection";
 import { COLLECTIONS_QUERY } from "./queries/collections";
@@ -311,5 +312,5 @@ export async function getContentIndex(): Promise<ShopifyContentIndex> {
 }
 
 export function getSiteUrl() {
-  return (process.env.SITE_URL || "https://northwestern.golf").replace(/\/$/, "");
+  return (process.env.SITE_URL || siteUrl).replace(/\/$/, "");
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProductPageScrollReset } from "@/components/commerce/ProductPageScrollReset";
 import { PdpSections } from "@/components/product/PdpSections";
+import { siteUrl } from "@/config/site";
 import { ProductMain } from "@/components/product/ProductMain";
 import { getProductPageContent } from "@/lib/product-content";
 import { getProduct } from "@/lib/shopify";
@@ -55,10 +56,10 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
       availability: firstVariant.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       price: firstVariant.price.amount,
       priceCurrency: firstVariant.price.currencyCode,
-      url: `https://northwestern.golf/products/${product.handle}`,
+      url: `${siteUrl}/products/${product.handle}`,
     } : undefined,
     sku: firstVariant?.sku || undefined,
-    url: `https://northwestern.golf/products/${product.handle}`,
+    url: `${siteUrl}/products/${product.handle}`,
   };
 
   return (

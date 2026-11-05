@@ -12,6 +12,7 @@ import { getMenu, type ShopifyMenuItem } from ".";
 const STORE_HOSTS = new Set([
   "northwestern.golf",
   "www.northwestern.golf",
+  "checkout.northwestern.golf",
   "r1kikk-am.myshopify.com",
 ]);
 
