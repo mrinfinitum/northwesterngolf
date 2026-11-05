@@ -333,6 +333,7 @@
   line-height: 0.92;
   margin: 18px 0 0;
   text-transform: uppercase;
+  text-wrap: balance;
 }
 .proof__body { color: var(--color-ink-subdued); font-size: 1.0625rem; line-height: 1.6; margin: 24px 0 0; max-width: 34ch; }
 .proof__link { align-items: center; display: inline-flex; gap: 12px; margin-top: 28px; }
@@ -346,46 +347,48 @@
 }
 .proof__link:hover::after { transform: translateX(4px); }
 
-.proof__list { border-top: 1px solid var(--color-ink); counter-reset: proof; list-style: none; margin: 0; padding: 0; }
-.proof__item {
-  align-items: baseline;
-  border-bottom: 1px solid var(--color-rule);
-  display: grid;
-  gap: 8px 28px;
-  grid-template-columns: minmax(0, 1fr);
-  padding: 24px 0;
-}
+.proof__list { counter-reset: proof; display: grid; list-style: none; margin: 0; padding: 0; }
+.proof__item { border-top: 1px solid var(--color-ink); }
 .proof__value {
-  font-size: clamp(3rem, 7vw, 5rem);
   font-variant-numeric: tabular-nums;
   font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 0.9;
+  letter-spacing: -0.045em;
+  line-height: 0.82;
   margin: 0;
 }
-.proof__unit { font-size: 0.32em; letter-spacing: 0.08em; margin-left: 0.35em; text-transform: uppercase; vertical-align: 0.9em; }
 .proof__label { color: var(--color-campaign); }
 .proof__label::before { color: var(--color-muted); content: counter(proof, decimal-leading-zero) "\2002"; counter-increment: proof; }
-.proof__text { color: var(--color-ink-subdued); font-size: 0.9375rem; line-height: 1.55; margin: 6px 0 0; max-width: 40ch; }
+.proof__text { color: var(--color-ink-subdued); font-size: 0.9375rem; line-height: 1.55; margin: 8px 0 0; max-width: 32ch; }
 
+/* Phones: a tight timeline, year left and copy right. */
 @media (max-width: 699px) {
-  /* 2 x 2 on phones: half the scroll of four stacked rows. */
-  .proof { padding-block: 44px; }
+  .proof { padding-block: 48px; }
   .proof__inner { gap: 28px; }
   .proof__heading { font-size: 2.125rem; margin-top: 10px; text-wrap: balance; }
   .proof__body { font-size: 0.9375rem; line-height: 1.55; margin-top: 12px; }
   .proof__link { margin-top: 16px; }
-  .proof__list { column-gap: 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .proof__item { align-content: start; gap: 6px; padding: 16px 0; }
-  .proof__value { font-size: 2.25rem; }
+  .proof__list { border-bottom: 1px solid var(--color-rule); }
+  .proof__item { align-items: start; column-gap: 18px; display: grid; grid-template-columns: 5.25rem minmax(0, 1fr); padding: 16px 0; }
+  .proof__item + .proof__item { border-top-color: var(--color-rule); }
+  .proof__value { font-size: 2.125rem; }
   .proof__label { font-size: 0.6875rem; letter-spacing: 0.12em; }
-  .proof__text { font-size: 0.8125rem; line-height: 1.45; margin-top: 2px; }
+  .proof__text { font-size: 0.8125rem; line-height: 1.45; margin-top: 4px; }
 }
+/* Tablet and up: three milestones in a row, big years. */
 @media (min-width: 700px) {
-  .proof__item { align-items: center; grid-template-columns: minmax(160px, 0.8fr) minmax(0, 1fr); padding: 28px 0; }
+  .proof__list { gap: clamp(24px, 4vw, 56px); grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .proof__item { display: flex; flex-direction: column; padding-top: clamp(18px, 2.2vw, 28px); }
+  .proof__value { font-size: clamp(3.5rem, 9vw, 8rem); }
+  .proof__copy { margin-top: clamp(16px, 2vw, 28px); }
 }
+/* Desktop: heading left, body right, milestones full width underneath. */
 @media (min-width: 1000px) {
-  .proof__inner { align-items: start; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+  .proof__inner { gap: clamp(56px, 6vw, 88px); }
+  .proof__intro { align-items: end; column-gap: clamp(40px, 6vw, 96px); display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .proof__eyebrow, .proof__heading { grid-column: 1; }
+  .proof__heading { grid-row: 2 / span 2; max-width: 12em; }
+  .proof__body { align-self: end; grid-column: 2; grid-row: 2; margin-top: 0; }
+  .proof__link { grid-column: 2; grid-row: 3; justify-self: start; margin-top: 20px; }
 }
 
 @supports (animation-timeline: view()) {
