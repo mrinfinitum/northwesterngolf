@@ -3,7 +3,10 @@
 /* ---------- Video hero (store-authored custom HTML section) ---------- */
 
 .home-hero { background: #000; color: var(--color-white); height: 100vh; overflow: hidden; position: relative; }
+.home-hero__poster,
 .home-hero__video { height: calc(100% + 2px); left: 0; object-fit: cover; position: absolute; top: -1px; width: 100%; z-index: 1; }
+.home-hero__video { opacity: 0; transition: opacity 0.4s ease; }
+.home-hero__video.is-playing { opacity: 1; }
 .home-hero__content { left: 50%; position: absolute; text-align: center; top: 50%; transform: translate(-50%, -50%); z-index: 2; }
 .home-hero h1 { font-size: 3.2rem; font-weight: 700; line-height: 1.6; margin: 0; }
 .home-hero__button {

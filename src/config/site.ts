@@ -142,8 +142,16 @@ export const homepageContent = {
     buttonLabel: "SHOP NOW",
     heading: "THE LEGACY LIVES ON.",
     href: "/collections/all",
-    video:
-      "https://cdn.shopify.com/videos/c/vp/2d3f1e1bc08d494f99ff915b5c39bb09/2d3f1e1bc08d494f99ff915b5c39bb09.HD-1080p-4.8Mbps-64572144.mp4",
+    // Encoded from "Northwestern- WebsiteVideo-Nov26.mp4": H.264, no audio,
+    // faststart. Mobile is a centre crop matching the portrait hero.
+    poster: {
+      desktop: { height: 1080, src: "/video/hero-poster.webp", width: 1920 },
+      mobile: { height: 864, src: "/video/hero-poster-mobile.webp", width: 540 },
+    },
+    video: {
+      desktop: "/video/hero-1080.mp4",
+      mobile: "/video/hero-mobile.mp4",
+    },
   },
   partnership: {
     body: "Built for performance, priced for the people.",
