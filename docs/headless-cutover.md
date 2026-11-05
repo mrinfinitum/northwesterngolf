@@ -16,11 +16,12 @@ Status: **PREPARED — NOT EXECUTED**
 
 ## Blocking prerequisites
 
-1. **Storefront API token** from Shopify's Headless channel, stored in Vercel
-   as `SHOPIFY_STOREFRONT_ACCESS_TOKEN` (server-only). Then run the Phase 3B
-   cart matrix (`docs/build-phase-3b-cart-verification.md`) on
-   `dev.northwestern.golf` with `SHOPIFY_CART_ENABLED=true` and a 32+
-   character `SHOPIFY_CART_COOKIE_SECRET`, and `SHOPIFY_STORE_DOMAIN` set.
+1. ~~**Storefront API token**~~ — done November 4, 2026. Token and cart env
+   vars are in Vercel Production, and the cart test steps pass on
+   `northwesterngolf.vercel.app` (see `docs/build-phase-3b-cart-verification.md`).
+   `dev.northwestern.golf` was verified for this project on November 4 by
+   replacing another Vercel account's `_vercel` TXT record. Expect the apex
+   and `www` to need their own `_vercel` TXT verification at step 3.
 2. **Wholesale Gorilla** decision: its `/pages/ws-*` UI only runs inside the
    Shopify theme. Either keep wholesale on a Shopify-hosted subdomain or
    accept that it stops working at cutover.

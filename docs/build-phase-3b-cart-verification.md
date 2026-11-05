@@ -2,6 +2,49 @@
 
 Date: August 28, 2026
 
+## Rerun — November 4, 2026
+
+**Outcome: ANONYMOUS RETAIL CART VERIFIED** on `northwesterngolf.vercel.app`
+(production deployment `northwesterngolf-ijhrcyrcd`, built after the env vars
+were added).
+
+Setup:
+
+- Installed Shopify's **Headless** channel and created the storefront
+  "Northwestern Golf Headless". The default Storefront API scopes cover
+  everything the code uses (product listings, content, read/write checkouts).
+- Vercel Production now has `SHOPIFY_STOREFRONT_ACCESS_TOKEN` (the **public**
+  token, sent as `X-Shopify-Storefront-Access-Token`), `SHOPIFY_CART_COOKIE_SECRET`
+  (sensitive), `SHOPIFY_CART_ENABLED=true` and `SHOPIFY_STORE_DOMAIN`.
+- Every live product was sold out (on the live Shopify theme too), so a test
+  product "ZZ Headless Cart Test (do not buy)" was created: Size Small $1 /
+  Large $2, inventory not tracked, published **only** to the Headless channel
+  (`/products/zz-headless-cart-test-do-not-buy.js` returns 404 on the live theme).
+
+| Test | Result | Notes |
+| --- | --- | --- |
+| Cart Creation | PASS | Adding Large created a Shopify cart; drawer showed $2.00. |
+| Variants | PASS | Small/Large switch updates the price ($1.00 / $2.00) and the cart line's Size. |
+| Multiple Lines | PASS | Small + Large as separate lines, subtotal $3.00. |
+| Quantity Updates | PASS | Small 1 → 3, line $3.00, subtotal $5.00. |
+| Persistence | PASS | Reloaded `/cart` showed 4 items, $5.00. |
+| Checkout Handoff | PASS | Redirect passed the host allowlist and Shopify forwarded to Shop Pay (`shop.app`). Nothing was entered and no order was placed. |
+| Pricing Consistency | PASS | Checkout total $25.00 = $5.00 cart + $20.00 standard shipping. |
+| Remove | PASS | Removing a line left 1 item, $2.00. |
+| Empty Cart | PASS | Removing the last line shows "Your cart is empty", also after reload. |
+| Cookie / ID exposure | PASS | `nwg_cart` is not readable from `document.cookie`; rendered `/cart` HTML contains no `gid://shopify/Cart/` or cart `?key=`. |
+| Tamper recovery | NOT TESTED | The HttpOnly cookie can't be edited from the page. |
+
+Open issues:
+
+1. ~~`dev.northwestern.golf` served an older deployment from before the token existed.~~ Fixed: another Vercel account
+   held its `_vercel` TXT verification. That record was replaced with this
+   project's, the domain now verifies, and add-to-cart → `/cart` passes on dev.
+2. Delete the test product once dev has been rechecked.
+3. Every real product is sold out on the live store.
+
+## Original run — August 28, 2026
+
 ## Outcome
 
 **NOT READY FOR PREVIEW**
