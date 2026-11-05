@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { openGraphBase } from "@/lib/seo";
 import Image from "next/image";
-import { FeaturedCollection } from "@/components/content/FeaturedCollection";
+import { ClubSlider, type ClubSlide } from "@/components/content/ClubSlider";
+import { formatMoney } from "@/components/commerce/Money";
 import { Hero } from "@/components/content/Hero";
 import { ImageOverlay } from "@/components/content/ImageOverlay";
 import { Testimonials } from "@/components/content/Testimonials";
@@ -25,6 +26,23 @@ async function getFeaturedProducts(): Promise<Product[]> {
   }
 }
 
+function toSlide(product: Product): ClubSlide {
+  const image = product.featuredImage ?? product.images[0];
+  const price = product.priceRange.minVariantPrice;
+  const compareAt = product.compareAtPriceRange.maxVariantPrice;
+  const priceVaries = Number(product.priceRange.maxVariantPrice.amount) > Number(price.amount);
+  return {
+    compareAtPrice: Number(compareAt.amount) > Number(price.amount) ? formatMoney(compareAt) : undefined,
+    handle: product.handle,
+    image: image
+      ? { alt: image.altText || product.title, height: image.height ?? 1000, url: image.url, width: image.width ?? 1000 }
+      : undefined,
+    price: `${priceVaries ? "From " : ""}${formatMoney(price)}`,
+    soldOut: !product.availableForSale,
+    title: product.title,
+  };
+}
+
 export default async function Home() {
   const products = await getFeaturedProducts();
   const { campaign, featured, partnership } = homepageContent;
@@ -32,6 +50,9 @@ export default async function Home() {
   return (
     <div className="home-page">
       <Hero />
+      {products.length ? (
+        <ClubSlider eyebrow={featured.heading} href={featured.href} linkLabel={featured.linkLabel} slides={products.map(toSlide)} />
+      ) : null}
       <ImageOverlay
         buttonLabel={partnership.buttonLabel}
         className="image-banner--partnership"
@@ -52,9 +73,6 @@ export default async function Home() {
           <p className="partnership__body">{partnership.body}</p>
         </div>
       </ImageOverlay>
-      {products.length ? (
-        <FeaturedCollection heading={featured.heading} href={featured.href} linkLabel={featured.linkLabel} products={products} />
-      ) : null}
       <ImageOverlay
         buttonLabel={campaign.buttonLabel}
         className="image-banner--campaign"
