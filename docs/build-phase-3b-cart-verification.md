@@ -41,7 +41,7 @@ Open issues:
    held its `_vercel` TXT verification. That record was replaced with this
    project's, the domain now verifies, and add-to-cart → `/cart` passes on dev.
 2. Delete the test product once dev has been rechecked.
-3. Every real product is sold out on the live store.
+3. Every real product is sold out on the live store. This is intentional (inventory is 0).
 
 ## Original run — August 28, 2026
 
