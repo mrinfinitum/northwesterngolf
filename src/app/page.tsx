@@ -21,8 +21,11 @@ async function getFeaturedProducts(): Promise<Product[]> {
   const { collection, limit } = homepageContent.featured;
   try {
     const featured = await getCollection(collection, { first: limit });
-    if (featured?.products.length) return featured.products;
-    return await getProducts({ first: limit, sortKey: "BEST_SELLING" });
+    const products = featured?.products.length ? featured.products : await getProducts({ first: limit, sortKey: "BEST_SELLING" });
+    // Lowest price first.
+    return [...products].sort(
+      (a, b) => Number(a.priceRange.minVariantPrice.amount) - Number(b.priceRange.minVariantPrice.amount),
+    );
   } catch {
     return [];
   }

@@ -115,7 +115,7 @@ export function ClubSlider({
   }, [slides.length]);
 
   return (
-    <section aria-label={heading} className="club-row" ref={sectionRef}>
+    <section aria-label={heading} className={`club-row${slides.length <= 3 ? " club-row--few" : ""}`} ref={sectionRef}>
       <div className="club-row__header">
         <h2 className="club-row__heading">{heading}</h2>
         <Link className="club-row__all" href={href}>{linkLabel}</Link>
@@ -132,7 +132,7 @@ export function ClubSlider({
                       alt={slide.image.alt}
                       className="club-row__image"
                       height={slide.image.height}
-                      sizes="(max-width: 699px) 72vw, (max-width: 1099px) 33vw, 25vw"
+                      sizes={slides.length <= 3 ? "(max-width: 699px) 80vw, 33vw" : "(max-width: 699px) 72vw, (max-width: 1099px) 33vw, 25vw"}
                       src={slide.image.url}
                       width={slide.image.width}
                     />

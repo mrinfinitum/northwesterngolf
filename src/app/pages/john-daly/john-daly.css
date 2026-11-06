@@ -118,7 +118,7 @@
   text-transform: uppercase;
 }
 .jd-hero__headline > span:not(.jd-sr) { display: block; }
-.jd-hero__signature { margin: -0.4em 0 0 18%; rotate: -5deg; width: clamp(200px, 26vw, 380px); }
+.jd-hero__signature { margin: -0.2em 0 0; rotate: -5deg; transform-origin: left center; width: clamp(200px, 26vw, 380px); }
 .jd-hero__body { color: rgb(255 255 255 / 86%); font-size: clamp(1rem, 1.3vw, 1.1875rem); line-height: 1.55; margin: 18px 0 0; max-width: 40ch; }
 .jd-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 
@@ -127,7 +127,7 @@
   .jd-hero__image { object-position: 46% 50%; }
   .jd-hero::after { background: linear-gradient(0deg, rgb(0 0 0 / 82%) 0%, rgb(0 0 0 / 50%) 45%, rgb(0 0 0 / 10%) 100%); }
   .jd-hero__headline { font-size: clamp(3.25rem, 17vw, 4.75rem); }
-  .jd-hero__signature { margin-left: 30%; width: 58%; }
+  .jd-hero__signature { width: 58%; }
   .jd-button { padding: 14px 22px; }
 }
 

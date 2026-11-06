@@ -119,8 +119,8 @@ export const homepageContent = {
   },
   featured: {
     collection: "mens-collection",
-    heading: "Full Collection",
-    href: "/collections/mens-collection",
+    heading: "Shop the Collection",
+    href: "/collections/all",
     linkLabel: "View all",
     limit: 6,
   },
@@ -145,8 +145,8 @@ export const homepageContent = {
     /** "dark" (ink) or "light" (warm grey). */
     theme: "dark" as "dark" | "light",
   },
-  // Every claim here is sourced from existing site copy (Our Story, the
-  // Wedges page). 1978: Chicago Golf Report, "Northwestern Golf Company: Golf
+  // Claims are sourced from existing site copy (Our Story) and the John Daly
+  // partnership. 1978: Chicago Golf Report, "Northwestern Golf Company: Golf
   // Clubs For The Masses" (largest manufacturer in both units and dollars).
   proof: {
     body: "We started building clubs for everyday golfers nearly 100 years ago. We still do: modern designs, honest prices, and a guarantee behind every set.",
@@ -155,8 +155,8 @@ export const homepageContent = {
     link: { href: "/pages/our-story", label: "Our story" },
     points: [
       { label: "Heritage", text: "For decades, one of the most widely played golf brands in America.", value: "1929" },
-      { label: "Wedge lineage", text: "Brian Symonds Signature Wedges, shaped under 1944 PGA Champion Bob Hamilton.", value: "1944" },
       { label: "America’s No. 1", text: "The largest golf club maker in the U.S., by units and by dollars.", value: "1978" },
+      { label: "John Daly joins the team", text: "The two-time major champion and the people’s golfer releases his signature line of clubs.", value: "2026" },
     ],
   },
   reviews: {
