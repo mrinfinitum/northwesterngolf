@@ -241,7 +241,7 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
 /* Lockup: NORTHWESTERN × John Daly caricature. */
 .site-header__logo { align-items: center; display: flex; gap: 8px; grid-area: logo; justify-self: center; max-width: 100%; }
 .site-header__wordmark { display: block; flex: none; width: 128px; }
-.site-header__cross { color: var(--color-ink, #1a1a1a); flex: none; font-size: 1rem; font-weight: 400; line-height: 1; opacity: 0.6; }
+.site-header__cross { display: block; flex: none; height: 16px; width: 16px; }
 .site-header__daly { display: block; flex: none; height: 38px; width: auto; }
 .site-header__logo-image { display: block; height: auto; width: 100%; }
 .site-header__logo-image--transparent,
@@ -250,7 +250,6 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
 .site-header--transparent .site-header__daly { display: none; }
 .site-header--transparent .site-header__logo-image--transparent,
 .site-header--transparent .site-header__daly--transparent { display: block; }
-.site-header--transparent .site-header__cross { color: #fff; }
 
 .site-header__icons { align-items: center; display: flex; gap: 1rem; }
 .site-header__secondary-nav { grid-area: secondary; justify-self: end; }
@@ -345,7 +344,7 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
   .site-header__wrapper { column-gap: 1.5rem; padding-block: 2.125rem; }
   .site-header__logo { gap: 12px; }
   .site-header__wordmark { width: 190px; }
-  .site-header__cross { font-size: 1.25rem; }
+  .site-header__cross { height: 22px; width: 22px; }
   .site-header__daly { height: 46px; margin-block: -4px; }
   .site-header__icons { gap: 1.5rem; }
   .site-header .site-header__search-mobile { display: none; }
