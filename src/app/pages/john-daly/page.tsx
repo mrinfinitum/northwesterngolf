@@ -18,9 +18,9 @@ export const metadata: Metadata = {
 
 /** The Signature Sets in display order, with the label used on this page. */
 const SETS = [
-  { handle: "mens-john-daly-signature-set", label: "Men’s Set", note: "Stiff or Regular flex" },
-  { handle: "junior-john-daly-signature-set-ages-9-12", label: "Junior Set · Ages 9-12", note: "Right or left hand" },
   { handle: "junior-john-daly-signature-set-ages-5-8", label: "Junior Set · Ages 5-8", note: "Right or left hand" },
+  { handle: "junior-john-daly-signature-set-ages-9-12", label: "Junior Set · Ages 9-12", note: "Right or left hand" },
+  { handle: "mens-john-daly-signature-set", label: "Men’s Set", note: "Stiff or Regular flex" },
 ];
 
 const STATS = [
@@ -160,7 +160,7 @@ export default async function JohnDalyPage() {
             <ul className="jd-specs">
               <li>Complete matched set, ready to play</li>
               <li>Stand bag and headcovers included</li>
-              <li>Men’s, Junior 9-12 and Junior 5-8</li>
+              <li>Junior 5-8, Junior 9-12 and Men’s</li>
             </ul>
             <Link className="jd-button" href="#sets">Find your set</Link>
           </div>

@@ -21,9 +21,9 @@ export const primaryNavigation: NavigationItem[] = [
     href: "/collections/all",
     label: "Shop Clubs",
     children: [
-      { href: "/products/mens-john-daly-signature-set", label: "Men’s Signature Set" },
       { href: "/products/junior-john-daly-signature-set-ages-5-8", label: "Junior Set – Ages 5-8" },
       { href: "/products/junior-john-daly-signature-set-ages-9-12", label: "Junior Set – Ages 9-12" },
+      { href: "/products/mens-john-daly-signature-set", label: "Men’s Signature Set" },
     ],
   },
   { href: "/pages/john-daly", label: "John Daly" },
@@ -42,9 +42,9 @@ export const footerGroups: FooterGroup[] = [
   {
     heading: "Collections",
     links: [
-      { href: "/products/mens-john-daly-signature-set", label: "Men’s Signature Set" },
       { href: "/products/junior-john-daly-signature-set-ages-5-8", label: "Junior Set – Ages 5-8" },
       { href: "/products/junior-john-daly-signature-set-ages-9-12", label: "Junior Set – Ages 9-12" },
+      { href: "/products/mens-john-daly-signature-set", label: "Men’s Signature Set" },
       { href: "/collections/all", label: "Shop All" },
     ],
   },
