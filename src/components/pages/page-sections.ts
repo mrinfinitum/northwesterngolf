@@ -87,46 +87,6 @@ export type PageSection =
 const headquarters = cdn("Northwestern20Bldg202-scaled.webp?v=1761208992");
 
 export const pageSections: Record<string, PageSection[]> = {
-  "john-daly": [
-    {
-      type: "banner",
-      body: "Two-time major champion. The original long hitter. Now his name is on a full line of Northwestern clubs, built for golfers who play the game his way.",
-      focus: "50% 20%",
-      image: "/images/daly/hero-portrait.jpg",
-      overlayOpacity: 0.45,
-      title: "John Daly",
-      underlineColor: "#ff6600",
-    },
-    {
-      type: "legacy",
-      image: { alt: "John Daly with his Northwestern Golf driver", height: 1800, src: "/images/daly/portrait.jpg", width: 1200 },
-      paragraphsHtml: [
-        "Few golfers have ever connected with fans like John Daly. He won the 1991 PGA Championship as the ninth alternate, then the 1995 Open Championship at St Andrews, and he did it with a swing, and a style, that was all his own.",
-        "<strong>Grip it and rip it.</strong> Daly never overthought the game, and he never made it feel exclusive. That’s exactly what <em>NORTHWESTERN</em> GOLF has stood for since 1929: great golf for everyday players, without the premium price tag.",
-        "The John Daly Signature Sets bring the two together: complete, matched sets with a stand bag and headcovers, ready to play right out of the box. One for men, and two sized for juniors so the next generation can start swinging early.",
-      ],
-      title: "Grip It. Rip It.",
-    },
-    {
-      type: "threeImages",
-      images: [
-        { alt: "John Daly with the Men’s and Junior Signature Set bags", height: 933, src: "/images/daly/bags.jpg", width: 1400 },
-        { alt: "John Daly Signature driver", height: 933, src: "/images/daly/driver.jpg", width: 1400 },
-        { alt: "John Daly with Northwestern headcovers", height: 933, src: "/images/daly/headcover.jpg", width: 1400 },
-      ],
-    },
-    {
-      type: "fullSetGrid",
-      heading: "The John Daly Signature Sets",
-      intro: " A complete set of clubs, a matching stand bag and headcovers, all in one box.",
-      introLead: "Ready to play.",
-      items: [
-        { href: "/products/mens-john-daly-signature-set", image: { alt: "Men’s John Daly Signature Set", height: 2000, src: cdn("northwestern-john-daly-mens-BagwClubs.jpg?v=1793926734"), width: 2000 }, title: "Men’s Set – $899.99" },
-        { href: "/products/junior-john-daly-signature-set-ages-9-12", image: { alt: "Junior John Daly Signature Set, ages 9-12", height: 2000, src: cdn("01-junior-9-12-BagMain.jpg?v=1793927177"), width: 2000 }, title: "Junior Ages 9-12 – $399.99" },
-        { href: "/products/junior-john-daly-signature-set-ages-5-8", image: { alt: "Junior John Daly Signature Set, ages 5-8", height: 2000, src: cdn("01-junior-5-8-BagMain.jpg?v=1793927061"), width: 2000 }, title: "Junior Ages 5-8 – $349.99" },
-      ],
-    },
-  ],
   "our-story": [
     {
       type: "banner",
