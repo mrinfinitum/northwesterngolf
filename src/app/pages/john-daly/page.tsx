@@ -180,11 +180,8 @@ export default async function JohnDalyPage() {
 
       {/* Photo mosaic from the shoots. */}
       <section aria-label="John Daly with Northwestern Golf" className="jd-gallery">
-        <div className="jd-gallery__item jd-gallery__item--tall">
+        <div className="jd-gallery__item">
           <Image alt="John Daly holding his Signature driver" fill sizes="(max-width: 699px) 100vw, 33vw" src="/images/daly/jd-portrait-driver.jpg" />
-        </div>
-        <div className="jd-gallery__item jd-gallery__item--wide">
-          <Image alt="John Daly swinging at Doral, Signature bag beside him" fill sizes="(max-width: 699px) 100vw, 66vw" src="/images/daly/jd-doral-swing.jpg" />
         </div>
         <div className="jd-gallery__item">
           <Image alt="John Daly with the Men’s and Junior Signature Set bags" fill sizes="(max-width: 699px) 100vw, 33vw" src="/images/daly/bags.jpg" />

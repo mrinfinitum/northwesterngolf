@@ -111,7 +111,7 @@ export const homepageContent = {
     image:
       "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/daly-shot.jpg?v=1764889357",
     imageSize: { height: 1000, width: 2000 },
-    logo: "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/nwxjd.png?v=1764816230",
+    logo: "/images/nw-x-daly.png", // Wordmark × header brush X × signature
     logoAlt: "John Daly X Northwestern",
     mobileImage:
       "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/nwxdaly-m-top.jpg?v=1764906675",

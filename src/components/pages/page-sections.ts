@@ -138,11 +138,7 @@ export const pageSections: Record<string, PageSection[]> = {
   contact: [
     {
       type: "centerHero",
-      actions: [
-        { href: "tel:+18886512295", label: "Call", value: "888-651-2295" },
-        { href: "mailto:info@northwestern.golf", label: "Email", value: "info@northwestern.golf" },
-        { href: "https://maps.app.goo.gl/gonq4W2w9H4LRyR88", label: "Visit", value: "Fortville, Indiana" },
-      ],
+      actions: [],
       body: "Questions, feedback, or partnerships? We’d love to hear from you.",
       eyebrow: "Northwestern Golf · Since 1929",
       title: "Contact Us",

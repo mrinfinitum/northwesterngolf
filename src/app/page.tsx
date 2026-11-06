@@ -94,7 +94,7 @@ export default async function Home() {
         mobileImageSize={partnership.mobileImageSize}
       >
         <div className="image-banner__intro">
-          <Image alt={partnership.logoAlt} className="image-banner__logo" height={183} sizes="(max-width: 749px) 80vw, 420px" src={partnership.logo} width={1263} />
+          <Image alt={partnership.logoAlt} className="image-banner__logo" height={366} sizes="(max-width: 749px) 80vw, 420px" src={partnership.logo} width={2502} />
           {/* One line per beat: "Grip It." / "Rip It." / "Afford It." (last one accented). */}
           <h2 className="partnership__headline">
             {partnership.heading.split(/(?<=\.)\s+/).map((line, index, lines) => (

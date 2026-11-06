@@ -57,6 +57,7 @@ function Section({ contactPosted, first, section }: { contactPosted: boolean; fi
             <h1 className="nwg-center-hero__title">{section.title}</h1>
             <span aria-hidden="true" className="nwg-center-hero__rule" />
             <p className="nwg-center-hero__body">{section.body}</p>
+            {section.actions.length ? (
             <ul className="nwg-center-hero__actions">
               {section.actions.map((action) => (
                 <li key={action.label}>
@@ -67,6 +68,7 @@ function Section({ contactPosted, first, section }: { contactPosted: boolean; fi
                 </li>
               ))}
             </ul>
+            ) : null}
           </div>
         </section>
       );
