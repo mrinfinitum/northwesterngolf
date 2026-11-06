@@ -229,7 +229,7 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
   column-gap: 0.75rem;
   display: grid;
   grid-template: "main logo secondary" / minmax(0, 1fr) auto minmax(0, 1fr);
-  padding: 0.5rem var(--container-padding);
+  padding: 0.75rem var(--container-padding);
 }
 .site-header--transparent .site-header__wrapper {
   background: rgb(52 100 130 / 42%);
@@ -360,7 +360,7 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
 .desktop-nav__dropdown-link:focus-visible { color: var(--color-campaign, #ff711f); }
 
 @media (min-width: 700px) {
-  .site-header__wrapper { column-gap: 1.5rem; padding-block: 0.5rem; }
+  .site-header__wrapper { column-gap: 1.5rem; padding-block: 0.875rem; }
   .site-header__logo { gap: 12px; }
   .site-header__wordmark { width: 190px; }
   .site-header__cross { height: 28px; width: 28px; }
