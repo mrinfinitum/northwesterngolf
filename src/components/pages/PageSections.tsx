@@ -33,7 +33,7 @@ function Section({ contactPosted, first, section }: { contactPosted: boolean; fi
     case "banner":
       return (
         <section className="nwg-page-banner">
-          <Image alt="" className="nwg-page-banner__image" fill priority={first} sizes="100vw" src={section.image} />
+          <Image alt="" className="nwg-page-banner__image" fill priority={first} sizes="100vw" src={section.image} style={section.focus ? { objectPosition: section.focus } : undefined} />
           <div className="nwg-page-banner__overlay" style={{ opacity: section.overlayOpacity }} />
           <div className="nwg-page-banner__container">
             <div className="nwg-page-banner__left">

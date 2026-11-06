@@ -13,6 +13,8 @@ export type PageSection =
       /** `other_page_banner_section`: dark photo banner with title, orange rule and intro text. */
       type: "banner";
       body: string;
+      /** CSS object-position for the cover image (defaults to center). */
+      focus?: string;
       image: string;
       overlayOpacity: number;
       title: string;

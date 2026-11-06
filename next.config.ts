@@ -6,6 +6,11 @@ const SHOPIFY_CUSTOMER_ACCOUNT_URL = "https://account.northwestern.golf/";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  // Keep preview builds (dev.northwestern.golf) out of search results.
+  async headers() {
+    if (process.env.VERCEL_ENV !== "preview") return [];
+    return [{ headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }], source: "/:path*" }];
+  },
   async redirects() {
     return ["/account", "/account/:path*", "/customer_authentication/:path*"].map((source) => ({
       destination: SHOPIFY_CUSTOMER_ACCOUNT_URL,
