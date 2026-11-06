@@ -119,6 +119,15 @@ export default async function JohnDalyPage() {
           <div className="jd-timeline__intro">
             <p className="jd-eyebrow">The career</p>
             <h2 className="jd-heading">Long John, by the years</h2>
+            <Image
+              alt=""
+              aria-hidden="true"
+              className="jd-timeline__caricature"
+              height={811}
+              sizes="(max-width: 899px) 120px, 180px"
+              src="/images/daly/jd-caricature.png"
+              width={640}
+            />
           </div>
           <ol className="jd-timeline__list">
             {MILESTONES.map((milestone) => (
