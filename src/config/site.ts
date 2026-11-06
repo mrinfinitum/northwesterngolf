@@ -18,17 +18,63 @@ export type FooterGroup = { heading: string; links: NavigationLink[] };
  */
 export const primaryNavigation: NavigationItem[] = [
   {
-    href: "/collections/all",
-    label: "Shop Clubs",
+    href: "/pages/talon-ss",
+    label: "Talon SS",
     children: [
-      { href: "/products/junior-john-daly-signature-set-ages-5-8", label: "Junior Set – Ages 5-8" },
-      { href: "/products/junior-john-daly-signature-set-ages-9-12", label: "Junior Set – Ages 9-12" },
-      { href: "/products/mens-john-daly-signature-set", label: "Men’s Signature Set" },
+      { href: "/products/men-s-talon-ss-full-set", label: "Men’s Talon SS Full Set" },
+      { href: "/products/women-s-talon-ss-full-set", label: "Women’s Talon SS Full Set" },
+      { href: "/products/senior-s-talon-ss-full-set", label: "Senior’s Talon SS Full Set" },
     ],
   },
-  { href: "/pages/john-daly", label: "John Daly" },
-  { href: "/pages/our-story", label: "About Us" },
-  { href: "/pages/contact", label: "Contact" },
+  {
+    href: "/pages/thunderbird-full-set",
+    label: "Thunderbird",
+    children: [
+      { href: "/products/men-s-thunderbird-full-set", label: "Men’s Thunderbird Full Set" },
+      { href: "/products/women-s-thunderbird-full-set", label: "Women’s Thunderbird Full Set" },
+      { href: "/products/senior-s-thunderbird-full-set", label: "Senior’s Thunderbird Full Set" },
+    ],
+  },
+  {
+    label: "Irons",
+    children: [
+      { href: "/products/men-s-thunderbird-irons-set", label: "Men’s Thunderbird Irons Set" },
+      { href: "/products/women-s-thunderbird-irons-set", label: "Women’s Thunderbird Irons Set" },
+      { href: "/products/senior-s-thunderbird-irons-set", label: "Senior’s Thunderbird Irons Set" },
+    ],
+  },
+  {
+    label: "Woods",
+    children: [
+      { href: "/products/men-s-thunderbird-fairway", label: "Men’s Thunderbird Fairway" },
+      { href: "/products/women-s-thunderbird-fairway", label: "Women’s Thunderbird Fairway" },
+      { href: "/products/senior-s-thunderbird-fairway", label: "Senior’s Thunderbird Fairway" },
+    ],
+  },
+  {
+    label: "Driver",
+    children: [
+      { href: "/products/men-s-thunderbird-driver", label: "Men’s Thunderbird Driver" },
+      { href: "/products/women-s-thunderbird-driver", label: "Women’s Thunderbird Driver" },
+      { href: "/products/senior-s-thunderbird-driver", label: "Senior’s Thunderbird Driver" },
+    ],
+  },
+  {
+    label: "Hybrids",
+    children: [
+      { href: "/products/men-s-thunderbird-hybrid", label: "Men’s Thunderbird Hybrid" },
+      { href: "/products/women-s-thunderbird-hybrids", label: "Women’s Thunderbird Hybrids" },
+      { href: "/products/senior-s-thunderbird-hybrid", label: "Senior’s Thunderbird Hybrid" },
+    ],
+  },
+  {
+    href: "/pages/wedges",
+    label: "Wedges",
+    children: [
+      { href: "/products/men-s-thunderbird-wedge", label: "Men’s Thunderbird Wedge" },
+    ],
+  },
+  { href: "/products/thunderbird-golf-bag", label: "Golf Bags" },
 ];
 
 export const footerGroups: FooterGroup[] = [
@@ -42,10 +88,14 @@ export const footerGroups: FooterGroup[] = [
   {
     heading: "Collections",
     links: [
-      { href: "/products/junior-john-daly-signature-set-ages-5-8", label: "Junior Set – Ages 5-8" },
-      { href: "/products/junior-john-daly-signature-set-ages-9-12", label: "Junior Set – Ages 9-12" },
-      { href: "/products/mens-john-daly-signature-set", label: "Men’s Signature Set" },
-      { href: "/collections/all", label: "Shop All" },
+      { href: "/collections/talon-ss-full-set", label: "Talon SS Full Set" },
+      { href: "/collections/thunderbird-full-set", label: "Thunderbird Full Set" },
+      { href: "/collections/irons", label: "Irons" },
+      { href: "/collections/fairways", label: "Fairways" },
+      { href: "/collections/drivers", label: "Drivers" },
+      { href: "/collections/hybrids", label: "Hybrids" },
+      { href: "/collections/wedges", label: "Wedges" },
+      { href: "/collections/golf-bags", label: "Golf Bags" },
     ],
   },
   {
@@ -119,45 +169,21 @@ export const homepageContent = {
   },
   featured: {
     collection: "mens-collection",
-    heading: "Shop the Collection",
-    href: "/collections/all",
+    heading: "Most Wanted",
+    href: "/collections/mens-collection",
     linkLabel: "View all",
     limit: 6,
   },
-  // Split feature: copy on the left, framed image on the right. Swap the
-  // photo by changing `image` (any aspect; it is cropped to 4:3 around `focus`).
-  // Copy is from the Men's Thunderbird Driver product page.
   campaign: {
-    body: "Engineered to help you hit the longest, straightest drives of your life. A classic shape with modern, high-launch technology. Stop fixing your slice. Start splitting fairways.",
-    buttonLabel: "Shop clubs",
-    eyebrow: "Thunderbird Titanium Driver",
+    buttonLabel: "SHOP NOW",
     heading: "Send it like Daly.",
-    href: "/collections/all",
-    image: {
-      alt: "Northwestern Thunderbird driver with John Daly's signature, held out by Daly",
-      focus: "50% 36%",
-      height: 2400,
-      src: "/images/daly-driver.jpg",
-      width: 1600,
-    },
-    specs: ["Aerospace-grade titanium face", "Deep, low CG for high launch", "Speedflex shaft"],
-    subheading: "Unleash the thunder.",
-    /** "dark" (ink) or "light" (warm grey). */
-    theme: "dark" as "dark" | "light",
-  },
-  // Claims are sourced from existing site copy (Our Story) and the John Daly
-  // partnership. 1978: Chicago Golf Report, "Northwestern Golf Company: Golf
-  // Clubs For The Masses" (largest manufacturer in both units and dollars).
-  proof: {
-    body: "We started building clubs for everyday golfers nearly 100 years ago. We still do: modern designs, honest prices, and a guarantee behind every set.",
-    eyebrow: "Making golf easier since 1929",
-    heading: "Clubs for real golfers. Not just pros.",
-    link: { href: "/pages/our-story", label: "Our story" },
-    points: [
-      { label: "Heritage", text: "For decades, one of the most widely played golf brands in America.", value: "1929" },
-      { label: "America’s No. 1", text: "The largest golf club maker in the U.S., by units and by dollars.", value: "1978" },
-      { label: "John Daly joins the team", text: "The two-time major champion and the people’s golfer releases his signature line of clubs.", value: "2026" },
-    ],
+    href: "/products/men-s-thunderbird-driver",
+    image:
+      "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/daly-swing-soft-focus.jpg?v=1765125870",
+    imageSize: { height: 1000, width: 2359 },
+    mobileImage:
+      "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/daly-swing-closeup-m2.jpg?v=1765076356",
+    mobileImageSize: { height: 1000, width: 1329 },
   },
   reviews: {
     eyebrow: "Customer Reviews",

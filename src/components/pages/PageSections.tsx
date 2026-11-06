@@ -33,7 +33,7 @@ function Section({ contactPosted, first, section }: { contactPosted: boolean; fi
     case "banner":
       return (
         <section className="nwg-page-banner">
-          <Image alt="" className="nwg-page-banner__image" fill priority={first} sizes="100vw" src={section.image} style={section.focus ? { objectPosition: section.focus } : undefined} />
+          <Image alt="" className="nwg-page-banner__image" fill priority={first} sizes="100vw" src={section.image} />
           <div className="nwg-page-banner__overlay" style={{ opacity: section.overlayOpacity }} />
           <div className="nwg-page-banner__container">
             <div className="nwg-page-banner__left">
@@ -43,28 +43,6 @@ function Section({ contactPosted, first, section }: { contactPosted: boolean; fi
             <div className="nwg-page-banner__right">
               <p>{section.body}</p>
             </div>
-          </div>
-        </section>
-      );
-    case "centerHero":
-      return (
-        <section className="nwg-center-hero">
-          <Image alt="" className="nwg-center-hero__image" fill priority={first} sizes="100vw" src={section.image} style={section.focus ? { objectPosition: section.focus } : undefined} />
-          <div className="nwg-center-hero__content">
-            <p className="nwg-center-hero__eyebrow">{section.eyebrow}</p>
-            <h1 className="nwg-center-hero__title">{section.title}</h1>
-            <span aria-hidden="true" className="nwg-center-hero__rule" />
-            <p className="nwg-center-hero__body">{section.body}</p>
-            <ul className="nwg-center-hero__actions">
-              {section.actions.map((action) => (
-                <li key={action.label}>
-                  <a className="nwg-center-hero__action" href={action.href} {...(action.href.startsWith("http") ? { rel: "noreferrer", target: "_blank" } : {})}>
-                    <span className="nwg-center-hero__action-label">{action.label}</span>
-                    <span className="nwg-center-hero__action-value">{action.value}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
           </div>
         </section>
       );
