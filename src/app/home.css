@@ -311,6 +311,9 @@
   .club-row__track { --club-gap: 28px; grid-auto-columns: calc((100% - 2 * var(--container-gutter) - 3 * var(--club-gap)) / 4); }
 }
 
+.club-row--sets { padding-inline: var(--container-gutter); }
+.club-row--sets .club-row__header { padding-inline: 0; }
+
 /* Three or fewer products: larger cards, centred, no carousel on tablet+. */
 .club-row--few .club-row__track { grid-auto-columns: 80%; }
 .club-row--few .club-row__title { font-size: 1.25rem; }

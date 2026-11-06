@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { openGraphBase } from "@/lib/seo";
 import Image from "next/image";
 import { ClubSlider, type ClubSlide } from "@/components/content/ClubSlider";
+import { SetCards } from "@/components/content/SetCards";
+import { getSignatureSets } from "@/lib/signature-sets";
+import Link from "next/link";
 import { formatMoney } from "@/components/commerce/Money";
 import { FeatureSplit } from "@/components/content/FeatureSplit";
 import { Hero } from "@/components/content/Hero";
@@ -63,13 +66,22 @@ function toSlide(product: Product): ClubSlide {
 }
 
 export default async function Home() {
-  const products = await getFeaturedProducts();
+  const [sets, products] = await Promise.all([getSignatureSets(), getFeaturedProducts()]);
   const { featured, partnership } = homepageContent;
 
   return (
     <div className="home-page">
       <Hero />
-      {products.length ? (
+      {sets.length ? (
+        // Same cards as the John Daly page: smallest junior first, then Men's.
+        <section aria-label={featured.heading} className="club-row club-row--sets">
+          <div className="club-row__header">
+            <h2 className="club-row__heading">{featured.heading}</h2>
+            <Link className="club-row__all" href={featured.href}>{featured.linkLabel}</Link>
+          </div>
+          <SetCards sets={sets} />
+        </section>
+      ) : products.length ? (
         <ClubSlider heading={featured.heading} href={featured.href} linkLabel={featured.linkLabel} slides={products.map(toSlide)} />
       ) : null}
       <ImageOverlay

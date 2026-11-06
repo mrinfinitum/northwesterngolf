@@ -18,8 +18,7 @@
 .jd-button,
 .jd-specs li,
 .jd-stats__label,
-.jd-timeline__label,
-.jd-set__cta {
+.jd-timeline__label {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -162,6 +161,9 @@
 
 .jd-timeline { background: #f3f3f1; padding: clamp(64px, 8vw, 112px) var(--container-gutter); }
 .jd-timeline__inner { display: grid; gap: clamp(32px, 5vw, 64px); margin-inline: auto; max-width: var(--jd-max); }
+.jd-timeline__intro { align-items: end; column-gap: 24px; display: grid; grid-template-columns: minmax(0, 1fr) auto; }
+.jd-timeline__intro > :not(.jd-timeline__caricature) { grid-column: 1; }
+.jd-timeline__caricature { grid-column: 2; grid-row: 1 / span 2; height: auto; margin-bottom: -8px; width: clamp(96px, 14vw, 180px); }
 .jd-timeline__list { counter-reset: jd; display: grid; list-style: none; margin: 0; padding: 0; }
 .jd-timeline__item { align-items: baseline; border-top: 1px solid var(--color-ink); display: grid; gap: 4px 20px; grid-template-columns: 5.5rem 1fr; padding: 20px 0 24px; }
 .jd-timeline__year { color: var(--jd-orange); font-size: 2rem; font-variant-numeric: tabular-nums; font-weight: 700; letter-spacing: -0.04em; line-height: 0.9; margin: 0; }
@@ -208,28 +210,6 @@
 
 .jd-sets { background: var(--color-white); padding: clamp(64px, 8vw, 112px) var(--container-gutter); scroll-margin-top: var(--header-height, 0px); }
 .jd-sets__intro { margin: 0 auto clamp(32px, 4vw, 56px); max-width: var(--jd-max); text-align: center; }
-.jd-sets__grid { display: grid; gap: clamp(20px, 2.5vw, 32px); list-style: none; margin: 0 auto; max-width: var(--jd-max); padding: 0; }
-.jd-set__link { display: flex; flex-direction: column; height: 100%; }
-.jd-set__media { aspect-ratio: 1; background: #f3f3f1; overflow: hidden; position: relative; }
-.jd-set__image { mix-blend-mode: multiply; object-fit: contain; padding: 8%; transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1); }
-.jd-set__link:hover .jd-set__image { transform: scale(1.05); }
-.jd-set__info { border-bottom: 1px solid var(--color-ink); display: grid; gap: 4px 16px; grid-template-columns: 1fr auto; padding: 18px 0 20px; }
-.jd-set__title { font-size: 1.375rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.1; margin: 0; text-transform: uppercase; }
-.jd-set__note { color: var(--color-muted); font-size: 0.875rem; grid-column: 1; margin: 0; }
-.jd-set__price { font-size: 1.375rem; font-weight: 700; grid-column: 2; grid-row: 1; margin: 0; }
-.jd-set__cta { align-items: center; color: var(--color-campaign); display: inline-flex; gap: 10px; grid-column: 1 / -1; margin-top: 12px; }
-.jd-set__cta::after {
-  background: currentColor;
-  content: "";
-  height: 10px;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 10'%3E%3Cpath d='M0 5h16M12 1l4 4-4 4' fill='none' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E") center / contain no-repeat;
-  transition: transform 200ms ease;
-  width: 18px;
-}
-.jd-set__link:hover .jd-set__cta::after { transform: translateX(4px); }
-@media (min-width: 700px) {
-  .jd-sets__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
 
 /* ---------- Gallery ---------- */
 
@@ -249,10 +229,11 @@
 
 /* ---------- Closer ---------- */
 
-.jd-closer { align-items: center; background: var(--jd-graphite); color: var(--color-white); display: flex; flex-direction: column; gap: 32px; padding: clamp(64px, 9vw, 128px) var(--container-gutter); text-align: center; }
+.jd-closer { align-items: center; background: var(--color-white); color: #000; display: flex; flex-direction: column; gap: 32px; padding: clamp(64px, 9vw, 128px) var(--container-gutter); text-align: center; }
 .jd-closer__headline { font-size: clamp(2.75rem, 8vw, 7rem); font-weight: 700; letter-spacing: -0.04em; line-height: 0.88; margin: 0; text-transform: uppercase; }
 .jd-closer__headline span { display: block; }
-.jd-closer__headline .is-accent { color: var(--color-campaign); }
+.jd-closer .jd-button { background: #000; color: var(--color-white); }
+.jd-closer .jd-button:hover { background: var(--color-campaign); }
 
 /* ---------- Motion (scroll-driven, progressive) ---------- */
 
@@ -262,7 +243,6 @@
     .jd-gallery__item img { animation: jd-settle linear both; animation-range: entry 0% exit 0%; animation-timeline: view(); }
     .jd-stats__item,
     .jd-timeline__item,
-    .jd-set,
     .jd-closer__headline span { animation: jd-rise linear both; animation-range: entry 10% entry 80%; animation-timeline: view(); }
     .jd-signature-split__tag { animation: jd-write linear both; animation-range: entry 60% cover 40%; animation-timeline: view(); }
   }

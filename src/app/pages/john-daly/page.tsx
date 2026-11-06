@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { formatMoney } from "@/components/commerce/Money";
-import { getProducts, type Product } from "@/lib/shopify";
+import { SetCards } from "@/components/content/SetCards";
+import { getSignatureSets } from "@/lib/signature-sets";
 import { metadataTitle, openGraphBase } from "@/lib/seo";
 import "./john-daly.css";
 
@@ -15,13 +15,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/pages/john-daly" },
   openGraph: { ...openGraphBase, description, title: "John Daly × Northwestern Golf", url: "/pages/john-daly" },
 };
-
-/** The Signature Sets in display order, with the label used on this page. */
-const SETS = [
-  { handle: "junior-john-daly-signature-set-ages-5-8", label: "Junior Set · Ages 5-8", note: "Right or left hand" },
-  { handle: "junior-john-daly-signature-set-ages-9-12", label: "Junior Set · Ages 9-12", note: "Right or left hand" },
-  { handle: "mens-john-daly-signature-set", label: "Men’s Set", note: "Stiff or Regular flex" },
-];
 
 const STATS = [
   { label: "Major championships", text: "1991 PGA Championship and 1995 Open Championship", value: "2" },
@@ -42,20 +35,9 @@ const FILM: { mobileSrc?: string; poster: string; src?: string } = {
   poster: "/images/daly/jd-1991.jpg",
 };
 
-async function getSets(): Promise<Array<(typeof SETS)[number] & { product: Product }>> {
-  try {
-    const products = await getProducts({ first: 20, query: "title:*Daly*" });
-    return SETS.flatMap((set) => {
-      const product = products.find((item) => item.handle === set.handle);
-      return product ? [{ ...set, product }] : [];
-    });
-  } catch {
-    return [];
-  }
-}
 
 export default async function JohnDalyPage() {
-  const sets = await getSets();
+  const sets = await getSignatureSets();
 
   return (
     <article className="jd">
@@ -119,6 +101,15 @@ export default async function JohnDalyPage() {
           <div className="jd-timeline__intro">
             <p className="jd-eyebrow">The career</p>
             <h2 className="jd-heading">Long John, by the years</h2>
+            <Image
+              alt=""
+              aria-hidden="true"
+              className="jd-timeline__caricature"
+              height={811}
+              sizes="(max-width: 899px) 120px, 180px"
+              src="/images/daly/jd-caricature.png"
+              width={640}
+            />
           </div>
           <ol className="jd-timeline__list">
             {MILESTONES.map((milestone) => (
@@ -174,35 +165,7 @@ export default async function JohnDalyPage() {
             <p className="jd-eyebrow">Shop</p>
             <h2 className="jd-heading">Pick your set</h2>
           </div>
-          <ul className="jd-sets__grid">
-            {sets.map(({ handle, label, note, product }) => {
-              const image = product.featuredImage ?? product.images[0];
-              const price = product.priceRange.minVariantPrice;
-              return (
-                <li className="jd-set" key={handle}>
-                  <Link className="jd-set__link" href={`/products/${handle}`}>
-                    <div className="jd-set__media">
-                      {image ? (
-                        <Image
-                          alt={image.altText || product.title}
-                          className="jd-set__image"
-                          fill
-                          sizes="(max-width: 699px) 90vw, 33vw"
-                          src={image.url}
-                        />
-                      ) : null}
-                    </div>
-                    <div className="jd-set__info">
-                      <h3 className="jd-set__title">{label}</h3>
-                      <p className="jd-set__note">{note}</p>
-                      <p className="jd-set__price">{formatMoney(price)}</p>
-                      <span className="jd-set__cta">Shop now</span>
-                    </div>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+          <SetCards sets={sets} />
         </section>
       ) : null}
 

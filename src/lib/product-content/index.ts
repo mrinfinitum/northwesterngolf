@@ -9,11 +9,9 @@ export type * from "./types";
  * template built from the content every live template shares.
  */
 const DEFAULT_SOURCE_HANDLE = "men-s-thunderbird-full-set";
+// No marquees, social feed, press scroller or "Tradition, Reengineered" copy:
+// the feature video leads (swap its source for the new product video).
 const GENERIC_SECTION_TYPES = new Set<PdpSection["type"]>([
-  "marquee",
-  "socialFeed",
-  "pressScroller",
-  "richText",
   "featureVideo",
   "faq",
   "relatedProducts",
