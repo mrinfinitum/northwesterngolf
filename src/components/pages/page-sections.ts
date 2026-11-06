@@ -79,7 +79,6 @@ export type PageSection =
       email: string;
       heading: string;
       hours: string;
-      mapEmbed: string;
       phone: string;
       smallTitle: string;
     };
@@ -142,7 +141,6 @@ export const pageSections: Record<string, PageSection[]> = {
       email: "info@northwestern.golf",
       heading: "Get in touch",
       hours: "08.00 - 16.00 EST",
-      mapEmbed: "https://www.google.com/maps?q=300%20N%20Madison%20St,%20Fortville,%20IN%2046040,%20USA&output=embed",
       phone: "888-651-2295",
       smallTitle: "Customer service",
     },
