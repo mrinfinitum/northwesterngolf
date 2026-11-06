@@ -37,6 +37,11 @@ const MILESTONES = [
   { label: "PGA Tour Champions", text: "Won the Insperity Invitational for his first senior title.", year: "2017" },
 ];
 
+/** Full-screen video under the stats. Until a video is supplied, the poster shows on its own. */
+const FILM: { mobileSrc?: string; poster: string; src?: string } = {
+  poster: "/images/daly/jd-1991.jpg",
+};
+
 async function getSets(): Promise<Array<(typeof SETS)[number] & { product: Product }>> {
   try {
     const products = await getProducts({ first: 20, query: "title:*Daly*" });
@@ -96,36 +101,16 @@ export default async function JohnDalyPage() {
         </ul>
       </section>
 
-      {/* 1991: the ninth alternate. */}
-      <section className="jd-story" id="story">
-        <div className="jd-story__inner">
-          <div className="jd-story__copy">
-            <p className="jd-eyebrow">August 1991 · Crooked Stick, Indiana</p>
-            <h2 className="jd-heading">The ninth alternate</h2>
-            <p>
-              He wasn’t supposed to be there. John Daly was the ninth and final alternate for the 1991 PGA Championship, and
-              the call came the night before the first round. He drove through the night, borrowed Nick Price’s caddie, and
-              teed it up without a practice round.
-            </p>
-            <p>
-              Then he overpowered the place. Four days later the 25-year-old rookie was a major champion, and golf had a new
-              folk hero: a big swing, no airs, and a gallery that felt like he was one of them.
-            </p>
-            <p className="jd-story__aside">
-              Crooked Stick sits just up the road from Fortville, Indiana, where Northwestern has built clubs for everyday
-              golfers since 1929.
-            </p>
-          </div>
-          <div className="jd-story__media">
-            <Image
-              alt="John Daly coiled at the top of his backswing"
-              className="jd-story__image"
-              fill
-              sizes="(max-width: 899px) 100vw, 55vw"
-              src="/images/daly/jd-1991.jpg"
-            />
-          </div>
-        </div>
+      {/* Full-screen film. Set FILM.src (and FILM.mobileSrc) once the video is supplied. */}
+      <section aria-label="John Daly on film" className="jd-film" id="story">
+        {FILM.src ? (
+          <video autoPlay className="jd-film__media" loop muted playsInline poster={FILM.poster} preload="metadata">
+            {FILM.mobileSrc ? <source media="(max-width: 749px)" src={FILM.mobileSrc} type="video/mp4" /> : null}
+            <source src={FILM.src} type="video/mp4" />
+          </video>
+        ) : (
+          <Image alt="John Daly swinging at Doral" className="jd-film__media" fill sizes="100vw" src={FILM.poster} />
+        )}
       </section>
 
       {/* Career timeline in the brand orange and blue. */}
