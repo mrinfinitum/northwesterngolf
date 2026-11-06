@@ -21,6 +21,16 @@ export type PageSection =
       underlineColor: string;
     }
   | {
+      /** Centred photo hero with an orange wash and quick-contact actions (Contact page). */
+      type: "centerHero";
+      actions: Array<{ href: string; label: string; value: string }>;
+      body: string;
+      eyebrow: string;
+      focus?: string;
+      image: string;
+      title: string;
+    }
+  | {
       /** `image_and_heading_text`: rounded portrait + heading + rich text paragraphs. */
       type: "legacy";
       image: SectionImage;
@@ -126,12 +136,17 @@ export const pageSections: Record<string, PageSection[]> = {
   ],
   contact: [
     {
-      type: "banner",
+      type: "centerHero",
+      actions: [
+        { href: "tel:+18886512295", label: "Call", value: "888-651-2295" },
+        { href: "mailto:info@northwestern.golf", label: "Email", value: "info@northwestern.golf" },
+        { href: "https://maps.app.goo.gl/gonq4W2w9H4LRyR88", label: "Visit", value: "Fortville, Indiana" },
+      ],
       body: "Questions, feedback, or partnerships? We’d love to hear from you.",
-      image: headquarters,
-      overlayOpacity: 0.4,
+      eyebrow: "Northwestern Golf · Since 1929",
+      focus: "50% 30%",
+      image: "/images/daly/bags.jpg",
       title: "Contact Us",
-      underlineColor: "#ff6600",
     },
     {
       type: "contact",

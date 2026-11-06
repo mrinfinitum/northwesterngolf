@@ -138,6 +138,15 @@ export default async function JohnDalyPage() {
             />
           </div>
           <div className="jd-signature-split__copy">
+            <Image
+              alt=""
+              aria-hidden="true"
+              className="jd-signature-split__caricature"
+              height={811}
+              sizes="88px"
+              src="/images/daly/jd-caricature-white.png"
+              width={640}
+            />
             <p className="jd-eyebrow">The Signature Sets</p>
             <h2 className="jd-heading jd-signature-split__heading">
               His name on every club
