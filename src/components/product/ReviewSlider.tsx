@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import type { ProductReview } from "@/lib/product-content/reviews";
 import { StarIcon } from "./icons";
+import "./review-slider.css";
 
 /** One review at a time in a centred card, with side arrows and dots. */
 export function ReviewSlider({ reviews }: { reviews: ProductReview[] }) {
@@ -49,7 +50,8 @@ export function ReviewSlider({ reviews }: { reviews: ProductReview[] }) {
                 <p className="nwg-review-card__body">{review.body}</p>
                 <p className="nwg-review-card__name">{review.reviewer.name}</p>
                 <p className="nwg-review-card__meta">
-                  {review.reviewer.verified ? "Verified buyer" : "Customer"} · <span className="nwg-review-card__product">{review.title}</span>
+                  {review.reviewer.verified ? "Verified buyer" : "Customer"}
+                  {review.title ? <> · <span className="nwg-review-card__product">{review.title}</span></> : null}
                 </p>
               </article>
             </li>

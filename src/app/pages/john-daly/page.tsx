@@ -30,12 +30,6 @@ const MILESTONES = [
   { label: "PGA Tour Champions", text: "Won the Insperity Invitational for his first senior title.", year: "2017" },
 ];
 
-/** Full-screen video under the stats. Until a video is supplied, the poster shows on its own. */
-const FILM: { mobileSrc?: string; poster: string; src?: string } = {
-  poster: "/images/daly/jd-1991.jpg",
-};
-
-
 export default async function JohnDalyPage() {
   const sets = await getSignatureSets();
 
@@ -83,20 +77,8 @@ export default async function JohnDalyPage() {
         </ul>
       </section>
 
-      {/* Full-screen film. Set FILM.src (and FILM.mobileSrc) once the video is supplied. */}
-      <section aria-label="John Daly on film" className="jd-film" id="story">
-        {FILM.src ? (
-          <video autoPlay className="jd-film__media" loop muted playsInline poster={FILM.poster} preload="metadata">
-            {FILM.mobileSrc ? <source media="(max-width: 749px)" src={FILM.mobileSrc} type="video/mp4" /> : null}
-            <source src={FILM.src} type="video/mp4" />
-          </video>
-        ) : (
-          <Image alt="John Daly swinging at Doral" className="jd-film__media" fill sizes="100vw" src={FILM.poster} />
-        )}
-      </section>
-
       {/* Career timeline in the brand orange and blue. */}
-      <section className="jd-timeline">
+      <section className="jd-timeline" id="story">
         <div className="jd-timeline__inner">
           <div className="jd-timeline__intro">
             <p className="jd-eyebrow">The career</p>

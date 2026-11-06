@@ -852,39 +852,31 @@
 
 /* Full-bleed film: muted loop preview, then sound + controls on demand. */
 .nwg-pdp-feature-video { background: #000; }
-.nwg-film { aspect-ratio: 16 / 9; max-height: 100svh; position: relative; width: 100%; }
-.nwg-film__video { background: #000; display: block; height: 100%; object-fit: cover; width: 100%; }
-.nwg-film.is-playing .nwg-film__video { object-fit: contain; }
-.nwg-film__play {
-  align-items: center;
-  background: none;
-  border: 0;
-  color: #fff;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  inset: 0;
-  justify-content: center;
-  position: absolute;
-  width: 100%;
+.nwg-film { aspect-ratio: 16 / 9; max-height: 100svh; overflow: hidden; position: relative; width: 100%; }
+.nwg-film__video { background: #000; cursor: pointer; display: block; height: 100%; object-fit: cover; width: 100%; }
+.nwg-film__bar { background: linear-gradient(0deg, rgb(0 0 0 / 45%), rgb(0 0 0 / 0%)); bottom: 0; left: 0; padding: 28px clamp(12px, 2vw, 24px) clamp(10px, 1.4vw, 16px); position: absolute; right: 0; }
+.nwg-film__progress { cursor: pointer; height: 14px; margin-bottom: 4px; position: relative; }
+.nwg-film__progress::before,
+.nwg-film__progress span { border-radius: 2px; height: 3px; left: 0; position: absolute; right: 0; top: 50%; translate: 0 -50%; }
+.nwg-film__progress::before { background: rgb(255 255 255 / 30%); content: ""; }
+.nwg-film__progress span { background: var(--color-campaign, #ff711f); transform-origin: left center; }
+.nwg-film__controls { display: flex; gap: 4px; }
+.nwg-film__button { align-items: center; background: none; border: 0; border-radius: 50%; color: #fff; cursor: pointer; display: flex; height: 40px; justify-content: center; opacity: 0.9; padding: 0; transition: background-color 200ms ease, opacity 200ms ease; width: 40px; }
+.nwg-film__button:hover { background: rgb(255 255 255 / 16%); opacity: 1; }
+.nwg-film__button:focus-visible { outline: 2px solid var(--color-campaign, #ff711f); outline-offset: 2px; }
+.nwg-film__button svg { height: 22px; width: 22px; }
+/* Mouse: the sound button always shows; the bar and play button fade in on hover (like YouTube). */
+@media (hover: hover) {
+  .nwg-film__bar { background: none; transition: background-color 250ms ease; }
+  .nwg-film__progress,
+  .nwg-film__button:first-child { opacity: 0; transition: opacity 250ms ease; }
+  .nwg-film:hover .nwg-film__bar,
+  .nwg-film:focus-within .nwg-film__bar { background: linear-gradient(0deg, rgb(0 0 0 / 45%), rgb(0 0 0 / 0%)); }
+  .nwg-film:hover .nwg-film__progress,
+  .nwg-film:hover .nwg-film__button:first-child,
+  .nwg-film:focus-within .nwg-film__progress,
+  .nwg-film:focus-within .nwg-film__button:first-child { opacity: 0.9; }
 }
-.nwg-film__play::before { background: radial-gradient(circle at center, rgb(0 0 0 / 30%), rgb(0 0 0 / 0%) 60%); content: ""; inset: 0; position: absolute; }
-.nwg-film__play-icon {
-  align-items: center;
-  background: var(--color-campaign, #ff711f);
-  border-radius: 50%;
-  box-shadow: 0 12px 32px rgb(0 0 0 / 30%);
-  display: flex;
-  height: clamp(64px, 7vw, 96px);
-  justify-content: center;
-  position: relative;
-  transition: transform 200ms ease;
-  width: clamp(64px, 7vw, 96px);
-}
-.nwg-film__play-icon svg { height: 42%; margin-left: 8%; width: 42%; }
-.nwg-film__play:hover .nwg-film__play-icon { transform: scale(1.08); }
-.nwg-film__play-label { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.16em; position: relative; text-shadow: 0 1px 8px rgb(0 0 0 / 50%); text-transform: uppercase; }
 @media (max-width: 699px) {
   .nwg-film--vertical-phone { aspect-ratio: 9 / 16; max-height: 90svh; }
 }
@@ -894,72 +886,41 @@
   .nwg-pdp-richtext__heading { font-size: 36px; }
 }
 
-/* ---------------------------------------------------------------- FAQ */
+/* ---------------------------------------------------------------- FAQ (open white list, orange accents) */
 
-.nwg-pdp-faq { padding: var(--pdp-section-space) var(--pdp-gutter); }
-.nwg-pdp-faq__container { background: #fff; padding: 5px 20px 20px; }
-.nwg-pdp-faq__container > * { margin-inline: auto; max-width: 850px; }
-.nwg-pdp-faq__header { margin-bottom: 40px; }
-.nwg-pdp-faq__heading {
-  color: #1a1a1a;
-  font-size: 44px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  line-height: 1.1;
-  margin: 0 0 15px;
-  text-align: center;
-}
-.nwg-pdp-faq__subheading {
-  color: #1a1a1a;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0 0 30px;
-  text-align: center;
-}
-.nwg-pdp-faq__list { display: flex; flex-direction: column; gap: 15px; }
-.nwg-pdp-faq__item {
-  background: #f8f8f8;
-  border: 1px solid #1a1a1a;
-  border-radius: 8px;
-  overflow: hidden;
-}
+.nwg-pdp-faq { background: #fff; padding: clamp(56px, 7vw, 104px) var(--pdp-gutter); }
+.nwg-pdp-faq__container { margin-inline: auto; max-width: 1180px; }
+.nwg-pdp-faq__header { margin-bottom: clamp(28px, 4vw, 48px); text-align: center; }
+.nwg-pdp-faq__eyebrow { color: var(--color-campaign, #ff711f); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; margin: 0 0 12px; text-transform: uppercase; }
+.nwg-pdp-faq__heading { color: #111; font-size: clamp(2rem, 4.4vw, 3.5rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1; margin: 0; text-transform: uppercase; }
+.nwg-pdp-faq__subheading { color: #555; font-size: clamp(1rem, 1.4vw, 1.125rem); line-height: 1.5; margin: 14px 0 0; }
+.nwg-pdp-faq__list { border-top: 2px solid var(--color-campaign, #ff711f); display: flex; flex-direction: column; }
+.nwg-pdp-faq__item { border-bottom: 1px solid #e5e5e2; }
 .nwg-pdp-faq__question {
   align-items: center;
-  color: #1a1a1a;
+  color: #111;
   cursor: pointer;
   display: flex;
-  flex-direction: row-reverse;
-  font-size: 16px;
+  font-size: clamp(1.0625rem, 1.5vw, 1.3125rem);
   font-weight: 700;
-  gap: 16px;
-  line-height: 1.4;
-  min-height: 60px;
-  padding: 20px;
+  gap: 20px;
+  line-height: 1.35;
+  padding: clamp(20px, 2.2vw, 28px) 0;
   text-align: left;
+  transition: color 200ms ease;
   width: 100%;
 }
 .nwg-pdp-faq__question span { flex: 1; }
-.nwg-pdp-faq__icon { flex-shrink: 0; height: 24px; transition: transform 0.3s ease; width: 24px; }
+.nwg-pdp-faq__question:hover,
+.nwg-pdp-faq__item.is-open .nwg-pdp-faq__question { color: var(--color-campaign, #ff711f); }
+.nwg-pdp-faq__icon { color: var(--color-campaign, #ff711f); flex-shrink: 0; height: 24px; transition: transform 0.3s ease; width: 24px; }
 .nwg-pdp-faq__item.is-open .nwg-pdp-faq__icon { transform: rotate(180deg); }
-.nwg-pdp-faq__divider { background: #1a1a1a; height: 1px; }
+.nwg-pdp-faq__divider { display: none; }
 .nwg-pdp-faq__answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
 .nwg-pdp-faq__item.is-open .nwg-pdp-faq__answer { max-height: 2000px; }
-.nwg-pdp-faq__answer-content {
-  color: #000;
-  font-size: 14px;
-  line-height: 1.4;
-  padding: 15px 20px 20px;
-}
+.nwg-pdp-faq__answer-content { color: #444; font-size: clamp(0.9375rem, 1.2vw, 1.0625rem); line-height: 1.65; max-width: 80ch; padding: 0 44px clamp(22px, 2.4vw, 30px) 0; }
 .nwg-pdp-faq__answer-content p { margin: 0; }
-
-@media (min-width: 750px) {
-  .nwg-pdp-faq__container { padding: 30px 40px 50px; }
-  .nwg-pdp-faq__heading { font-size: 48px; margin-bottom: 20px; }
-  .nwg-pdp-faq__subheading { font-size: 20px; margin-bottom: 40px; }
-  .nwg-pdp-faq__question { font-size: 20px; min-height: auto; }
-  .nwg-pdp-faq__answer-content { font-size: 16px; }
-}
+.nwg-pdp-faq__answer-content p + p { margin-top: 12px; }
 
 /* ---------------------------------------------------------------- related products */
 
@@ -991,40 +952,4 @@
   .nwg-pdp-related__list { gap: 48px 24px; grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
 
-/* ---------------------------------------------------------------- reviews (centred card slider) */
-
-.nwg-pdp-reviews { background: #f3f3f1; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; padding: clamp(56px, 7vw, 96px) var(--container-gutter, 20px); text-align: center; }
-.nwg-pdp-reviews__stars { align-items: center; display: inline-flex; gap: 3px; }
-.nwg-pdp-reviews__stars svg { color: #d6d6d2; height: 16px; width: 16.7px; }
-.nwg-pdp-reviews__stars svg.is-filled { color: var(--color-ink, #111); }
-
-.nwg-pdp-reviews__header { display: grid; gap: 12px; justify-items: center; margin: 0 auto clamp(28px, 3.5vw, 44px); max-width: 900px; }
-.nwg-pdp-reviews__eyebrow { color: var(--color-muted, #6b6b6b); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.18em; margin: 0; text-transform: uppercase; }
-.nwg-pdp-reviews__heading { font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; margin: 0; text-wrap: balance; }
-.nwg-pdp-reviews__summary { align-items: center; color: var(--color-ink-subdued, #444); display: flex; flex-wrap: wrap; font-size: 1rem; gap: 10px; justify-content: center; margin: 4px 0 0; }
-.nwg-pdp-reviews__summary strong { color: var(--color-ink, #111); }
-
-.nwg-review-slider { align-items: center; column-gap: clamp(8px, 9vw, 140px); display: grid; grid-template-columns: auto minmax(0, 860px) auto; justify-content: center; margin: 0 auto; max-width: 1240px; }
-.nwg-review-slider__viewport { margin: -16px -24px -40px; overflow: hidden; touch-action: pan-y; }
-.nwg-review-slider__track { display: flex; list-style: none; margin: 0; padding: 0; transition: transform 450ms cubic-bezier(0.2, 0.7, 0.2, 1); }
-.nwg-review-slider__slide { flex: 0 0 100%; padding: 16px 24px 40px; }
-.nwg-review-card { background: #fff; border-radius: 24px; box-shadow: 0 14px 36px rgb(17 17 17 / 7%); display: grid; justify-items: center; padding: clamp(32px, 3.6vw, 52px) clamp(24px, 5vw, 72px); }
-.nwg-review-card__stars { display: inline-flex; gap: 12px; }
-.nwg-review-card__stars svg { color: #d6d6d2; height: 30px; width: 31px; }
-.nwg-review-card__stars svg.is-filled { color: var(--color-ink, #111); }
-.nwg-review-card__body { font-size: clamp(1rem, 1.5vw, 1.25rem); line-height: 1.55; margin: 28px 0 0; max-width: 58ch; white-space: pre-line; }
-.nwg-review-card__name { font-size: 1.25rem; font-weight: 700; margin: 26px 0 0; }
-.nwg-review-card__meta { color: var(--color-muted, #6b6b6b); font-size: 0.9375rem; margin: 6px 0 0; }
-.nwg-review-card__product { color: var(--color-ink, #111); text-decoration: underline; text-underline-offset: 3px; }
-.nwg-review-slider__arrow { background: none; border: 0; color: #b0b0ad; cursor: pointer; font-family: Arial, sans-serif; font-size: 3.5rem; line-height: 1; padding: 8px; transition: color 200ms ease; }
-.nwg-review-slider__arrow:hover { color: var(--color-ink, #111); }
-.nwg-review-slider__dots { align-items: center; display: flex; gap: 18px; grid-column: 1 / -1; justify-content: center; margin-top: 40px; }
-.nwg-review-slider__dot { background: #d6d6d2; border: 0; border-radius: 50%; cursor: pointer; height: 11px; padding: 0; transition: background-color 200ms ease, height 200ms ease, width 200ms ease; width: 11px; }
-.nwg-review-slider__dot[aria-current="true"] { background: var(--color-campaign, #ff711f); height: 26px; width: 26px; }
-.nwg-pdp-reviews__write-wrap { margin: 32px 0 0; }
-.nwg-pdp-reviews__write { border-bottom: 1px solid currentColor; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
-.nwg-pdp-reviews__write:hover { color: var(--color-campaign, #ff711f); }
-@media (max-width: 699px) {
-  .nwg-review-slider { grid-template-columns: minmax(0, 1fr); }
-  .nwg-review-slider__arrow { display: none; }
-}
+/* Reviews: styles live in src/components/product/review-slider.css (shared with the homepage). */
