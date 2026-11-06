@@ -27,13 +27,8 @@ export function Logo() {
         width={220}
       />
       </span>
-      {/* Orange X drawn as two slashes, slanted to match the italic wordmark. */}
-      <svg aria-hidden="true" className="site-header__cross" viewBox="0 0 40 40">
-        <g fill="#f47b2a" stroke="#fff" strokeLinejoin="round" strokeWidth="1.4">
-          <path d="M12 2h8L30 38h-8Z" />
-          <path d="M30 2h8L10 38H2Z" />
-        </g>
-      </svg>
+      {/* Orange brush-stroke X between the wordmark and the caricature. */}
+      <img alt="" aria-hidden="true" className="site-header__cross" height={100} src="/images/brush-x.svg" width={100} />
       {/* John Daly caricature: line art in black, or white on transparent headers. */}
       <img alt="" className="site-header__daly" height={254} src="/images/daly/jd-caricature-sm.png" width={200} />
       <img
