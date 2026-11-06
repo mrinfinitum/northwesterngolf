@@ -240,9 +240,9 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
 .site-header__main-nav { align-items: center; display: flex; grid-area: main; }
 /* Lockup: NORTHWESTERN × John Daly caricature. */
 .site-header__logo { align-items: center; display: flex; gap: 8px; grid-area: logo; justify-self: center; max-width: 100%; }
-.site-header__wordmark { display: block; flex: none; width: 124px; }
-.site-header__cross { display: block; flex: none; height: 20px; width: 20px; }
-.site-header__daly { display: block; flex: none; height: 52px; margin-block: -4px; width: auto; }
+.site-header__wordmark { display: block; flex: none; width: 116px; }
+.site-header__cross { display: block; flex: none; height: 18px; width: 18px; }
+.site-header__daly { display: block; flex: none; height: 44px; margin-block: -2px; width: auto; }
 .site-header__logo-image { display: block; height: auto; width: 100%; }
 .site-header__logo-image--transparent,
 .site-header__daly--transparent,
@@ -308,7 +308,7 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
   cursor: pointer;
   display: flex;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   gap: 0.5rem;
   letter-spacing: 0.12em;
   line-height: 1;
@@ -361,10 +361,10 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
 
 @media (min-width: 700px) {
   .site-header__wrapper { column-gap: 1.5rem; padding-block: 0.5rem; }
-  .site-header__logo { gap: 16px; }
-  .site-header__wordmark { width: 250px; }
-  .site-header__cross { height: 40px; width: 40px; }
-  .site-header__daly { height: 80px; margin-block: -2px; }
+  .site-header__logo { gap: 12px; }
+  .site-header__wordmark { width: 190px; }
+  .site-header__cross { height: 28px; width: 28px; }
+  .site-header__daly { height: 60px; margin-block: -2px; }
   .site-header__icons { gap: 1.5rem; }
   .site-header .site-header__search-mobile { display: none; }
   .site-header .site-header__search-desktop,
@@ -376,17 +376,17 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
   .site-header__wrapper { grid-template: "logo main secondary" / auto minmax(0, 1fr) auto; }
   .site-header__logo { justify-self: start; }
   .site-header__main-nav { justify-content: center; }
-  .site-header__wordmark { width: 200px; }
-  .site-header__cross { height: 32px; width: 32px; }
-  .site-header__daly { height: 72px; }
+  .site-header__wordmark { width: 180px; }
+  .site-header__cross { height: 26px; width: 26px; }
+  .site-header__daly { height: 56px; }
   .site-header__icons--leading { display: none; }
   .desktop-nav { display: block; }
 }
 @media (min-width: 1400px) {
   .site-header__wrapper { column-gap: 2.5rem; }
-  .site-header__wordmark { width: 250px; }
-  .site-header__cross { height: 40px; width: 40px; }
-  .site-header__daly { height: 80px; }
+  .site-header__wordmark { width: 200px; }
+  .site-header__cross { height: 30px; width: 30px; }
+  .site-header__daly { height: 62px; }
   .desktop-nav__list { column-gap: 2.75rem; }
 }
 
