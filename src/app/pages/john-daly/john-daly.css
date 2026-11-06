@@ -92,10 +92,9 @@
   color: var(--color-white);
   display: flex;
   isolation: isolate;
-  margin-top: calc(-1 * var(--header-height, 0px));
-  min-height: min(100svh, 980px);
+  min-height: min(calc(100svh - var(--header-height, 72px)), 900px);
   overflow: hidden;
-  padding: calc(var(--header-height, 72px) + 48px) var(--container-gutter) clamp(48px, 7vw, 104px);
+  padding: 48px var(--container-gutter) clamp(48px, 7vw, 104px);
   position: relative;
 }
 .jd-hero__image { object-fit: cover; object-position: 72% 40%; z-index: -2; }

@@ -4,7 +4,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
 /** Routes whose first section sits under a translucent, non-sticky header. */
-const transparentHeaderRoutes = new Set(["/pages/contact", "/pages/john-daly", "/pages/our-story"]);
+const transparentHeaderRoutes = new Set(["/pages/contact", "/pages/our-story"]);
 
 export function HeaderFrame({ children }: { children: ReactNode }) {
   const pathname = usePathname();
