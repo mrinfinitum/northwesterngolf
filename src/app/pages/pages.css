@@ -67,6 +67,42 @@
   line-height: 1.7;
 }
 
+/* Centred photo hero (Contact) */
+.nwg-center-hero { color: #fff; display: grid; isolation: isolate; min-height: min(78svh, 720px); overflow: hidden; padding: clamp(72px, 10vw, 140px) var(--container-gutter, 20px); place-items: center; position: relative; text-align: center; }
+.nwg-center-hero__image { object-fit: cover; z-index: -2; }
+.nwg-center-hero::before {
+  background:
+    linear-gradient(180deg, rgb(17 17 17 / 55%) 0%, rgb(17 17 17 / 72%) 60%, rgb(17 17 17 / 88%) 100%),
+    radial-gradient(120% 85% at 50% 115%, rgb(255 113 31 / 72%) 0%, rgb(255 113 31 / 0%) 62%);
+  content: "";
+  inset: 0;
+  position: absolute;
+  z-index: -1;
+}
+.nwg-center-hero__content { display: grid; justify-items: center; max-width: 920px; }
+.nwg-center-hero__eyebrow { color: var(--color-campaign, #ff711f); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+.nwg-center-hero__title { color: #fff; font-size: clamp(3.5rem, 10vw, 8.5rem); font-weight: 700; letter-spacing: -0.04em; line-height: 0.86; margin-top: 18px; text-transform: uppercase; }
+.nwg-center-hero__rule { background: var(--color-campaign, #ff711f); display: block; height: 4px; margin-top: clamp(22px, 3vw, 32px); width: 72px; }
+.nwg-center-hero__body { color: rgb(255 255 255 / 86%); font-size: clamp(1.0625rem, 1.5vw, 1.25rem); line-height: 1.55; margin-top: 22px; max-width: 40ch; }
+.nwg-center-hero__actions { display: grid; gap: 12px; list-style: none; margin: clamp(32px, 4vw, 48px) 0 0; padding: 0; width: 100%; }
+.nwg-center-hero__action {
+  backdrop-filter: blur(6px);
+  background: rgb(255 255 255 / 8%);
+  border: 1px solid rgb(255 255 255 / 28%);
+  display: grid;
+  gap: 4px;
+  padding: 16px 22px;
+  text-decoration: none;
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+.nwg-center-hero__action:hover { background: var(--color-campaign, #ff711f); border-color: var(--color-campaign, #ff711f); }
+.nwg-center-hero__action-label { color: var(--color-campaign, #ff711f); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; transition: color 200ms ease; }
+.nwg-center-hero__action:hover .nwg-center-hero__action-label { color: #fff; }
+.nwg-center-hero__action-value { font-size: 1.0625rem; font-weight: 600; }
+@media (min-width: 700px) {
+  .nwg-center-hero__actions { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
 /* Legacy (image_and_heading_text) */
 .nwg-page-legacy {
   background: #fff;
