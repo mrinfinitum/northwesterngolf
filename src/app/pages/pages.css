@@ -99,6 +99,14 @@
 .nwg-center-hero__action-label { color: var(--color-campaign, #ff711f); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; transition: color 200ms ease; }
 .nwg-center-hero__action:hover .nwg-center-hero__action-label { color: #fff; }
 .nwg-center-hero__action-value { font-size: 1.0625rem; font-weight: 600; }
+/* Plain variant: solid white header, SaaS-style. */
+.nwg-center-hero--plain { background: #fff; border-bottom: 1px solid #ececea; color: var(--color-ink, #111); min-height: 0; padding: clamp(64px, 8vw, 112px) var(--container-gutter, 20px) clamp(56px, 7vw, 96px); }
+.nwg-center-hero--plain::before { display: none; }
+.nwg-center-hero--plain .nwg-center-hero__title { color: var(--color-ink, #111); font-size: clamp(3rem, 7vw, 6rem); }
+.nwg-center-hero--plain .nwg-center-hero__body { color: var(--color-ink-subdued, #555); }
+.nwg-center-hero--plain .nwg-center-hero__action { backdrop-filter: none; background: #fff; border-color: #e2e2df; box-shadow: 0 1px 2px rgb(17 17 17 / 4%); color: var(--color-ink, #111); transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease; }
+.nwg-center-hero--plain .nwg-center-hero__action:hover { background: #fff; border-color: var(--color-campaign, #ff711f); box-shadow: 0 10px 24px rgb(17 17 17 / 8%); transform: translateY(-2px); }
+.nwg-center-hero--plain .nwg-center-hero__action:hover .nwg-center-hero__action-label { color: var(--color-campaign, #ff711f); }
 @media (min-width: 700px) {
   .nwg-center-hero__actions { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }

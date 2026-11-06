@@ -27,7 +27,8 @@ export type PageSection =
       body: string;
       eyebrow: string;
       focus?: string;
-      image: string;
+      /** Optional; without it the hero is a plain white header. */
+      image?: string;
       title: string;
     }
   | {
@@ -144,8 +145,6 @@ export const pageSections: Record<string, PageSection[]> = {
       ],
       body: "Questions, feedback, or partnerships? We’d love to hear from you.",
       eyebrow: "Northwestern Golf · Since 1929",
-      focus: "50% 30%",
-      image: "/images/daly/bags.jpg",
       title: "Contact Us",
     },
     {

@@ -49,7 +49,7 @@ export function ReviewSlider({ reviews }: { reviews: ProductReview[] }) {
                 <p className="nwg-review-card__body">{review.body}</p>
                 <p className="nwg-review-card__name">{review.reviewer.name}</p>
                 <p className="nwg-review-card__meta">
-                  {review.reviewer.verified ? "Verified buyer" : "Customer"} · {review.title}
+                  {review.reviewer.verified ? "Verified buyer" : "Customer"} · <span className="nwg-review-card__product">{review.title}</span>
                 </p>
               </article>
             </li>

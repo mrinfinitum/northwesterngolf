@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: { ...openGraphBase, description, title: "Our Story · Northwestern Golf", url: "/pages/our-story" },
 };
 
-/** Swap this for the new hero photo when it arrives (any landscape image; crop point in `focus`). */
+/** Hero photo (any landscape image; crop point in `focus`). */
 const HERO = {
   alt: "John Daly with the Northwestern team and their Signature bags on the course",
   focus: "50% 40%",
@@ -38,9 +38,8 @@ export default function OurStoryPage() {
 
   return (
     <article className="os">
-      {/* Hero: full-bleed photo, statement bottom-left. */}
+      {/* Hero: white, centred SaaS-style header with the team photo below. */}
       <section className="os-hero">
-        <Image alt={HERO.alt} className="os-hero__image" fill priority sizes="100vw" src={HERO.src} style={{ objectPosition: HERO.focus }} />
         <div className="os-hero__content">
           <p className="os-eyebrow">Our Story · Since 1929</p>
           <h1 className="os-hero__title">Clubs for real golfers.</h1>
@@ -48,6 +47,13 @@ export default function OurStoryPage() {
             Since 1929, we’ve built clubs for real people, not just pros. Today we carry that legacy forward with innovative,
             affordable gear for golfers of all ages, genders and skill levels.
           </p>
+          <div className="os-hero__actions">
+            <Link className="os-button" href="/collections/all">Shop the collection</Link>
+            <Link className="os-button os-button--ghost" href="/pages/john-daly">Meet John Daly</Link>
+          </div>
+        </div>
+        <div className="os-hero__media">
+          <Image alt={HERO.alt} className="os-hero__image" fill priority sizes="(max-width: 1400px) 100vw, 1320px" src={HERO.src} style={{ objectPosition: HERO.focus }} />
         </div>
       </section>
 
@@ -108,13 +114,14 @@ export default function OurStoryPage() {
         </div>
       </section>
 
-      {/* Orange closer. */}
+      {/* Closer: one contained orange card. */}
       <section className="os-closer">
-        <p className="os-closer__headline">Golf for everyone.</p>
-        <p className="os-closer__body">Whether you’re a first-timer, a weekend regular, or just love the game in jeans and a T-shirt.</p>
-        <div className="os-closer__actions">
+        <div className="os-closer__card">
+          <div>
+            <p className="os-closer__headline">Golf for everyone.</p>
+            <p className="os-closer__body">First-timer, weekend regular, or just love the game in jeans and a T-shirt.</p>
+          </div>
           <Link className="os-button" href="/collections/all">Shop the collection</Link>
-          <Link className="os-button os-button--ghost" href="/pages/john-daly">Meet John Daly</Link>
         </div>
       </section>
     </article>

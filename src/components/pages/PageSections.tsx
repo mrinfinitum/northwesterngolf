@@ -48,8 +48,10 @@ function Section({ contactPosted, first, section }: { contactPosted: boolean; fi
       );
     case "centerHero":
       return (
-        <section className="nwg-center-hero">
-          <Image alt="" className="nwg-center-hero__image" fill priority={first} sizes="100vw" src={section.image} style={section.focus ? { objectPosition: section.focus } : undefined} />
+        <section className={`nwg-center-hero${section.image ? "" : " nwg-center-hero--plain"}`}>
+          {section.image ? (
+            <Image alt="" className="nwg-center-hero__image" fill priority={first} sizes="100vw" src={section.image} style={section.focus ? { objectPosition: section.focus } : undefined} />
+          ) : null}
           <div className="nwg-center-hero__content">
             <p className="nwg-center-hero__eyebrow">{section.eyebrow}</p>
             <h1 className="nwg-center-hero__title">{section.title}</h1>

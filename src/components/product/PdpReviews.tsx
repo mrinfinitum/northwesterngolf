@@ -23,7 +23,7 @@ export async function PdpReviews({ handle }: { handle: string }) {
     <section aria-label={`Rated ${summary.average.toFixed(1)} out of 5 stars, based on ${summary.count} reviews`} className="nwg-pdp-reviews" id="nwg-pdp-reviews">
       <div className="nwg-pdp-reviews__header">
         <p className="nwg-pdp-reviews__eyebrow">Reviews</p>
-        <h2 className="nwg-pdp-reviews__heading">Don’t just take our word for it</h2>
+        <h2 className="nwg-pdp-reviews__heading">Don’t Just Take Our Word For It</h2>
         <p className="nwg-pdp-reviews__summary">
           <Stars rating={summary.average} size="md" />
           <span><strong>{summary.average.toFixed(1)}</strong> out of 5 from {summary.count} reviews</span>
