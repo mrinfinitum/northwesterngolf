@@ -163,13 +163,13 @@ export default async function JohnDalyPage() {
       {/* Photo mosaic from the shoots. */}
       <section aria-label="John Daly with Northwestern Golf" className="jd-gallery">
         <div className="jd-gallery__item">
+          <Image alt="Junior Signature Set stand bag with the Daly caricature and signature" fill sizes="(max-width: 699px) 100vw, 33vw" src="/images/daly/jd-gallery-left.jpg" />
+        </div>
+        <div className="jd-gallery__item">
           <Image alt="John Daly holding his Signature driver" fill sizes="(max-width: 699px) 100vw, 33vw" src="/images/daly/jd-portrait-driver.jpg" />
         </div>
         <div className="jd-gallery__item">
-          <Image alt="John Daly with the Men’s and Junior Signature Set bags" fill sizes="(max-width: 699px) 100vw, 33vw" src="/images/daly/bags.jpg" />
-        </div>
-        <div className="jd-gallery__item">
-          <Image alt="John Daly with his Signature putter" fill sizes="(max-width: 699px) 100vw, 33vw" src="/images/daly/jd-putter.jpg" />
+          <Image alt="Junior Signature Set clubs lined up beside the bag on the course" fill sizes="(max-width: 699px) 100vw, 33vw" src="/images/daly/jd-gallery-right.jpg" style={{ objectPosition: "75% 60%" }} />
         </div>
       </section>
 
