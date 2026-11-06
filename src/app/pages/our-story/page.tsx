@@ -17,8 +17,9 @@ export const metadata: Metadata = {
 
 /** Swap this for the new hero photo when it arrives (any landscape image; crop point in `focus`). */
 const HERO = {
-  focus: "50% 45%",
-  src: "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/Northwestern20Bldg202-scaled.webp?v=1761208992",
+  alt: "John Daly with the Northwestern team and their Signature bags on the course",
+  focus: "50% 40%",
+  src: "/images/our-story/hero.jpg", // SB_00069, John Daly Shoot 10-31-25
 };
 
 const NUMBERS = [
@@ -39,7 +40,7 @@ export default function OurStoryPage() {
     <article className="os">
       {/* Hero: full-bleed photo, statement bottom-left. */}
       <section className="os-hero">
-        <Image alt="" className="os-hero__image" fill priority sizes="100vw" src={HERO.src} style={{ objectPosition: HERO.focus }} />
+        <Image alt={HERO.alt} className="os-hero__image" fill priority sizes="100vw" src={HERO.src} style={{ objectPosition: HERO.focus }} />
         <div className="os-hero__content">
           <p className="os-eyebrow">Our Story · Since 1929</p>
           <h1 className="os-hero__title">Clubs for real golfers.</h1>

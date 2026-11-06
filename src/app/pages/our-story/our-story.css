@@ -32,14 +32,14 @@
 /* ---------- Hero ---------- */
 .os-hero { align-items: flex-end; background: var(--os-graphite); color: #fff; display: flex; isolation: isolate; min-height: min(calc(100svh - var(--header-height, 75px)), 860px); overflow: hidden; padding: 64px var(--container-gutter) clamp(48px, 7vw, 104px); position: relative; }
 .os-hero__image { object-fit: cover; z-index: -2; }
-.os-hero::after { background: linear-gradient(0deg, rgb(0 0 0 / 78%) 0%, rgb(0 0 0 / 40%) 45%, rgb(0 0 0 / 10%) 100%), linear-gradient(90deg, rgb(0 0 0 / 45%), transparent 60%); content: ""; inset: 0; position: absolute; z-index: -1; }
+.os-hero::after { background: linear-gradient(0deg, rgb(0 0 0 / 80%) 0%, rgb(0 0 0 / 35%) 32%, rgb(0 0 0 / 0%) 58%); content: ""; inset: 0; position: absolute; z-index: -1; }
 .os-hero__content { margin-inline: auto; max-width: var(--os-max); width: 100%; }
-.os-hero__title { font-size: clamp(3.5rem, 9vw, 9rem); font-weight: 700; letter-spacing: -0.04em; line-height: 0.86; margin: 18px 0 0; max-width: 11ch; text-transform: uppercase; text-wrap: balance; }
-.os-hero__body { color: rgb(255 255 255 / 86%); font-size: clamp(1rem, 1.4vw, 1.1875rem); line-height: 1.55; margin: 24px 0 0; max-width: 46ch; }
+.os-hero__title { font-size: clamp(2.75rem, 5.6vw, 5.5rem); font-weight: 700; letter-spacing: -0.035em; line-height: 0.9; margin: 16px 0 0; max-width: 18ch; text-transform: uppercase; text-wrap: balance; }
+.os-hero__body { color: rgb(255 255 255 / 88%); font-size: clamp(1rem, 1.3vw, 1.125rem); line-height: 1.55; margin: 18px 0 0; max-width: 56ch; }
 
 /* ---------- Statement ---------- */
-.os-statement { background: #fff; padding: clamp(72px, 10vw, 152px) var(--container-gutter); text-align: center; }
-.os-statement__text { font-size: clamp(2rem, 4.6vw, 4.25rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; margin: 0 auto; max-width: 20ch; text-transform: uppercase; text-wrap: balance; }
+.os-statement { background: #fff; padding: clamp(44px, 5.5vw, 80px) var(--container-gutter); text-align: center; }
+.os-statement__text { font-size: clamp(1.625rem, 3.2vw, 3rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; margin: 0 auto; max-width: 30ch; text-transform: uppercase; text-wrap: balance; }
 .os-statement__text span { color: var(--color-campaign, #ff711f); }
 
 /* ---------- Legacy split ---------- */
