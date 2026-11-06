@@ -310,7 +310,7 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
   font-size: 0.875rem;
   font-weight: 700;
   gap: 0.5rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.06em;
   line-height: 1;
   padding: 0.75rem 0;
   position: relative;
@@ -356,7 +356,7 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
 .desktop-nav__item:focus-within > .desktop-nav__dropdown { opacity: 1; transform: none; visibility: visible; }
 .desktop-nav__dropdown ul { display: grid; gap: 1rem; list-style: none; margin: 0; padding: 0; }
 /* Same type as .desktop-nav__link so the menu reads as one system. */
-.desktop-nav__dropdown-link { color: var(--color-ink); display: flex; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.12em; line-height: 1.3; text-transform: uppercase; transition: color 200ms ease; }
+.desktop-nav__dropdown-link { color: var(--color-ink); display: flex; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.06em; line-height: 1.3; text-transform: uppercase; transition: color 200ms ease; }
 .desktop-nav__dropdown-link .reversed-link { background: none; }
 .desktop-nav__dropdown-link:hover,
 .desktop-nav__dropdown-link:focus-visible { color: var(--color-campaign, #ff711f); }
