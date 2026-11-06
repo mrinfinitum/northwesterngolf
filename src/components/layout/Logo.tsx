@@ -27,24 +27,21 @@ export function Logo() {
         width={220}
       />
       </span>
-      {/* Orange X from the Northwestern × John Daly lockup. */}
+      {/* Orange X drawn as two slashes, slanted to match the italic wordmark. */}
       <svg aria-hidden="true" className="site-header__cross" viewBox="0 0 40 40">
-        <path
-          d="M8 2 20 14 32 2l6 6-12 12 12 12-6 6-12-12L8 38l-6-6 12-12L2 8Z"
-          fill="#f47b2a"
-          stroke="#fff"
-          strokeLinejoin="round"
-          strokeWidth="1.6"
-        />
+        <g fill="#f47b2a" stroke="#fff" strokeLinejoin="round" strokeWidth="1.4">
+          <path d="M12 2h8L30 38h-8Z" />
+          <path d="M30 2h8L10 38H2Z" />
+        </g>
       </svg>
       {/* John Daly caricature: line art in black, or white on transparent headers. */}
-      <img alt="" className="site-header__daly" height={203} src="/images/daly/jd-caricature-sm.png" width={160} />
+      <img alt="" className="site-header__daly" height={254} src="/images/daly/jd-caricature-sm.png" width={200} />
       <img
         alt=""
         className="site-header__daly site-header__daly--transparent"
-        height={203}
+        height={254}
         src="/images/daly/jd-caricature-white-sm.png"
-        width={160}
+        width={200}
       />
     </Link>
   );
