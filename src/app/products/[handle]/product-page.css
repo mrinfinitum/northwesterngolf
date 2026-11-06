@@ -963,36 +963,39 @@
   .nwg-pdp-related__list { gap: 48px 24px; grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
 
-/* ---------------------------------------------------------------- reviews (editorial, no boxes) */
+/* ---------------------------------------------------------------- reviews (centred card slider) */
 
-.nwg-pdp-reviews { margin-inline: auto; max-width: 1320px; padding: clamp(56px, 7vw, 104px) var(--pdp-gutter, 20px); }
-.nwg-pdp-reviews__stars { align-items: center; display: inline-flex; gap: 2px; }
-.nwg-pdp-reviews__stars svg { color: #e2e2df; height: 16px; width: 16.7px; }
-.nwg-pdp-reviews__stars.is-lg svg { height: 22px; width: 23px; }
-.nwg-pdp-reviews__stars svg.is-filled { color: var(--color-campaign, #ff711f); }
+.nwg-pdp-reviews { background: #f3f3f1; padding: clamp(56px, 7vw, 96px) var(--container-gutter, 20px); text-align: center; }
+.nwg-pdp-reviews__stars { align-items: center; display: inline-flex; gap: 3px; }
+.nwg-pdp-reviews__stars svg { color: #d6d6d2; height: 16px; width: 16.7px; }
+.nwg-pdp-reviews__stars svg.is-filled { color: var(--color-ink, #111); }
 
-.nwg-pdp-reviews__header { align-items: end; display: grid; gap: 20px 48px; margin-bottom: clamp(32px, 4vw, 56px); }
-.nwg-pdp-reviews__eyebrow { color: var(--color-campaign, #ff711f); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em; margin: 0; text-transform: uppercase; }
-.nwg-pdp-reviews__heading { font-size: clamp(2.25rem, 4.6vw, 4rem); font-weight: 700; letter-spacing: -0.03em; line-height: 0.92; margin: 14px 0 0; text-transform: uppercase; }
-.nwg-pdp-reviews__score { align-items: center; display: flex; flex-wrap: wrap; gap: 8px 16px; }
-.nwg-pdp-reviews__average { font-size: clamp(2.75rem, 5vw, 4rem); font-weight: 700; letter-spacing: -0.04em; line-height: 0.9; }
-.nwg-pdp-reviews__meta { color: var(--color-muted, #6b6b6b); display: grid; font-size: 0.875rem; gap: 6px; }
-.nwg-pdp-reviews__write { border-bottom: 1px solid currentColor; color: var(--color-ink, #111); font-size: 0.75rem; font-weight: 700; justify-self: start; letter-spacing: 0.16em; text-transform: uppercase; }
+.nwg-pdp-reviews__header { display: grid; gap: 12px; justify-items: center; margin: 0 auto clamp(28px, 3.5vw, 44px); max-width: 900px; }
+.nwg-pdp-reviews__eyebrow { color: var(--color-muted, #6b6b6b); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.18em; margin: 0; text-transform: uppercase; }
+.nwg-pdp-reviews__heading { font-size: clamp(2rem, 4.4vw, 3.5rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin: 0; text-wrap: balance; }
+.nwg-pdp-reviews__summary { align-items: center; color: var(--color-ink-subdued, #444); display: flex; flex-wrap: wrap; font-size: 1rem; gap: 10px; justify-content: center; margin: 4px 0 0; }
+.nwg-pdp-reviews__summary strong { color: var(--color-ink, #111); }
+
+.nwg-review-slider { align-items: center; column-gap: clamp(8px, 4vw, 72px); display: grid; grid-template-columns: auto minmax(0, 980px) auto; justify-content: center; margin: 0 auto; max-width: 1240px; }
+.nwg-review-slider__viewport { margin: -16px -24px -40px; overflow: hidden; touch-action: pan-y; }
+.nwg-review-slider__track { display: flex; list-style: none; margin: 0; padding: 0; transition: transform 450ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+.nwg-review-slider__slide { flex: 0 0 100%; padding: 16px 24px 40px; }
+.nwg-review-card { background: #fff; border-radius: 24px; box-shadow: 0 18px 40px rgb(17 17 17 / 8%); display: grid; justify-items: center; padding: clamp(32px, 4vw, 56px) clamp(24px, 6vw, 84px); }
+.nwg-review-card__stars { display: inline-flex; gap: 12px; }
+.nwg-review-card__stars svg { color: #d6d6d2; height: 30px; width: 31px; }
+.nwg-review-card__stars svg.is-filled { color: var(--color-ink, #111); }
+.nwg-review-card__body { font-size: clamp(1.0625rem, 1.6vw, 1.3125rem); line-height: 1.6; margin: 28px 0 0; max-width: 58ch; white-space: pre-line; }
+.nwg-review-card__name { font-size: 1.3125rem; font-weight: 700; margin: 28px 0 0; }
+.nwg-review-card__meta { color: var(--color-muted, #6b6b6b); font-size: 1rem; margin: 8px 0 0; }
+.nwg-review-slider__arrow { background: none; border: 0; color: #a3a3a0; cursor: pointer; font-size: 2.75rem; line-height: 1; padding: 8px; transition: color 200ms ease; }
+.nwg-review-slider__arrow:hover { color: var(--color-ink, #111); }
+.nwg-review-slider__dots { align-items: center; display: flex; gap: 14px; grid-column: 1 / -1; justify-content: center; margin-top: 40px; }
+.nwg-review-slider__dot { background: #d6d6d2; border: 0; border-radius: 50%; cursor: pointer; height: 12px; padding: 0; transition: background-color 200ms ease, transform 200ms ease; width: 12px; }
+.nwg-review-slider__dot[aria-current="true"] { background: var(--color-campaign, #ff711f); transform: scale(2.4); margin-inline: 10px; }
+.nwg-pdp-reviews__write-wrap { margin: 32px 0 0; }
+.nwg-pdp-reviews__write { border-bottom: 1px solid currentColor; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
 .nwg-pdp-reviews__write:hover { color: var(--color-campaign, #ff711f); }
-
-.nwg-pdp-reviews__list { display: grid; gap: 0 clamp(24px, 3vw, 48px); list-style: none; margin: 0; padding: 0; }
-.nwg-pdp-reviews__item { border-top: 1px solid var(--color-ink, #111); padding: 24px 0 36px; }
-.nwg-pdp-review { display: grid; gap: 14px; }
-.nwg-pdp-review__top { align-items: center; display: flex; justify-content: space-between; }
-.nwg-pdp-review__date { color: var(--color-muted, #6b6b6b); font-size: 0.8125rem; }
-.nwg-pdp-review__title { font-size: 1.375rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.15; margin: 0; text-transform: uppercase; }
-.nwg-pdp-review__body { color: var(--color-ink-subdued, #444); font-size: 1rem; line-height: 1.6; margin: 0; white-space: pre-line; }
-.nwg-pdp-review__byline { color: var(--color-ink, #111); font-size: 0.8125rem; font-weight: 700; margin: 4px 0 0; }
-.nwg-pdp-review__verified { color: var(--color-blue, #366683); font-weight: 400; }
-
-@media (min-width: 750px) {
-  .nwg-pdp-reviews__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-@media (min-width: 900px) {
-  .nwg-pdp-reviews__header { grid-template-columns: minmax(0, 1fr) auto; }
+@media (max-width: 699px) {
+  .nwg-review-slider { grid-template-columns: minmax(0, 1fr); }
+  .nwg-review-slider__arrow { display: none; }
 }

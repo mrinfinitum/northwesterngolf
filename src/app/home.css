@@ -7,17 +7,16 @@
 .home-hero__video { height: calc(100% + 2px); left: 0; object-fit: cover; position: absolute; top: -1px; width: 100%; z-index: 1; }
 .home-hero__video { opacity: 0; transition: opacity 0.4s ease; }
 .home-hero__video.is-playing { opacity: 1; }
-/* Statement headline anchored bottom-left so the video's subject stays clear. */
-.home-hero::after { background: linear-gradient(0deg, rgb(0 0 0 / 58%) 0%, rgb(0 0 0 / 22%) 34%, transparent 58%); content: ""; inset: 0; pointer-events: none; position: absolute; z-index: 1; }
-.home-hero__content { bottom: clamp(40px, 8vh, 96px); left: var(--container-gutter); max-width: min(1320px, calc(100% - 2 * var(--container-gutter))); position: absolute; text-align: left; z-index: 2; }
+/* Centred headline over the video, with a soft scrim behind it. */
+.home-hero::after { background: radial-gradient(60% 45% at 50% 52%, rgb(0 0 0 / 34%), transparent 75%); content: ""; inset: 0; pointer-events: none; position: absolute; z-index: 1; }
+.home-hero__content { left: 50%; position: absolute; text-align: center; top: 50%; transform: translate(-50%, -50%); width: calc(100% - 2 * var(--container-gutter)); z-index: 2; }
 .home-hero h1 {
-  font-size: clamp(3.5rem, 9vw, 9.5rem);
+  font-size: clamp(2.5rem, 5.2vw, 4.75rem);
   font-weight: 700;
-  letter-spacing: -0.035em;
-  line-height: 0.86;
+  letter-spacing: -0.02em;
+  line-height: 1;
   margin: 0;
-  max-width: 11ch;
-  text-shadow: 0 2px 30px rgb(0 0 0 / 25%);
+  text-shadow: 0 2px 24px rgb(0 0 0 / 35%);
   text-wrap: balance;
 }
 .home-hero__button {
@@ -27,16 +26,15 @@
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.6;
-  margin-top: clamp(22px, 3vw, 36px);
-  padding: 12px 34px;
+  margin-top: 24px;
+  padding: 10px 32px;
   transition: background-color 250ms ease, color 250ms ease;
 }
 .home-hero__button:hover { background: #000; }
 
 @media (max-width: 749px) {
   .home-hero { height: 600px; }
-  .home-hero h1 { font-size: clamp(3rem, 14vw, 4.25rem); }
-  .home-hero__content { bottom: 36px; }
+  .home-hero h1 { font-size: 2.25rem; line-height: 1.05; }
   .home-hero__button { margin-top: 20px; padding: 12px 28px; }
 }
 @media (prefers-reduced-motion: reduce) {
