@@ -112,11 +112,12 @@ export default async function JohnDalyPage() {
         <div className="jd-signature-split__inner">
           <div className="jd-signature-split__media">
             <Image
-              alt="The John Daly Signature driver, with his signature on the crown"
+              alt="John Daly holding the Junior Signature driver, his signature on the sole"
               className="jd-signature-split__image"
               fill
               sizes="(max-width: 899px) 100vw, 45vw"
-              src="/images/daly/jd-signature-driver.jpg"
+              src="/images/daly/jd-junior-driver.jpg"
+              style={{ objectPosition: "50% 40%" }}
             />
           </div>
           <div className="jd-signature-split__copy">
