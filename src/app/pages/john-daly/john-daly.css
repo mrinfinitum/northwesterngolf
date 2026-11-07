@@ -6,7 +6,7 @@
 .jd {
   --jd-orange: #e3672a; /* Logo Orange CMYK */
   --jd-blue: #366683; /* header wordmark */
-  --jd-graphite: #111;
+  --jd-graphite: #366683; /* Northwestern blue (was graphite) */
   --jd-max: 1320px;
   overflow-x: clip;
 }
@@ -226,7 +226,7 @@
 .jd-closer__headline { font-size: clamp(2.75rem, 8vw, 7rem); font-weight: 700; letter-spacing: -0.04em; line-height: 0.88; margin: 0; text-transform: uppercase; }
 .jd-closer__headline span { display: block; }
 .jd-closer .jd-button { background: var(--color-campaign); color: var(--color-white); }
-.jd-closer .jd-button:hover { background: #000; }
+.jd-closer .jd-button:hover { background: var(--color-brand-deep); }
 
 /* ---------- Motion (scroll-driven, progressive) ---------- */
 

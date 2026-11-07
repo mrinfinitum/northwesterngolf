@@ -30,7 +30,7 @@
   padding: 10px 32px;
   transition: background-color 250ms ease, color 250ms ease;
 }
-.home-hero__button:hover { background: #000; }
+.home-hero__button:hover { background: var(--color-brand); }
 
 @media (max-width: 749px) {
   .home-hero { height: 600px; }
