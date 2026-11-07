@@ -75,7 +75,7 @@ const SIGNATURE_SET_TEMPLATES: Record<string, ProductPageTemplate> = {
     setIntro(
       "Grip it and rip it.",
       "Their first real set, made to make the game fun from the very first swing. Everything a young golfer needs to get out there, tee it high and send it like Daly.",
-      ["Driver", "Hybrid", "7 Iron", "9 Iron", "Wedge", "Putter", "Bag", "Head Covers"],
+      ["Driver", "Hybrid", "7 Iron", "Sand Wedge", "Putter", "Bag"],
     ),
     doralVideo("daly-doral-4"),
   ),
@@ -84,7 +84,7 @@ const SIGNATURE_SET_TEMPLATES: Record<string, ProductPageTemplate> = {
     setIntro(
       "Send it like Daly.",
       "The step-up set for growing players who are ready to swing big. Driver to putter, with a fairway wood for the long ones, so they can grip it and rip it all the way round.",
-      ["Driver", "Fairway", "Hybrid", "7 Iron", "9 Iron", "Wedge", "Putter", "Bag", "Head Covers"],
+      ["Driver", "Fairway Wood", "Hybrid", "7 Iron", "Wedge", "Putter", "Bag"],
     ),
     doralVideo("daly-doral-4"),
   ),
@@ -93,7 +93,7 @@ const SIGNATURE_SET_TEMPLATES: Record<string, ProductPageTemplate> = {
     setIntro(
       "Grip it and rip it.",
       "Engineered to help you hit the longest, straightest drives of your life. A classic shape with modern, high-launch technology. Stop fixing your slice. Start splitting fairways, and send it like Daly.",
-      ["Driver", "3-Wood", "5-Wood", "5-PW", "Putter", "Bag", "Head Covers"],
+      ["Driver", "3-Wood", "5-Wood", "5-PW", "Sand Wedge", "Putter", "Bag"],
     ),
     doralVideo("daly-doral-3"),
   ),
