@@ -64,7 +64,7 @@
 
 /* Gallery */
 
-.nwg-pdp-gallery { display: grid; gap: 20px; min-width: 0; }
+.nwg-pdp-gallery { display: grid; gap: 20px; grid-template-columns: minmax(0, 1fr); min-width: 0; }
 .nwg-pdp-gallery--empty { aspect-ratio: 1; background: #fff; border-radius: 12px; }
 
 .nwg-pdp-gallery__viewport { margin-inline: calc(-1 * var(--pdp-gutter)); position: relative; }
