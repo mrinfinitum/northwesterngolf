@@ -504,7 +504,11 @@
 }
 
 @media (min-width: 1000px) {
-  .nwg-pdp-info__title { font-size: 48px; }
+  /* Desktop: scale the set name with the info column so it stays on one line
+     (≈15.4em wide in Barlow caps), up to 48px. */
+  .nwg-pdp-info { container-type: inline-size; }
+  .nwg-pdp-info__title { font-size: clamp(24px, 6.3cqi, 48px); }
+  .nwg-pdp-info__subtitle { font-size: max(0.56em, 18px); }
   .nwg-pdp-info__price,
   .nwg-pdp-info__installments { margin-block: 16px; }
   .nwg-pdp-info__buy { margin-block: 32px; }
