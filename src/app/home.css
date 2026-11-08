@@ -354,7 +354,7 @@
   text-transform: uppercase;
 }
 /* Brand colours from the logo files: orange #e3672a (Logo Orange CMYK), blue #366683 (header wordmark). */
-.proof__logo { aspect-ratio: 425.93 / 36.93; background: #e3672a; display: block; margin-bottom: clamp(22px, 2.6vw, 36px); mask: url("/images/northwestern-logo.svg") center / contain no-repeat; width: clamp(180px, 20vw, 280px); }
+.proof__logo { aspect-ratio: 425.93 / 36.93; background: var(--color-brand, #366683); display: block; margin-bottom: clamp(22px, 2.6vw, 36px); mask: url("/images/northwestern-logo.svg") center / contain no-repeat; width: clamp(180px, 20vw, 280px); }
 .proof__eyebrow { color: var(--color-campaign); }
 .proof__heading {
   font-size: clamp(2.5rem, 5.4vw, 4.5rem);
