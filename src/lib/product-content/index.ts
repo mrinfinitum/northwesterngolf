@@ -59,6 +59,13 @@ function doralVideo(name: "daly-doral-3" | "daly-doral-4"): PdpSection {
   };
 }
 
+/** What ships in each John Daly Signature Set, keyed by product handle (also used by /llms.txt). */
+export const signatureSetContents: Record<string, string[]> = {
+  "junior-john-daly-signature-set-ages-5-8": ["Driver", "Hybrid", "7 Iron", "Sand Wedge", "Putter", "Bag"],
+  "junior-john-daly-signature-set-ages-9-12": ["Driver", "Fairway Wood", "Hybrid", "7 Iron", "Wedge", "Putter", "Bag"],
+  "mens-john-daly-signature-set": ["Driver", "3-Wood", "5-Wood", "5-PW", "Sand Wedge", "Putter", "Bag"],
+};
+
 /** The John Daly Signature Sets: default template plus their own lead-in, contents and Doral reel. */
 function signatureSetTemplate(id: string, introHtml: string, video: PdpSection): ProductPageTemplate {
   return {
@@ -75,7 +82,7 @@ const SIGNATURE_SET_TEMPLATES: Record<string, ProductPageTemplate> = {
     setIntro(
       "Grip it and rip it.",
       "Their first real set, made to make the game fun from the very first swing. Everything a young golfer needs to get out there, tee it high and send it like Daly.",
-      ["Driver", "Hybrid", "7 Iron", "Sand Wedge", "Putter", "Bag"],
+      signatureSetContents["junior-john-daly-signature-set-ages-5-8"],
     ),
     doralVideo("daly-doral-4"),
   ),
@@ -84,7 +91,7 @@ const SIGNATURE_SET_TEMPLATES: Record<string, ProductPageTemplate> = {
     setIntro(
       "Send it like Daly.",
       "The step-up set for growing players who are ready to swing big. Driver to putter, with a fairway wood for the long ones, so they can grip it and rip it all the way round.",
-      ["Driver", "Fairway Wood", "Hybrid", "7 Iron", "Wedge", "Putter", "Bag"],
+      signatureSetContents["junior-john-daly-signature-set-ages-9-12"],
     ),
     doralVideo("daly-doral-4"),
   ),
@@ -93,7 +100,7 @@ const SIGNATURE_SET_TEMPLATES: Record<string, ProductPageTemplate> = {
     setIntro(
       "Grip it and rip it.",
       "Engineered to help you hit the longest, straightest drives of your life. A classic shape with modern, high-launch technology. Stop fixing your slice. Start splitting fairways, and send it like Daly.",
-      ["Driver", "3-Wood", "5-Wood", "5-PW", "Sand Wedge", "Putter", "Bag"],
+      signatureSetContents["mens-john-daly-signature-set"],
     ),
     doralVideo("daly-doral-3"),
   ),

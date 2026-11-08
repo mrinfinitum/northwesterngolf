@@ -18,7 +18,7 @@ export async function Footer() {
           <div className="site-footer__menus">
           {groups.map((group) => (
             <div className="site-footer__col" key={group.heading}>
-              <h2 className="site-footer__heading">{group.heading}</h2>
+              <p className="site-footer__heading">{group.heading}</p>
               <ul className="site-footer__menu">
                 {group.links.map((link) => (
                   <li key={link.href}><Link href={link.href}>{link.label}</Link></li>

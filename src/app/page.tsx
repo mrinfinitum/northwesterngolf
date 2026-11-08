@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { openGraphBase } from "@/lib/seo";
+import { jsonLdScript, openGraphBase, siteJsonLd } from "@/lib/seo";
 import Image from "next/image";
 import { ClubSlider, type ClubSlide } from "@/components/content/ClubSlider";
 import { SetCards } from "@/components/content/SetCards";
@@ -15,9 +15,12 @@ import { homepageContent } from "@/config/site";
 import { getCollection, getProducts, type Product } from "@/lib/shopify";
 import "./home.css";
 
+const HOME_TITLE = "Northwestern Golf | John Daly Signature Golf Club Sets";
+
 export const metadata: Metadata = {
+  title: { absolute: HOME_TITLE },
   alternates: { canonical: "/" },
-  openGraph: { ...openGraphBase, url: "/" },
+  openGraph: { ...openGraphBase, title: HOME_TITLE, url: "/" },
 };
 
 async function getFeaturedProducts(): Promise<Product[]> {
@@ -71,6 +74,7 @@ export default async function Home() {
 
   return (
     <div className="home-page">
+      <script dangerouslySetInnerHTML={jsonLdScript(siteJsonLd)} type="application/ld+json" />
       <Hero />
       {sets.length ? (
         // Same cards as the John Daly page: smallest junior first, then Men's.

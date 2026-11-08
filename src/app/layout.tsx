@@ -3,6 +3,7 @@ import { Barlow } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { siteUrl } from "@/config/site";
+import { defaultShareImage, openGraphBase } from "@/lib/seo";
 import "./globals.css";
 
 const barlow = Barlow({
@@ -21,15 +22,11 @@ export const metadata: Metadata = {
     template: "%s | Northwestern Golf",
   },
   description:
-    "Northwestern Golf creates performance golf equipment priced for the people.",
+    "John Daly Signature golf club sets from Northwestern Golf: complete men's and junior sets with a matching stand bag, priced for the people.",
   // No canonical here: it would be inherited by every route that doesn't set
   // its own (cart, 404s), pointing them all at the homepage.
-  openGraph: {
-    locale: "en_US",
-    siteName: "Northwestern Golf",
-    type: "website",
-  },
-  twitter: { card: "summary_large_image" },
+  openGraph: openGraphBase,
+  twitter: { card: "summary_large_image", images: [defaultShareImage.url] },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

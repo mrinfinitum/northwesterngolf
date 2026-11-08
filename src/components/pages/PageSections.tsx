@@ -184,8 +184,8 @@ export function PageSections({
   sections: PageSection[];
   title: string;
 }) {
-  // Banner sections render the page H1; image-led landing pages need a hidden one.
-  const hasHeading = sections.some((section) => section.type === "banner");
+  // Banner and centred-hero sections render the page H1; image-led landing pages need a hidden one.
+  const hasHeading = sections.some((section) => section.type === "banner" || section.type === "centerHero");
   return (
     <article className="nwg-page">
       {hasHeading ? null : <h1 className="nwg-visually-hidden">{title}</h1>}

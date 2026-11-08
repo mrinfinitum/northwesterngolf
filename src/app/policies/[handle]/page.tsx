@@ -20,10 +20,12 @@ export async function generateMetadata({ params }: PolicyPageProps): Promise<Met
   const { handle } = await params;
   const policy = await getPolicy(handle);
   if (!policy) return { title: "Policy not found" };
+  const description = `Read the Northwestern Golf ${policy.title.toLowerCase()} for orders placed at northwestern.golf.`;
   return {
     title: policy.title,
+    description,
     alternates: { canonical: `/policies/${policy.handle}` },
-    openGraph: { ...openGraphBase, title: policy.title, url: `/policies/${policy.handle}` },
+    openGraph: { ...openGraphBase, description, title: policy.title, url: `/policies/${policy.handle}` },
   };
 }
 

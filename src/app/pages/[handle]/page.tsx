@@ -4,7 +4,7 @@ import { pageSections } from "@/components/pages/page-sections";
 import { PageSections } from "@/components/pages/PageSections";
 import { noindexPageHandles } from "@/config/site";
 import { getPage } from "@/lib/shopify";
-import { metadataTitle, openGraphBase } from "@/lib/seo";
+import { isThinPage, metadataTitle, openGraphBase } from "@/lib/seo";
 import "../pages.css";
 
 type ContentPageProps = {
@@ -17,13 +17,13 @@ export async function generateMetadata({ params }: ContentPageProps): Promise<Me
   const page = await getPage(handle);
   if (!page) return { title: "Page not found" };
   const title = page.seo.title || page.title;
-  const description = page.seo.description || page.bodySummary;
+  const description = page.seo.description || page.bodySummary || undefined;
   return {
     title: metadataTitle(title),
     description,
     alternates: { canonical: `/pages/${page.handle}` },
     openGraph: { ...openGraphBase, description, title, url: `/pages/${page.handle}` },
-    robots: noindexPageHandles.has(page.handle) ? { follow: true, index: false } : undefined,
+    robots: noindexPageHandles.has(page.handle) || isThinPage(page.handle, page.bodySummary) ? { follow: true, index: false } : undefined,
   };
 }
 
