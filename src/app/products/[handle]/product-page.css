@@ -284,6 +284,13 @@
   text-transform: uppercase;
 }
 
+.nwg-pdp-info__subtitle {
+  display: block;
+  font-size: 0.56em;
+  letter-spacing: 0;
+  margin-top: 6px;
+}
+
 .nwg-pdp-info__block { margin-block: 24px; }
 .nwg-pdp-info__block:last-child { margin-bottom: 0; }
 
