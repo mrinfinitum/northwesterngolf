@@ -13,6 +13,8 @@
   --color-border: #dedede;
   --color-rule: rgb(26 26 26 / 12%);
   --color-campaign: #ff711f;
+  --color-brand: #366683; /* Northwestern blue, header wordmark */
+  --color-brand-deep: #2a5068;
   --color-hero: #f96f1e;
   --color-sale: #f83a3a;
   --color-success: #00a341;
@@ -167,7 +169,7 @@ img { max-width: 100%; }
 
 .button {
   align-items: center;
-  background: var(--color-ink);
+  background: var(--color-brand);
   border: 0;
   border-radius: var(--radius-button);
   color: var(--color-white);
@@ -210,7 +212,7 @@ a:focus-visible .reversed-link { background-size: 100% 1px; }
   width: 1.5rem;
 }
 a:hover > .circle-chevron,
-button:hover > .circle-chevron { background: var(--color-ink); color: var(--color-white); }
+button:hover > .circle-chevron { background: var(--color-brand); color: var(--color-white); }
 
 .social-links { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; list-style: none; margin: 0; padding: 0; }
 .social-links a { display: block; line-height: 0; transition: opacity 200ms ease; }
@@ -229,7 +231,7 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
   column-gap: 0.75rem;
   display: grid;
   grid-template: "main logo secondary" / minmax(0, 1fr) auto minmax(0, 1fr);
-  padding: 1.125rem var(--container-padding);
+  padding: 0.75rem var(--container-padding);
 }
 .site-header--transparent .site-header__wrapper {
   background: rgb(52 100 130 / 42%);
@@ -238,11 +240,18 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
 }
 
 .site-header__main-nav { align-items: center; display: flex; grid-area: main; }
-.site-header__logo { display: block; grid-area: logo; justify-self: center; max-width: 100%; width: 150px; }
+/* Lockup: NORTHWESTERN × John Daly caricature. */
+.site-header__logo { align-items: center; display: flex; gap: 8px; grid-area: logo; justify-self: center; max-width: 100%; }
+.site-header__wordmark { display: block; flex: none; width: 116px; }
+.site-header__cross { display: block; flex: none; height: 18px; width: 18px; }
+.site-header__daly { display: block; flex: none; height: 44px; margin-block: -2px; width: auto; }
 .site-header__logo-image { display: block; height: auto; width: 100%; }
 .site-header__logo-image--transparent,
-.site-header--transparent .site-header__logo-image { display: none; }
-.site-header--transparent .site-header__logo-image--transparent { display: block; }
+.site-header__daly--transparent,
+.site-header--transparent .site-header__logo-image,
+.site-header--transparent .site-header__daly { display: none; }
+.site-header--transparent .site-header__logo-image--transparent,
+.site-header--transparent .site-header__daly--transparent { display: block; }
 
 .site-header__icons { align-items: center; display: flex; gap: 1rem; }
 .site-header__secondary-nav { grid-area: secondary; justify-self: end; }
@@ -283,7 +292,7 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
 
 .desktop-nav { display: none; }
 .desktop-nav__list {
-  column-gap: 1.5rem;
+  column-gap: 2rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: safe center;
@@ -300,42 +309,66 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
   color: inherit;
   cursor: pointer;
   display: flex;
+  font-size: 0.875rem;
   font-weight: 700;
-  gap: 0.625rem;
-  line-height: 1.6;
-  padding: 0;
-  transition: opacity 200ms ease;
+  gap: 0.5rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding: 0.75rem 0;
+  position: relative;
+  text-transform: uppercase;
+  transition: color 200ms ease;
   white-space: nowrap;
 }
-.desktop-nav__item:hover > .desktop-nav__link { opacity: 0.7; }
+/* Orange rule that draws in from the left on hover / focus. */
+.desktop-nav__link::after {
+  background: var(--color-campaign, #ff711f);
+  bottom: 0.25rem;
+  content: "";
+  height: 2px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 250ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.desktop-nav__item:hover > .desktop-nav__link::after,
+.desktop-nav__link:focus-visible::after { transform: scaleX(1); }
 .desktop-nav__dropdown {
   background: var(--color-white);
-  border-radius: var(--radius-sm);
-  box-shadow: 0 5px 15px rgb(26 26 26 / 10%), 0 0 0 1px rgb(26 26 26 / 12%);
+  border-radius: 0;
+  border-top: 3px solid var(--color-campaign, #ff711f);
+  box-shadow: 0 18px 40px rgb(17 17 17 / 14%);
   color: var(--color-ink);
   left: -1rem;
   max-width: 21.875rem;
   opacity: 0;
-  padding: 1.25rem 1.75rem;
+  padding: 1.25rem 1.75rem 1.375rem;
   position: absolute;
-  top: calc(100% + 1.125rem);
+  top: calc(100% + 1.25rem);
   transform: translateY(-0.25rem);
   transition: opacity 200ms ease, transform 200ms ease, visibility 200ms;
   visibility: hidden;
   width: max-content;
   z-index: 1;
 }
-.desktop-nav__dropdown::before { bottom: 100%; content: ""; height: 1.125rem; left: 0; position: absolute; right: 0; }
+.desktop-nav__dropdown::before { bottom: 100%; content: ""; height: 1.5rem; left: 0; position: absolute; right: 0; }
 .desktop-nav__item:hover > .desktop-nav__dropdown,
 .desktop-nav__item:focus-within > .desktop-nav__dropdown { opacity: 1; transform: none; visibility: visible; }
-.desktop-nav__dropdown ul { display: grid; gap: 0.75rem; list-style: none; margin: 0; padding: 0; }
-.desktop-nav__dropdown-link { display: flex; opacity: 0.7; transition: opacity 200ms ease; }
+.desktop-nav__dropdown ul { display: grid; gap: 1rem; list-style: none; margin: 0; padding: 0; }
+/* Same type as .desktop-nav__link so the menu reads as one system. */
+.desktop-nav__dropdown-link { color: var(--color-ink); display: flex; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.06em; line-height: 1.3; text-transform: uppercase; transition: color 200ms ease; }
+.desktop-nav__dropdown-link .reversed-link { background: none; }
 .desktop-nav__dropdown-link:hover,
-.desktop-nav__dropdown-link:focus-visible { opacity: 1; }
+.desktop-nav__dropdown-link:focus-visible { color: var(--color-campaign, #ff711f); }
 
 @media (min-width: 700px) {
-  .site-header__wrapper { column-gap: 1.5rem; padding-block: 2.125rem; }
-  .site-header__logo { width: 200px; }
+  .site-header__wrapper { column-gap: 1.5rem; padding-block: 0.875rem; }
+  .site-header__logo { gap: 12px; }
+  .site-header__wordmark { width: 190px; }
+  .site-header__cross { height: 28px; width: 28px; }
+  .site-header__daly { height: 60px; margin-block: -2px; }
   .site-header__icons { gap: 1.5rem; }
   .site-header .site-header__search-mobile { display: none; }
   .site-header .site-header__search-desktop,
@@ -343,14 +376,22 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
   .cart-count { font-size: 0.625rem; height: 1.125rem; min-width: 1.125rem; right: -0.625rem; top: -0.5rem; }
 }
 @media (min-width: 1150px) {
-  .site-header__wrapper { grid-template: "logo main secondary" / minmax(0, 1fr) fit-content(70%) minmax(0, 1fr); }
+  /* Logo and icons take what they need; the nav centres in the space between. */
+  .site-header__wrapper { grid-template: "logo main secondary" / auto minmax(0, 1fr) auto; }
   .site-header__logo { justify-self: start; }
+  .site-header__main-nav { justify-content: center; }
+  .site-header__wordmark { width: 180px; }
+  .site-header__cross { height: 26px; width: 26px; }
+  .site-header__daly { height: 56px; }
   .site-header__icons--leading { display: none; }
   .desktop-nav { display: block; }
 }
 @media (min-width: 1400px) {
   .site-header__wrapper { column-gap: 2.5rem; }
-  .desktop-nav__list { column-gap: 2.5rem; }
+  .site-header__wordmark { width: 200px; }
+  .site-header__cross { height: 30px; width: 30px; }
+  .site-header__daly { height: 62px; }
+  .desktop-nav__list { column-gap: 2.75rem; }
 }
 
 /* ---------- Drawers (navigation + search) ---------- */
@@ -562,7 +603,7 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
   top: 0.5rem;
   z-index: 1;
 }
-.product-card__badge--sold-out { background: #000; }
+.product-card__badge--sold-out { background: var(--color-brand); }
 .product-card__badge--sale { background: var(--color-sale); }
 .product-card__figure { border-radius: var(--radius-sm) var(--radius-sm) 0 0; display: block; overflow: hidden; position: relative; }
 .product-card__image { display: block; height: auto; width: 100%; }
@@ -601,14 +642,16 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
 .site-footer { background: #f8f8f8; border-top: 1px solid #e5e5e5; padding: 50px 0 20px; width: 100%; }
 .site-footer__container { margin: 0 auto; max-width: 1200px; padding: 0 15px; }
 .site-footer__row { display: flex; flex-wrap: wrap; gap: 50px; justify-content: space-between; }
-.site-footer__top { margin-bottom: 30px; }
-.site-footer__col { flex: 1 1 20%; margin-bottom: 20px; }
-.site-footer__brand img { display: block; height: auto; margin-bottom: 20px; max-width: 100%; width: 260px; }
-.site-footer__social { gap: 20px; justify-content: center; margin-top: 88px; }
-.site-footer__social a { color: #777; display: inline-block; line-height: inherit; margin-right: 10px; transition: color 300ms; }
+.site-footer__top { align-items: start; flex-wrap: nowrap; gap: clamp(40px, 6vw, 96px); margin-bottom: 30px; }
+.site-footer__brand { flex: 0 0 auto; }
+.site-footer__logo { aspect-ratio: 425.93 / 36.93; background: var(--color-campaign, #ff711f); display: block; margin-top: 3px; mask: url("/images/northwestern-logo.svg") center / contain no-repeat; width: clamp(200px, 20vw, 260px); }
+.site-footer__menus { display: flex; gap: clamp(40px, 6vw, 96px); margin-left: auto; }
+.site-footer__col { margin-bottom: 20px; }
+.site-footer__social { gap: 20px; justify-content: flex-start; margin-top: 32px; }
+.site-footer__social a { color: #777; display: inline-block; line-height: inherit; transition: color 300ms; }
 .site-footer__social svg { display: block; }
-.site-footer__social a:hover { color: #111; }
-.site-footer__heading { color: #26222f; font-size: 21px; font-weight: 600; line-height: 1.6; margin: 0 0 10px; }
+.site-footer__social a:hover { color: var(--color-campaign, #ff711f); }
+.site-footer__heading { color: #26222f; font-size: 21px; font-weight: 600; line-height: 1; margin: 0 0 18px; }
 .site-footer__menu { list-style: none; margin: 0; padding: 0; }
 .site-footer__menu li { margin-bottom: 6px; }
 .site-footer__menu a { color: #8b8698; font-size: 15px; }
@@ -623,10 +666,10 @@ button:hover > .circle-chevron { background: var(--color-ink); color: var(--colo
 .site-footer__bottom p { margin: 0; }
 
 @media (max-width: 768px) {
-  .site-footer__row { align-items: center; flex-direction: column; gap: 0; text-align: center; }
-  .site-footer__col { flex: 1 1 100%; }
-  .site-footer__social { margin-top: 40px; }
-  .site-footer__social a { margin-right: 15px; }
+  .site-footer__row, .site-footer__menus { align-items: center; flex-direction: column; gap: 0; margin-left: 0; text-align: center; }
+  .site-footer__top { gap: 40px; }
+  .site-footer__brand { display: grid; justify-items: center; }
+  .site-footer__social { justify-content: center; }
 }
 .product-page { background: var(--color-surface); padding-bottom: 5rem; }
 .color-swatch { border: 1px solid rgb(26 26 26 / 15%); border-radius: 50%; height: 100%; width: 100%; }

@@ -9,7 +9,8 @@
 
 export type HtmlString = string;
 
-export type VideoSource = { src: string; type: string };
+/** `media` (e.g. a phone-only vertical cut) is tried in order before the next source. */
+export type VideoSource = { media?: string; src: string; type: string };
 
 export type PdpVideo = {
   poster?: string;

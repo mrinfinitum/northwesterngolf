@@ -31,6 +31,12 @@
 .nwg-pdp-prose > * + * { margin-top: 16px; }
 .nwg-pdp-prose ul { list-style: disc; padding-left: 20px; }
 .nwg-pdp-prose strong { font-weight: 700; }
+.nwg-pdp-prose .nwg-pdp-set-lead { color: var(--color-campaign, #ff711f); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; text-transform: uppercase; }
+.nwg-pdp-prose .nwg-pdp-set-lead + p { margin-top: 6px; }
+.nwg-pdp-prose .nwg-pdp-set-heading { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em; margin-top: 22px; text-transform: uppercase; }
+.nwg-pdp-prose .nwg-pdp-set-list { display: grid; gap: 8px 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); list-style: none; margin-top: 12px; padding: 0; }
+.nwg-pdp-set-list li { align-items: center; display: flex; gap: 10px; }
+.nwg-pdp-set-list li::before { background: var(--color-campaign, #ff711f); border-radius: 50%; content: ""; flex: none; height: 6px; width: 6px; }
 
 /* ---------------------------------------------------------------- main */
 
@@ -58,7 +64,7 @@
 
 /* Gallery */
 
-.nwg-pdp-gallery { display: grid; gap: 20px; min-width: 0; }
+.nwg-pdp-gallery { display: grid; gap: 20px; grid-template-columns: minmax(0, 1fr); min-width: 0; }
 .nwg-pdp-gallery--empty { aspect-ratio: 1; background: #fff; border-radius: 12px; }
 
 .nwg-pdp-gallery__viewport { margin-inline: calc(-1 * var(--pdp-gutter)); position: relative; }
@@ -295,7 +301,7 @@
 
 .nwg-pdp-badge {
   align-items: center;
-  background: #000;
+  background: var(--color-brand);
   border-radius: 60px;
   color: #fff;
   display: inline-flex;
@@ -308,7 +314,7 @@
 
 .nwg-pdp-rating { align-items: center; display: flex; gap: 6px; margin-left: auto; }
 .nwg-pdp-rating span { font-size: 14px; line-height: 1.6; }
-.nwg-pdp-rating svg { color: rgb(255 183 74); }
+.nwg-pdp-rating svg { color: var(--color-campaign, #ff711f); }
 
 .nwg-pdp-info__installments {
   font-family: "GTStandard-M", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -446,7 +452,7 @@
   gap: 15px;
   padding: 10px;
 }
-.nwg-pdp-govx img { flex-shrink: 0; height: 24px; width: 24px; }
+.nwg-pdp-govx img { flex-shrink: 0; height: 26px; width: 26px; }
 .nwg-pdp-govx p { font-size: 14px; line-height: 16px; margin: 0; max-width: 385px; padding-top: 1px; }
 
 .nwg-pdp-accordion { border-bottom: 1px solid rgb(var(--pdp-text) / 0.12); }
@@ -747,7 +753,7 @@
 }
 .nwg-pdp-tile__video { display: block; height: 100%; object-fit: cover; width: 100%; }
 .nwg-pdp-tile__content {
-  background: #000;
+  background: var(--color-brand);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -828,7 +834,7 @@
 /* ---------------------------------------------------------------- rich text + video */
 
 .nwg-pdp-richtext {
-  background: #000;
+  background: var(--color-brand);
   color: rgb(248 248 248);
   padding: var(--pdp-section-space) var(--pdp-gutter);
   text-align: center;
@@ -844,21 +850,35 @@
 }
 .nwg-pdp-richtext__body p { margin: 0; }
 
-.nwg-pdp-feature-video {
-  background: #000;
-  padding: 0 var(--pdp-gutter) var(--pdp-section-space);
+/* Full-bleed film: muted loop preview, then sound + controls on demand. */
+.nwg-pdp-feature-video { background: #000; }
+.nwg-film { aspect-ratio: 16 / 9; max-height: 100svh; overflow: hidden; position: relative; width: 100%; }
+.nwg-film__video { background: #000; cursor: pointer; display: block; height: 100%; object-fit: cover; width: 100%; }
+.nwg-film__bar { background: linear-gradient(0deg, rgb(0 0 0 / 45%), rgb(0 0 0 / 0%)); bottom: 0; left: 0; padding: 28px clamp(12px, 2vw, 24px) clamp(10px, 1.4vw, 16px); position: absolute; right: 0; }
+.nwg-film__progress { cursor: pointer; height: 14px; margin-bottom: 4px; position: relative; }
+.nwg-film__progress::before,
+.nwg-film__progress span { border-radius: 2px; height: 3px; left: 0; position: absolute; right: 0; top: 50%; translate: 0 -50%; }
+.nwg-film__progress::before { background: rgb(255 255 255 / 30%); content: ""; }
+.nwg-film__progress span { background: var(--color-campaign, #ff711f); transform-origin: left center; }
+.nwg-film__controls { display: flex; gap: 4px; }
+.nwg-film__button { align-items: center; background: none; border: 0; border-radius: 50%; color: #fff; cursor: pointer; display: flex; height: 40px; justify-content: center; opacity: 0.9; padding: 0; transition: background-color 200ms ease, opacity 200ms ease; width: 40px; }
+.nwg-film__button:hover { background: rgb(255 255 255 / 16%); opacity: 1; }
+.nwg-film__button:focus-visible { outline: 2px solid var(--color-campaign, #ff711f); outline-offset: 2px; }
+.nwg-film__button svg { height: 22px; width: 22px; }
+/* Mouse: the sound button always shows; the bar and play button fade in on hover (like YouTube). */
+@media (hover: hover) {
+  .nwg-film__bar { background: none; transition: background-color 250ms ease; }
+  .nwg-film__progress,
+  .nwg-film__button:first-child { opacity: 0; transition: opacity 250ms ease; }
+  .nwg-film:hover .nwg-film__bar,
+  .nwg-film:focus-within .nwg-film__bar { background: linear-gradient(0deg, rgb(0 0 0 / 45%), rgb(0 0 0 / 0%)); }
+  .nwg-film:hover .nwg-film__progress,
+  .nwg-film:hover .nwg-film__button:first-child,
+  .nwg-film:focus-within .nwg-film__progress,
+  .nwg-film:focus-within .nwg-film__button:first-child { opacity: 0.9; }
 }
-.nwg-pdp-feature-video__frame {
-  border-radius: 4px;
-  margin-inline: auto;
-  max-width: 1500px;
-  overflow: hidden;
-  width: 100%;
-}
-.nwg-pdp-feature-video__frame video { display: block; height: 100%; object-fit: contain; width: 100%; }
-
-@media (min-width: 750px) {
-  .nwg-pdp-feature-video__frame { width: 85%; }
+@media (max-width: 699px) {
+  .nwg-film--vertical-phone { aspect-ratio: 9 / 16; max-height: 90svh; }
 }
 
 @media (min-width: 1000px) {
@@ -866,77 +886,46 @@
   .nwg-pdp-richtext__heading { font-size: 36px; }
 }
 
-/* ---------------------------------------------------------------- FAQ */
+/* ---------------------------------------------------------------- FAQ (open white list, orange accents) */
 
-.nwg-pdp-faq { padding: var(--pdp-section-space) var(--pdp-gutter); }
-.nwg-pdp-faq__container { background: #fff; padding: 5px 20px 20px; }
-.nwg-pdp-faq__container > * { margin-inline: auto; max-width: 850px; }
-.nwg-pdp-faq__header { margin-bottom: 40px; }
-.nwg-pdp-faq__heading {
-  color: #1a1a1a;
-  font-size: 44px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  line-height: 1.1;
-  margin: 0 0 15px;
-  text-align: center;
-}
-.nwg-pdp-faq__subheading {
-  color: #1a1a1a;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0 0 30px;
-  text-align: center;
-}
-.nwg-pdp-faq__list { display: flex; flex-direction: column; gap: 15px; }
-.nwg-pdp-faq__item {
-  background: #f8f8f8;
-  border: 1px solid #1a1a1a;
-  border-radius: 8px;
-  overflow: hidden;
-}
+.nwg-pdp-faq { background: #fff; padding: clamp(56px, 7vw, 104px) var(--pdp-gutter); }
+.nwg-pdp-faq__container { margin-inline: auto; max-width: 1180px; }
+.nwg-pdp-faq__header { margin-bottom: clamp(28px, 4vw, 48px); text-align: center; }
+.nwg-pdp-faq__eyebrow { color: var(--color-campaign, #ff711f); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; margin: 0 0 12px; text-transform: uppercase; }
+.nwg-pdp-faq__heading { color: #111; font-size: clamp(2rem, 4.4vw, 3.5rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1; margin: 0; text-transform: uppercase; }
+.nwg-pdp-faq__subheading { color: #555; font-size: clamp(1rem, 1.4vw, 1.125rem); line-height: 1.5; margin: 14px 0 0; }
+.nwg-pdp-faq__list { border-top: 2px solid var(--color-campaign, #ff711f); display: flex; flex-direction: column; }
+.nwg-pdp-faq__item { border-bottom: 1px solid #e5e5e2; }
 .nwg-pdp-faq__question {
   align-items: center;
-  color: #1a1a1a;
+  color: #111;
   cursor: pointer;
   display: flex;
-  flex-direction: row-reverse;
-  font-size: 16px;
+  font-size: clamp(1.0625rem, 1.5vw, 1.3125rem);
   font-weight: 700;
-  gap: 16px;
-  line-height: 1.4;
-  min-height: 60px;
-  padding: 20px;
+  gap: 20px;
+  line-height: 1.35;
+  padding: clamp(20px, 2.2vw, 28px) 0;
   text-align: left;
+  transition: color 200ms ease;
   width: 100%;
 }
 .nwg-pdp-faq__question span { flex: 1; }
-.nwg-pdp-faq__icon { flex-shrink: 0; height: 24px; transition: transform 0.3s ease; width: 24px; }
+.nwg-pdp-faq__question:hover,
+.nwg-pdp-faq__item.is-open .nwg-pdp-faq__question { color: var(--color-campaign, #ff711f); }
+.nwg-pdp-faq__icon { color: var(--color-campaign, #ff711f); flex-shrink: 0; height: 24px; transition: transform 0.3s ease; width: 24px; }
 .nwg-pdp-faq__item.is-open .nwg-pdp-faq__icon { transform: rotate(180deg); }
-.nwg-pdp-faq__divider { background: #1a1a1a; height: 1px; }
+.nwg-pdp-faq__divider { display: none; }
 .nwg-pdp-faq__answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
 .nwg-pdp-faq__item.is-open .nwg-pdp-faq__answer { max-height: 2000px; }
-.nwg-pdp-faq__answer-content {
-  color: #000;
-  font-size: 14px;
-  line-height: 1.4;
-  padding: 15px 20px 20px;
-}
+.nwg-pdp-faq__answer-content { color: #444; font-size: clamp(0.9375rem, 1.2vw, 1.0625rem); line-height: 1.65; max-width: 80ch; padding: 0 44px clamp(22px, 2.4vw, 30px) 0; }
 .nwg-pdp-faq__answer-content p { margin: 0; }
-
-@media (min-width: 750px) {
-  .nwg-pdp-faq__container { padding: 30px 40px 50px; }
-  .nwg-pdp-faq__heading { font-size: 48px; margin-bottom: 20px; }
-  .nwg-pdp-faq__subheading { font-size: 20px; margin-bottom: 40px; }
-  .nwg-pdp-faq__question { font-size: 20px; min-height: auto; }
-  .nwg-pdp-faq__answer-content { font-size: 16px; }
-}
+.nwg-pdp-faq__answer-content p + p { margin-top: 12px; }
 
 /* ---------------------------------------------------------------- related products */
 
 .nwg-pdp-related {
-  background: #000;
+  background: var(--color-brand);
   color: #fff;
   padding: var(--pdp-section-space) var(--pdp-gutter);
 }
@@ -963,148 +952,4 @@
   .nwg-pdp-related__list { gap: 48px 24px; grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
 
-/* ---------------------------------------------------------------- reviews (Okendo mirror) */
-
-.nwg-pdp-reviews {
-  --oke-text: #2c3e50;
-  color: var(--oke-text);
-  font-size: 14px;
-  line-height: 1.6;
-  margin-inline: auto;
-  max-width: 1200px;
-  padding: 20px 0;
-}
-.nwg-pdp-reviews__stars { align-items: center; display: inline-flex; gap: 2px; height: 20px; vertical-align: middle; }
-.nwg-pdp-reviews__stars svg { color: #e5e5e5; height: 18px; width: 18.8px; }
-.nwg-pdp-reviews__stars.is-md svg { height: 18px; }
-.nwg-pdp-reviews__stars svg.is-filled { color: #ffcf2a; }
-
-.nwg-pdp-reviews__header { display: grid; gap: 24px; justify-items: center; padding-bottom: 48px; text-align: center; }
-.nwg-pdp-reviews__summary { display: grid; gap: 24px; justify-items: center; width: 100%; }
-.nwg-pdp-reviews__average { align-items: center; display: flex; flex-wrap: wrap; justify-content: center; }
-.nwg-pdp-reviews__average-value { font-size: 20px; font-weight: 600; line-height: 32px; margin-right: 8px; }
-.nwg-pdp-reviews__average-count { color: #000; font-size: 12px; margin-left: 16px; }
-.nwg-pdp-reviews__breakdown { display: grid; padding-inline: 20px; row-gap: 4px; width: 100%; }
-.nwg-pdp-reviews__breakdown-row {
-  align-items: center;
-  display: grid;
-  gap: 12px;
-  grid-template-columns: 23px 1fr auto;
-}
-.nwg-pdp-reviews__breakdown-label {
-  align-items: center;
-  display: flex;
-  font-size: 12px;
-  gap: 4px;
-  line-height: 12px;
-  padding-block: 4px;
-}
-.nwg-pdp-reviews__breakdown-label svg { color: #ffcf2a; height: 12px; width: 12.5px; }
-.nwg-pdp-reviews__bar { background: #f4f4f6; border-radius: 3px; height: 6px; overflow: hidden; }
-.nwg-pdp-reviews__bar span { background: #9a9db1; display: block; height: 100%; }
-.nwg-pdp-reviews__breakdown-count { color: #000; font-size: 12px; line-height: 12px; padding-block: 4px; text-align: right; }
-
-.nwg-pdp-reviews__recommend { display: grid; margin: 0; }
-
-.nwg-pdp-reviews__recommend strong { font-size: 20px; font-weight: 700; line-height: 32px; }
-.nwg-pdp-reviews__recommend span { color: #000; }
-
-.nwg-pdp-reviews__actions { display: flex; justify-content: space-between; margin: 0 0 40px; }
-.nwg-pdp-reviews__button {
-  align-items: center;
-  background: #000;
-  border: 1px solid #dbdde4;
-  border-radius: 4px;
-  color: #fff;
-  display: inline-flex;
-  font-size: 14px;
-  font-weight: 700;
-  gap: 6px;
-  line-height: 14px;
-  min-height: 42px;
-  padding: 12px 24px;
-}
-a.nwg-pdp-reviews__button { min-height: 40px; }
-.nwg-pdp-reviews__controls {
-  align-items: center;
-  border-bottom: 1px solid #e5e5eb;
-  color: #000;
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 8px;
-}
-.nwg-pdp-reviews__sort { align-items: center; color: var(--oke-text); display: flex; gap: 16px; }
-.nwg-pdp-reviews__sort strong { font-weight: 600; }
-.nwg-pdp-reviews__sort span { margin-left: 12px; }
-.nwg-pdp-reviews__sort svg { margin-left: -6px; }
-
-.nwg-pdp-reviews__list { margin: 0 0 16px; padding: 0; }
-.nwg-pdp-reviews__item { border-bottom: 1px solid #e5e5eb; padding: 16px 0; }
-.nwg-pdp-review { display: grid; gap: 16px; }
-.nwg-pdp-review__side {
-  background: #f7f7f8;
-  border: 1px solid #e5e5eb;
-  font-size: 12px;
-  padding: 12px;
-}
-.nwg-pdp-review__reviewer { align-items: center; display: flex; gap: 8px; }
-.nwg-pdp-review__avatar {
-  align-items: center;
-  background: #e5e5eb;
-  border-radius: 50%;
-  display: grid;
-  font-size: 12px;
-  font-weight: 700;
-  height: 48px;
-  justify-items: center;
-  width: 48px;
-}
-.nwg-pdp-review__name { display: block; font-size: 12px; font-weight: 700; line-height: 19.2px; }
-.nwg-pdp-review__verified { align-items: center; color: #000; display: flex; font-weight: 600; gap: 4px; }
-.nwg-pdp-review__recommends { align-items: center; display: flex; gap: 4px; margin: 16px 0 0; }
-.nwg-pdp-review__recommends svg { color: #000; }
-.nwg-pdp-review__main { min-width: 0; padding-inline: 8px; }
-.nwg-pdp-review__top { align-items: center; display: flex; justify-content: space-between; margin-bottom: 8px; }
-.nwg-pdp-review__date { color: #000; font-size: 12px; }
-.nwg-pdp-review__title { font-size: 14px; font-weight: 600; line-height: 1.6; margin: 8px 0 0; }
-.nwg-pdp-review__body { margin: 8px 0 0; padding-bottom: 5px; white-space: pre-line; }
-.nwg-pdp-review__footer {
-  align-items: center;
-  color: #000;
-  display: flex;
-  font-size: 12px;
-  gap: 8px;
-  justify-content: flex-end;
-  line-height: 12px;
-  margin-top: 16px;
-}
-.nwg-pdp-review__vote { align-items: center; display: inline-flex; gap: 4px; min-height: 24px; padding: 4px; }
-
-@media (min-width: 750px) {
-  .nwg-pdp-reviews { padding-inline: var(--pdp-gutter); }
-}
-
-@media (min-width: 1000px) {
-  .nwg-pdp-reviews { padding-inline: 0; }
-  .nwg-pdp-reviews__header {
-    align-items: start;
-    gap: 16px;
-    grid-template-columns: calc(100% / 3) 1fr;
-    justify-items: start;
-    padding-bottom: 24px;
-    text-align: left;
-  }
-  .nwg-pdp-reviews__summary { gap: 24px; justify-items: start; }
-  .nwg-pdp-reviews__average { justify-content: flex-start; }
-  .nwg-pdp-reviews__breakdown { padding-inline: 0; width: 350px; }
-  .nwg-pdp-reviews__header { padding-bottom: 24px; }
-  .nwg-pdp-reviews__recommend { align-items: baseline; display: flex; gap: 8px; min-height: 32px; padding-top: 4px; }
-  .nwg-pdp-reviews__recommend strong,
-  .nwg-pdp-reviews__recommend span { line-height: 1.2; }
-  .nwg-pdp-reviews__item { padding: 24px 0; }
-  .nwg-pdp-review { gap: 24px; grid-template-columns: 300px 1fr; }
-  .nwg-pdp-review__side { padding: 16px; }
-  .nwg-pdp-review__reviewer { gap: 16px; }
-  .nwg-pdp-review__main { padding-inline: 0; }
-  .nwg-pdp-review__recommends { margin-top: 16px; }
-}
+/* Reviews: styles live in src/components/product/review-slider.css (shared with the homepage). */

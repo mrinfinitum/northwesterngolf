@@ -59,6 +59,6 @@ export const CONTENT_INDEX_QUERY = /* GraphQL */ `
         articles(first: 100) { nodes { handle publishedAt } }
       }
     }
-    pages(first: 100) { nodes { handle updatedAt } }
+    pages(first: 100) { nodes { bodySummary handle updatedAt } }
   }
 `;

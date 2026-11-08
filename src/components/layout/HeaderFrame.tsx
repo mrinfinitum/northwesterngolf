@@ -3,8 +3,8 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
-/** Routes whose first section sits under a translucent, non-sticky header. */
-const transparentHeaderRoutes = new Set(["/pages/contact", "/pages/our-story"]);
+/** Routes whose first section sits under a translucent header. Empty: the white header is used site-wide. */
+const transparentHeaderRoutes = new Set<string>([]);
 
 export function HeaderFrame({ children }: { children: ReactNode }) {
   const pathname = usePathname();
