@@ -1,5 +1,5 @@
 import type { FeatureVideoSection, RichTextSection } from "@/lib/product-content";
-import { FeatureVideoPlayer } from "./FeatureVideoPlayer";
+import { AutoplayVideo } from "./AutoplayVideo";
 
 export function PdpRichText({ section }: { section: RichTextSection }) {
   return (
@@ -15,7 +15,9 @@ export function PdpRichText({ section }: { section: RichTextSection }) {
 export function PdpFeatureVideo({ section }: { section: FeatureVideoSection }) {
   return (
     <section className="nwg-pdp-feature-video">
-      <FeatureVideoPlayer video={section.video} />
+      <div className="nwg-pdp-feature-video__frame">
+        <AutoplayVideo video={section.video} />
+      </div>
     </section>
   );
 }

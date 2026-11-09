@@ -8,7 +8,7 @@ import { ProductMain } from "@/components/product/ProductMain";
 import { getProductPageContent } from "@/lib/product-content";
 import { getProduct } from "@/lib/shopify";
 import { isRetailCartEnabled } from "@/lib/shopify/commerce-boundary";
-import { jsonLdScript, metadataTitle, openGraphBase } from "@/lib/seo";
+import { metadataTitle, openGraphBase } from "@/lib/seo";
 import "./product-page.css";
 
 type ProductPageProps = {
@@ -66,15 +66,6 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
     sku: firstVariant?.sku || undefined,
     url: `${siteUrl}/products/${product.handle}`,
   };
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", item: siteUrl, name: "Home", position: 1 },
-      { "@type": "ListItem", item: `${siteUrl}/collections/all`, name: "Shop Clubs", position: 2 },
-      { "@type": "ListItem", item: `${siteUrl}/products/${product.handle}`, name: product.title, position: 3 },
-    ],
-  };
 
   return (
     <div className="nwg-pdp" data-template={content.id}>
@@ -87,7 +78,10 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
         product={product}
       />
       <PdpSections handle={product.handle} sections={content.sections} />
-      <script dangerouslySetInnerHTML={jsonLdScript([productJsonLd, breadcrumbJsonLd])} type="application/ld+json" />
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd).replace(/</g, "\\u003c") }}
+        type="application/ld+json"
+      />
     </div>
   );
 }

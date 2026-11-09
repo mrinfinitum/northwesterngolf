@@ -138,7 +138,7 @@ export type ShopifyArticle = ShopifyArticleSummary & {
 export type ShopifyContentIndex = {
   articles: Array<{ blogHandle: string; handle: string; publishedAt: string }>;
   blogs: string[];
-  pages: Array<{ bodySummary: string; handle: string; updatedAt: string }>;
+  pages: Array<{ handle: string; updatedAt: string }>;
 };
 
 export type ShopifyPolicy = {

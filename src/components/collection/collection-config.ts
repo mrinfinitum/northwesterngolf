@@ -13,10 +13,10 @@ export const collectionDefaultSort: Record<string, string> = {
 export const FALLBACK_COLLECTION_SORT = "price-descending";
 
 /**
- * `/collections/all` is a theme virtual collection titled "Products". It opens
- * cheapest first (Junior 5-8, Junior 9-12, then Men's).
+ * `/collections/all` is a theme virtual collection: the live theme titles it
+ * "Products" and forces `sort_by=price-descending` with an inline script.
  */
 export const allProductsCollection = {
-  defaultSort: "price-ascending",
+  defaultSort: "price-descending",
   title: "Products",
 } as const;

@@ -22,7 +22,6 @@ export function PdpFaq({ section }: { section: FaqSection }) {
     <section className="nwg-pdp-faq">
       <div className="nwg-pdp-faq__container">
         <div className="nwg-pdp-faq__header">
-          <p className="nwg-pdp-faq__eyebrow">FAQ</p>
           <h2 className="nwg-pdp-faq__heading">{section.heading}</h2>
           <p className="nwg-pdp-faq__subheading">{section.subheading}</p>
         </div>
