@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { noindexPageHandles, siteUrl } from "@/config/site";
+import { isThinPage } from "@/lib/seo";
 import {
   getCollections,
   getContentIndex,
@@ -13,6 +14,12 @@ const staticRoutes: MetadataRoute.Sitemap = [
   { changeFrequency: "weekly", priority: 1, url: SITE },
   { changeFrequency: "weekly", priority: 0.9, url: `${SITE}/collections/all` },
   { changeFrequency: "yearly", priority: 0.3, url: `${SITE}/pages/past-models` },
+  // Store policies published in Shopify (there is no shipping policy).
+  ...["refund-policy", "privacy-policy", "terms-of-service"].map((handle) => ({
+    changeFrequency: "yearly" as const,
+    priority: 0.2,
+    url: `${SITE}/policies/${handle}`,
+  })),
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -26,7 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticRoutes,
-    ...collections.map((collection) => ({
+    ...collections.filter((collection) => collection.hasProducts).map((collection) => ({
       changeFrequency: "weekly" as const,
       lastModified: collection.updatedAt,
       priority: 0.8,
@@ -39,7 +46,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
       url: `${SITE}/products/${product.handle}`,
     })),
-    ...content.pages.filter((page) => !noindexPageHandles.has(page.handle)).map((page) => ({
+    ...content.pages
+      .filter((page) => !noindexPageHandles.has(page.handle) && !isThinPage(page.handle, page.bodySummary))
+      .map((page) => ({
       changeFrequency: "monthly" as const,
       lastModified: page.updatedAt,
       priority: 0.5,
