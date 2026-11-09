@@ -18,8 +18,6 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
     title: metadataTitle(title),
     description: blog.seo.description ?? undefined,
     alternates: { canonical: `/blogs/${blog.handle}` },
-    // An empty blog renders a placeholder, so it stays out of the index until it has articles.
-    robots: blog.articles.length ? undefined : { follow: true, index: false },
   };
 }
 

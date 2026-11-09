@@ -4,53 +4,8 @@ import type { NextConfig } from "next";
 // customer accounts domain (shopify.com/72808693923/account redirects here).
 const SHOPIFY_CUSTOMER_ACCOUNT_URL = "https://account.northwestern.golf/";
 
-const isDev = process.env.NODE_ENV === "development";
-const isPreview = process.env.VERCEL_ENV === "preview";
-
-// Shopify serves product images and Instafeed serves Instagram media; the
-// contact form posts to the Shopify storefront, which redirects back here.
-const SHOPIFY_STORE_ORIGIN = `https://${process.env.SHOPIFY_STORE_DOMAIN?.trim() || "r1kikk-am.myshopify.com"}`;
-const MEDIA_ORIGINS = "https://cdn.shopify.com https://*.cdninstagram.com https://*.fbcdn.net";
-// The Vercel toolbar is injected on preview deployments only.
-const VERCEL_TOOLBAR = isPreview ? " https://vercel.live https://*.vercel.live" : "";
-
-// Static rendering is kept, so scripts use 'unsafe-inline' rather than per-request
-// nonces (Next.js "Without Nonces" CSP); everything else is locked to known origins.
-const contentSecurityPolicy = [
-  "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}${VERCEL_TOOLBAR}`,
-  `style-src 'self' 'unsafe-inline'${VERCEL_TOOLBAR}`,
-  `img-src 'self' data: blob: ${MEDIA_ORIGINS}${isPreview ? " https://vercel.live https://vercel.com" : ""}`,
-  `media-src 'self' ${MEDIA_ORIGINS}`,
-  `font-src 'self'${isPreview ? " https://vercel.live https://assets.vercel.com" : ""}`,
-  `connect-src 'self'${isPreview ? " https://vercel.live wss://ws-us3.pusher.com" : ""}${isDev ? " ws:" : ""}`,
-  `frame-src ${isPreview ? "https://vercel.live" : "'none'"}`,
-  "object-src 'none'",
-  "base-uri 'self'",
-  `form-action 'self' ${SHOPIFY_STORE_ORIGIN} https://northwestern.golf https://www.northwestern.golf`,
-  "frame-ancestors 'none'",
-  "upgrade-insecure-requests",
-].join("; ");
-
-const securityHeaders = [
-  { key: "Content-Security-Policy", value: contentSecurityPolicy },
-  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
-  { key: "X-Content-Type-Options", value: "nosniff" },
-  { key: "X-Frame-Options", value: "DENY" },
-  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()" },
-  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
-];
-
 const nextConfig: NextConfig = {
   reactCompiler: true,
-  poweredByHeader: false,
-  async headers() {
-    const headers = [...securityHeaders];
-    // Keep preview builds (dev.northwestern.golf) out of search results.
-    if (isPreview) headers.push({ key: "X-Robots-Tag", value: "noindex, nofollow" });
-    return [{ headers, source: "/:path*" }];
-  },
   async redirects() {
     return ["/account", "/account/:path*", "/customer_authentication/:path*"].map((source) => ({
       destination: SHOPIFY_CUSTOMER_ACCOUNT_URL,

@@ -13,23 +13,10 @@ export type PageSection =
       /** `other_page_banner_section`: dark photo banner with title, orange rule and intro text. */
       type: "banner";
       body: string;
-      /** CSS object-position for the cover image (defaults to center). */
-      focus?: string;
       image: string;
       overlayOpacity: number;
       title: string;
       underlineColor: string;
-    }
-  | {
-      /** Centred photo hero with an orange wash and quick-contact actions (Contact page). */
-      type: "centerHero";
-      actions: Array<{ href: string; label: string; value: string }>;
-      body: string;
-      eyebrow: string;
-      focus?: string;
-      /** Optional; without it the hero is a plain white header. */
-      image?: string;
-      title: string;
     }
   | {
       /** `image_and_heading_text`: rounded portrait + heading + rich text paragraphs. */
@@ -90,6 +77,7 @@ export type PageSection =
       email: string;
       heading: string;
       hours: string;
+      mapEmbed: string;
       phone: string;
       smallTitle: string;
     };
@@ -137,11 +125,12 @@ export const pageSections: Record<string, PageSection[]> = {
   ],
   contact: [
     {
-      type: "centerHero",
-      actions: [],
+      type: "banner",
       body: "Questions, feedback, or partnerships? We’d love to hear from you.",
-      eyebrow: "Northwestern Golf · Since 1929",
+      image: headquarters,
+      overlayOpacity: 0.4,
       title: "Contact Us",
+      underlineColor: "#ff6600",
     },
     {
       type: "contact",
@@ -151,6 +140,7 @@ export const pageSections: Record<string, PageSection[]> = {
       email: "info@northwestern.golf",
       heading: "Get in touch",
       hours: "08.00 - 16.00 EST",
+      mapEmbed: "https://www.google.com/maps?q=300%20N%20Madison%20St,%20Fortville,%20IN%2046040,%20USA&output=embed",
       phone: "888-651-2295",
       smallTitle: "Customer service",
     },

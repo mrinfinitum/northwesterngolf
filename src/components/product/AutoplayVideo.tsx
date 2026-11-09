@@ -18,7 +18,7 @@ export function AutoplayVideo({ className, video }: { className?: string; video:
   return (
     <video autoPlay className={className} loop muted playsInline poster={video.poster} preload="metadata" ref={ref}>
       {video.sources.map((source) => (
-        <source key={source.src} media={source.media} src={source.src} type={source.type} />
+        <source key={source.src} src={source.src} type={source.type} />
       ))}
     </video>
   );

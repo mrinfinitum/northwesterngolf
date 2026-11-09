@@ -121,9 +121,6 @@ export function ProductMain({
     });
   }
 
-  // "Junior … Set – Ages 5-8": show the trailing qualifier as a smaller subtitle.
-  const [titleMain, titleSub] = product.title.split(/\s+[–—-]\s+(?=[^–—]*$)/);
-
   return (
     <section className="nwg-pdp-main">
       <div className="nwg-pdp-main__grid">
@@ -135,15 +132,7 @@ export function ProductMain({
         />
 
         <div className="nwg-pdp-info">
-          <h1 className="nwg-pdp-info__title">
-            {titleMain}
-            {titleSub ? (
-              <>
-                <span className="sr-only"> – </span>
-                <span className="nwg-pdp-info__subtitle">{titleSub}</span>
-              </>
-            ) : null}
-          </h1>
+          <h1 className="nwg-pdp-info__title">{product.title}</h1>
 
           {info.introHtml ? (
             <div className="nwg-pdp-info__block nwg-pdp-info__intro nwg-pdp-prose" dangerouslySetInnerHTML={{ __html: info.introHtml }} />

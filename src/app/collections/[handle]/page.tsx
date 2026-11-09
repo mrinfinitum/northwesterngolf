@@ -52,28 +52,22 @@ const DEFAULT_COLLECTION_QUERY = { filters: [], reverse: false, sortKey: "COLLEC
 export async function generateMetadata({ params }: CollectionPageProps): Promise<Metadata> {
   const { handle } = await params;
   if (handle === "all") {
-    const title = "Shop All Golf Club Sets";
-    const description =
-      "Shop every Northwestern Golf club set: the Men's John Daly Signature Set and the Junior Signature Sets for ages 5-8 and 9-12, each with a matching stand bag.";
     return {
-      title: metadataTitle(title),
-      description,
+      title: metadataTitle(allProductsCollection.title),
       alternates: { canonical: "/collections/all" },
-      openGraph: { ...openGraphBase, description, title, url: "/collections/all" },
+      openGraph: { ...openGraphBase, title: allProductsCollection.title, url: "/collections/all" },
     };
   }
   const collection = await getCollectionListing(handle, DEFAULT_COLLECTION_QUERY);
   if (!collection) return { title: "Collection not found" };
   const title = collection.seo.title || collection.title;
-  const description = collection.seo.description || collection.description || `Shop ${collection.title} golf clubs from Northwestern Golf, built for real golfers and priced for the people.`;
+  const description = collection.seo.description || collection.description || `Shop ${collection.title} from Northwestern Golf.`;
 
   return {
     title: metadataTitle(title),
     description,
     alternates: { canonical: `/collections/${collection.handle}` },
     openGraph: { ...openGraphBase, description, title, url: `/collections/${collection.handle}` },
-    // Legacy collections with no products stay reachable but out of the index (and the sitemap).
-    robots: collection.products.length ? undefined : { follow: true, index: false },
   };
 }
 
