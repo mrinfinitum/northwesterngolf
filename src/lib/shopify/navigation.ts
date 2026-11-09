@@ -2,12 +2,10 @@ import "server-only";
 
 import {
   footerGroups,
-  footerMenuHandles,
   primaryNavigation,
   type FooterGroup,
   type NavigationItem,
 } from "@/config/site";
-import { getMenu, type ShopifyMenuItem } from ".";
 
 const STORE_HOSTS = new Set([
   "northwestern.golf",
@@ -32,53 +30,30 @@ export function toStorefrontPath(url: string): string | undefined {
   }
 }
 
-function toLinks(items: ShopifyMenuItem[]) {
-  return items.flatMap((item) => {
-    const href = toStorefrontPath(item.url);
-    return href ? [{ href, label: item.title }] : [];
-  });
-}
-
 /**
- * Production-only header links. Shopify menus are shared with the dev site, so
- * links meant for www only are added here instead of in the Shopify menu.
+ * Production keeps the original (pre-2026-11-05) menus. The live Shopify menus
+ * were changed for the new site and are shared with dev, so they are not read
+ * here. Old product links redirect to their tile on /pages/past-models.
  */
-const PRODUCTION_SHOP_LINKS = [{ href: "/pages/past-models", label: "Past Models" }];
-
-function withProductionLinks(items: NavigationItem[]): NavigationItem[] {
-  if (process.env.VERCEL_ENV !== "production") return items;
-  const shopIndex = items.findIndex((item) => item.children?.length);
-  if (shopIndex === -1) return items;
-  return items.map((item, index) =>
-    index === shopIndex ? { ...item, children: [...(item.children ?? []), ...PRODUCTION_SHOP_LINKS] } : item,
-  );
-}
-
-/** Header navigation from the Shopify `main-menu`, falling back to static config. */
 export async function getMainNavigation(): Promise<NavigationItem[]> {
-  return withProductionLinks(await getShopifyMainNavigation());
+  return primaryNavigation;
 }
 
-async function getShopifyMainNavigation(): Promise<NavigationItem[]> {
-  const menu = await getMenu("main-menu");
-  if (!menu?.items.length) return primaryNavigation;
+const PAST_MODEL_COLLECTIONS: Record<string, string> = {
+  "/collections/drivers": "/pages/past-models#men-s-thunderbird-driver",
+  "/collections/fairways": "/pages/past-models#men-s-thunderbird-fairway",
+  "/collections/golf-bags": "/pages/past-models#thunderbird-golf-bag",
+  "/collections/hybrids": "/pages/past-models#men-s-thunderbird-hybrid",
+  "/collections/irons": "/pages/past-models#men-s-thunderbird-irons-set",
+  "/collections/talon-ss-full-set": "/pages/past-models#talon-ss-full-sets",
+  "/collections/thunderbird-full-set": "/pages/past-models#thunderbird-full-sets",
+  "/collections/wedges": "/pages/past-models#men-s-thunderbird-wedge",
+};
 
-  return menu.items.map((item) => {
-    const children = toLinks(item.items ?? []);
-    return {
-      href: toStorefrontPath(item.url),
-      label: item.title,
-      ...(children.length ? { children } : {}),
-    };
-  });
-}
-
-/** Footer link columns from Shopify menus, each falling back to static config. */
+/** Original footer columns; the archived collections point at their Past Models tiles. */
 export async function getFooterNavigation(): Promise<FooterGroup[]> {
-  const menus = await Promise.all(footerMenuHandles.map((handle) => getMenu(handle)));
-
-  return menus.map((menu, index) => {
-    const links = menu ? toLinks(menu.items) : [];
-    return menu && links.length ? { heading: menu.title, links } : footerGroups[index];
-  });
+  return footerGroups.map((group) => ({
+    ...group,
+    links: group.links.map((link) => ({ ...link, href: PAST_MODEL_COLLECTIONS[link.href] ?? link.href })),
+  }));
 }
