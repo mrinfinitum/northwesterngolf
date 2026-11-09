@@ -39,8 +39,27 @@ function toLinks(items: ShopifyMenuItem[]) {
   });
 }
 
+/**
+ * Production-only header links. Shopify menus are shared with the dev site, so
+ * links meant for www only are added here instead of in the Shopify menu.
+ */
+const PRODUCTION_SHOP_LINKS = [{ href: "/pages/past-models", label: "Past Models" }];
+
+function withProductionLinks(items: NavigationItem[]): NavigationItem[] {
+  if (process.env.VERCEL_ENV !== "production") return items;
+  const shopIndex = items.findIndex((item) => item.children?.length);
+  if (shopIndex === -1) return items;
+  return items.map((item, index) =>
+    index === shopIndex ? { ...item, children: [...(item.children ?? []), ...PRODUCTION_SHOP_LINKS] } : item,
+  );
+}
+
 /** Header navigation from the Shopify `main-menu`, falling back to static config. */
 export async function getMainNavigation(): Promise<NavigationItem[]> {
+  return withProductionLinks(await getShopifyMainNavigation());
+}
+
+async function getShopifyMainNavigation(): Promise<NavigationItem[]> {
   const menu = await getMenu("main-menu");
   if (!menu?.items.length) return primaryNavigation;
 
