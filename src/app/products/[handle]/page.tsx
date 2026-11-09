@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
+import { pastModelHandles } from "@/lib/product-content/past-models";
 import { ProductPageScrollReset } from "@/components/commerce/ProductPageScrollReset";
 import { PdpSections } from "@/components/product/PdpSections";
 import { siteUrl } from "@/config/site";
@@ -40,7 +41,11 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
     getProductPageContent(handle),
     searchParams,
   ]);
-  if (!product) notFound();
+  if (!product) {
+    // Archived Thunderbird / Talon SS URLs land on their tile in the showcase.
+    if (pastModelHandles.has(handle)) permanentRedirect(`/pages/past-models#${handle}`);
+    notFound();
+  }
 
   const requestedVariant = typeof query.variant === "string" ? query.variant : undefined;
   const firstVariant = product.variants.find((variant) => variant.availableForSale) ?? product.variants[0];
