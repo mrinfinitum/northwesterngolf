@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { openGraphBase } from "@/lib/seo";
 import Image from "next/image";
-import { FeaturedCollection } from "@/components/content/FeaturedCollection";
 import { Hero } from "@/components/content/Hero";
 import { ImageOverlay } from "@/components/content/ImageOverlay";
 import { Testimonials } from "@/components/content/Testimonials";
 import { homepageContent } from "@/config/site";
-import { getCollection, getProducts, type Product } from "@/lib/shopify";
 import "./home.css";
 
 export const metadata: Metadata = {
@@ -14,20 +12,9 @@ export const metadata: Metadata = {
   openGraph: { ...openGraphBase, url: "/" },
 };
 
-async function getFeaturedProducts(): Promise<Product[]> {
-  const { collection, limit } = homepageContent.featured;
-  try {
-    const featured = await getCollection(collection, { first: limit });
-    if (featured?.products.length) return featured.products;
-    return await getProducts({ first: limit, sortKey: "BEST_SELLING" });
-  } catch {
-    return [];
-  }
-}
-
-export default async function Home() {
-  const products = await getFeaturedProducts();
-  const { campaign, featured, partnership } = homepageContent;
+export default function Home() {
+  // The "Most Wanted" product row is hidden on production.
+  const { campaign, partnership } = homepageContent;
 
   return (
     <div className="home-page">
@@ -47,9 +34,6 @@ export default async function Home() {
           <h3>{partnership.body}</h3>
         </div>
       </ImageOverlay>
-      {products.length ? (
-        <FeaturedCollection heading={featured.heading} href={featured.href} linkLabel={featured.linkLabel} products={products} />
-      ) : null}
       <ImageOverlay
         buttonLabel={campaign.buttonLabel}
         className="image-banner--campaign"
