@@ -13,6 +13,7 @@ const SITE = siteUrl;
 const staticRoutes: MetadataRoute.Sitemap = [
   { changeFrequency: "weekly", priority: 1, url: SITE },
   { changeFrequency: "weekly", priority: 0.9, url: `${SITE}/collections/all` },
+  { changeFrequency: "yearly", priority: 0.3, url: `${SITE}/pages/past-models` },
   // Store policies published in Shopify (there is no shipping policy).
   ...["refund-policy", "privacy-policy", "terms-of-service"].map((handle) => ({
     changeFrequency: "yearly" as const,
