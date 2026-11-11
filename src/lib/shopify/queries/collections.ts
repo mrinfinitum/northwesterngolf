@@ -14,6 +14,7 @@ export const COLLECTIONS_QUERY = /* GraphQL */ `
         seo { ...seo }
         title
         updatedAt
+        products(first: 1) { nodes { id } }
       }
     }
   }

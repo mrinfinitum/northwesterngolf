@@ -210,14 +210,15 @@ export const getCollection = cache(
 
 export async function getCollections(first = 100) {
   const data = await shopifyFetch<{
-    collections: Connection<Omit<Collection, "products">>;
+    collections: Connection<Omit<Collection, "products"> & { products: { nodes: Array<{ id: string }> } }>;
   }>({
     query: COLLECTIONS_QUERY,
     tags: ["collections"],
     variables: { first },
   });
 
-  return data.collections.nodes;
+  // `hasProducts` lets the sitemap skip collections that only render an empty state.
+  return data.collections.nodes.map(({ products, ...collection }) => ({ ...collection, hasProducts: products.nodes.length > 0 }));
 }
 
 export async function getMenu(handle: string): Promise<ShopifyMenu | null> {
@@ -306,7 +307,8 @@ export async function getContentIndex(): Promise<ShopifyContentIndex> {
     articles: data.blogs.nodes.flatMap((blog) =>
       blog.articles.nodes.map((article) => ({ ...article, blogHandle: blog.handle })),
     ),
-    blogs: data.blogs.nodes.map((blog) => blog.handle),
+    // Blogs without articles render an empty state, so they are not listed.
+    blogs: data.blogs.nodes.filter((blog) => blog.articles.nodes.length > 0).map((blog) => blog.handle),
     pages: data.pages.nodes,
   };
 }

@@ -26,7 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticRoutes,
-    ...collections.map((collection) => ({
+    ...collections.filter((collection) => collection.hasProducts).map((collection) => ({
       changeFrequency: "weekly" as const,
       lastModified: collection.updatedAt,
       priority: 0.8,

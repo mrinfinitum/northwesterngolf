@@ -68,6 +68,8 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
     description,
     alternates: { canonical: `/collections/${collection.handle}` },
     openGraph: { ...openGraphBase, description, title, url: `/collections/${collection.handle}` },
+    // Empty collections (their products are archived) only show an empty state.
+    ...(collection.products.length ? {} : { robots: { follow: true, index: false } }),
   };
 }
 
