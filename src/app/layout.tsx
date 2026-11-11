@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Barlow } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { siteUrl } from "@/config/site";
 import "./globals.css";
+
+/** Northwestern Golf GA4 property (also used by the Shopify Google & YouTube channel at checkout). */
+const GA_MEASUREMENT_ID = "G-T04EQ37VVZ";
+/** Only the production deployment reports to GA, so local and preview traffic stays out of the data. */
+const isProduction = process.env.VERCEL_ENV === "production";
 
 const barlow = Barlow({
   display: "swap",
@@ -43,6 +49,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main id="main-content">{children}</main>
         <Footer />
       </body>
+      {isProduction ? <GoogleAnalytics gaId={GA_MEASUREMENT_ID} /> : null}
     </html>
   );
 }
