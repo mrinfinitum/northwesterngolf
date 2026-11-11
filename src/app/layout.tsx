@@ -17,6 +17,8 @@ const barlow = Barlow({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  // Google Search Console token carried over from the Shopify theme so the existing property stays verified.
+  verification: { google: "wLqi7euXlFlDl5Mya7GEWBaUAvHOteY6_saJvnYqcoA" },
   title: {
     default: "Northwestern Golf",
     template: "%s | Northwestern Golf",
