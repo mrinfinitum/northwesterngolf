@@ -8,9 +8,10 @@ export function metadataTitle(title: string): Metadata["title"] {
 
 /** Site-wide share card (1200×630) for routes without their own image. */
 export const defaultShareImage = {
-  alt: "Northwestern Golf × John Daly",
+  alt: "John Daly checking his Northwestern Signature driver",
   height: 630,
-  url: "/images/og-default.jpg",
+  // New filename on purpose: iMessage, Facebook and Slack cache share images by URL.
+  url: "/images/og-daly.jpg",
   width: 1200,
 };
 
