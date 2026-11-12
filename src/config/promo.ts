@@ -19,6 +19,8 @@ export type PromoBar = {
   cta: { href: string; label: string };
   /** ISO date-time the event ends. Shows a countdown when set; the bar hides itself after it passes. */
   endsAt: string | null;
+  /** Big homepage hero copy, laid over the video while the event runs. */
+  hero: { cta: string; eyebrow: string; note: string };
   label: string;
   offer: string;
   subline: string;
@@ -29,6 +31,11 @@ export const promoBar: PromoBar | null = {
   cta: { href: "/collections/all", label: "Shop sets" },
   // Cyber Monday, 11:00 PM Central (CST).
   endsAt: "2026-11-30T23:00:00-06:00",
+  hero: {
+    cta: "Shop the sets",
+    eyebrow: "John Daly Signature Sets · Now on pre-order",
+    note: "Every pre-order ships by Dec\u00a01 · Delivered before Christmas",
+  },
   label: "Launch Event",
   offer: "20% off sitewide",
   subline: "Pre-orders ship by Dec 1 · Delivered before Christmas",

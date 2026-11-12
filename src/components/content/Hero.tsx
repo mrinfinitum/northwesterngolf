@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { HeroPromo } from "@/components/promo/HeroPromo";
+import { promoBar } from "@/config/promo";
 import { homepageContent } from "@/config/site";
 import { HeroVideo } from "./HeroVideo";
 
@@ -9,7 +11,7 @@ export function Hero() {
   const { buttonLabel, heading, href, poster, video } = homepageContent.hero;
 
   return (
-    <section className="home-hero">
+    <section className={`home-hero${promoBar ? " home-hero--promo" : ""}`}>
       {/* Posters are pre-encoded WebP (first video frame), served as static
           files so the LCP never waits on the image optimizer. */}
       <picture>
@@ -27,8 +29,17 @@ export function Hero() {
       </picture>
       <HeroVideo mobileMaxWidth={MOBILE_MAX_WIDTH} mobileSrc={video.mobile} src={video.desktop} />
       <div className="home-hero__content">
-        <h1>{heading}</h1>
-        <Link className="home-hero__button" href={href}>{buttonLabel}</Link>
+        {promoBar ? (
+          <HeroPromo promo={promoBar}>
+            <h1>{heading}</h1>
+            <Link className="home-hero__button" href={href}>{buttonLabel}</Link>
+          </HeroPromo>
+        ) : (
+          <>
+            <h1>{heading}</h1>
+            <Link className="home-hero__button" href={href}>{buttonLabel}</Link>
+          </>
+        )}
       </div>
     </section>
   );

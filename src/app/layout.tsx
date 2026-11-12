@@ -16,8 +16,8 @@ const barlow = Barlow({
   style: ["normal", "italic"],
   subsets: ["latin"],
   variable: "--font-barlow",
-  // 400 and 700 match the live theme; 500 for contact details, 600 for the header navigation.
-  weight: ["400", "500", "600", "700"],
+  // 400 and 700 match the live theme; 500 for contact details, 600 for the header navigation, 800 for promo headlines.
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
