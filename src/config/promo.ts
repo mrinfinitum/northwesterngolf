@@ -27,7 +27,8 @@ export type PromoBar = {
 /** Bar above the header. Set to null to hide it. */
 export const promoBar: PromoBar | null = {
   cta: { href: "/collections/all", label: "Shop sets" },
-  endsAt: null,
+  // Cyber Monday, 11:00 PM Central (CST).
+  endsAt: "2026-11-30T23:00:00-06:00",
   label: "Launch Event",
   offer: "20% off sitewide",
   subline: "Pre-orders ship by Dec 1 · Delivered before Christmas",
