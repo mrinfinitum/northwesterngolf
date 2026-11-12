@@ -39,7 +39,7 @@
 .hero-promo__eyebrow { color: #e2e2e2; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.16em; margin: 0 0 18px; text-transform: uppercase; }
 .home-hero .hero-promo__title { font-size: clamp(3.5rem, 7.5vw, 7rem); font-weight: 800; letter-spacing: -0.01em; line-height: 0.92; margin: 0; text-transform: uppercase; }
 .hero-promo__offer { color: var(--color-campaign); display: block; font-size: 0.42em; letter-spacing: 0.01em; line-height: 1; margin-top: 0.3em; }
-.hero-promo__timer { backdrop-filter: blur(4px); background: rgb(54 102 131 / 88%); border: 1px solid rgb(255 255 255 / 22%); border-radius: 6px; margin-top: 32px; padding: 20px 28px 18px; }
+.hero-promo__timer { backdrop-filter: blur(4px); background: rgb(28 56 74 / 94%); border: 1px solid rgb(255 255 255 / 22%); border-radius: 6px; margin-top: 32px; padding: 20px 28px 18px; }
 .hero-promo__timer-label { font-size: 0.8125rem; font-weight: 800; letter-spacing: 0.14em; margin: 0 0 12px; text-transform: uppercase; }
 .hero-promo .promo-clock__digits { font-size: clamp(2.25rem, 4vw, 3.25rem); font-weight: 800; line-height: 1.1; min-width: 1.6em; padding: 10px 6px 8px; border-color: rgb(255 255 255 / 32%); }
 .hero-promo .promo-clock__name { font-size: 0.625rem; margin-top: 8px; }
