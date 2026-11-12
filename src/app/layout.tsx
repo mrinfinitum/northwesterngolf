@@ -20,8 +20,15 @@ const barlow = Barlow({
   weight: ["400", "500", "600", "700", "800"],
 });
 
+// Preview builds of the dev branch resolve share images against dev.northwestern.golf,
+// so link previews there show files that only exist on the new site. Production uses www.
+const metadataOrigin =
+  process.env.VERCEL_ENV === "preview" && process.env.VERCEL_GIT_COMMIT_REF === "dev"
+    ? "https://dev.northwestern.golf"
+    : siteUrl;
+
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(metadataOrigin),
   // Google Search Console token carried over from the Shopify theme so the existing property stays verified.
   verification: { google: "wLqi7euXlFlDl5Mya7GEWBaUAvHOteY6_saJvnYqcoA" },
   title: {
