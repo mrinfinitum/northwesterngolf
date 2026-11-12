@@ -34,7 +34,7 @@ export const promoBar: PromoBar | null = {
   hero: {
     cta: "Shop the sets",
     eyebrow: "John Daly Signature Sets · Now on pre-order",
-    note: "Every pre-order ships by Dec\u00a01 · Delivered before Christmas",
+    note: "Every pre-order ships by Dec\u00a01\u00a0· Delivered before Christmas",
   },
   label: "Launch Event",
   offer: "20% off sitewide",
