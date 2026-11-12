@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState, useTransition, type CSSProperties } from 
 import { addCartLineAction } from "@/app/cart/actions";
 import { publishCartUpdate } from "@/components/cart/cart-events";
 import { formatMoney } from "@/components/commerce/Money";
-import { PREORDER_SHIP_NOTE } from "@/config/promo";
+import { PREORDER_DELIVERY_NOTE } from "@/config/promo";
 import { isPreorderVariant } from "@/lib/preorder";
 import type { ProductInfoContent } from "@/lib/product-content";
 import type { Money, Product, ProductVariant } from "@/lib/shopify";
@@ -163,10 +163,9 @@ export function ProductMain({
                 {formatMoney(compareAt)}
               </s>
             ) : null}
+            {preorder ? <span className="nwg-pdp-badge nwg-pdp-badge--preorder">Pre-order</span> : null}
             {!available ? (
               <span className="nwg-pdp-badge">Sold out</span>
-            ) : preorder ? (
-              <span className="nwg-pdp-badge nwg-pdp-badge--preorder">Pre-order</span>
             ) : onSale && compareAt ? (
               <span className="nwg-pdp-badge nwg-pdp-badge--sale">
                 Save {formatMoney({ amount: (Number(compareAt.amount) - Number(price.amount)).toFixed(2), currencyCode: price.currencyCode })}
@@ -254,7 +253,7 @@ export function ProductMain({
             </button>
             {preorder ? (
               <p className="nwg-pdp-info__preorder-note">
-                <strong>Pre-order:</strong> {PREORDER_SHIP_NOTE}.
+                <strong>Pre-order.</strong> {PREORDER_DELIVERY_NOTE}
               </p>
             ) : null}
             {cartMessage ? (

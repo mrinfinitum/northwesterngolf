@@ -1,4 +1,4 @@
-import { announcement } from "@/config/promo";
+import { promoBar } from "@/config/promo";
 import { accountUrl } from "@/config/site";
 import { AccountIcon } from "@/components/ui/icons";
 import { isRetailCartEnabled } from "@/lib/shopify/commerce-boundary";
@@ -7,6 +7,7 @@ import { CartButton } from "./CartButton";
 import { DesktopNavigation } from "./DesktopNavigation";
 import { HeaderFrame } from "./HeaderFrame";
 import { Logo } from "./Logo";
+import { PromoBar } from "./PromoBar";
 import { MobileNavigation } from "./MobileNavigation";
 import { SearchShell } from "./SearchShell";
 
@@ -14,12 +15,9 @@ export async function Header() {
   const navigation = await getMainNavigation();
 
   return (
+    <>
+    {promoBar ? <PromoBar promo={promoBar} /> : null}
     <HeaderFrame>
-      {announcement ? (
-        <p className="announcement-bar">
-          {announcement.href ? <a href={announcement.href}>{announcement.text}</a> : announcement.text}
-        </p>
-      ) : null}
       <div className="site-header__wrapper">
         <div className="site-header__main-nav">
           <div className="site-header__icons site-header__icons--leading">
@@ -38,5 +36,6 @@ export async function Header() {
         </div>
       </div>
     </HeaderFrame>
+    </>
   );
 }

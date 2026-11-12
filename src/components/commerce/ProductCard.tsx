@@ -19,15 +19,18 @@ export function ProductCard({ product, priority = false }: { product: Product; p
 
   return (
     <article className="product-card">
-      {!product.availableForSale ? (
-        <span className="product-card__badge product-card__badge--sold-out">Sold out</span>
-      ) : isPreorderProduct(product) ? (
-        <span className="product-card__badge product-card__badge--preorder">Pre-order</span>
-      ) : onSale ? (
-        <span className="product-card__badge product-card__badge--sale">
-          Save {formatMoney({ amount: savings.toFixed(2), currencyCode: price.currencyCode })}
-        </span>
-      ) : null}
+      <span className="product-card__badges">
+        {!product.availableForSale ? (
+          <span className="product-card__badge product-card__badge--sold-out">Sold out</span>
+        ) : onSale ? (
+          <span className="product-card__badge product-card__badge--sale">
+            Save {formatMoney({ amount: savings.toFixed(2), currencyCode: price.currencyCode })}
+          </span>
+        ) : null}
+        {isPreorderProduct(product) ? (
+          <span className="product-card__badge product-card__badge--preorder">Pre-order</span>
+        ) : null}
+      </span>
       <Link className="product-card__figure" href={href} tabIndex={-1}>
         {image ? (
           <>

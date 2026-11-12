@@ -29,7 +29,15 @@ export function SetCards({ sets }: { sets: SignatureSet[] }) {
               <div className="set-card__info">
                 <h3 className="set-card__title">{label}</h3>
                 <p className="set-card__note">{note}</p>
-                <p className="set-card__price">{formatMoney(product.priceRange.minVariantPrice)}</p>
+                <p className="set-card__price">
+                  {formatMoney(product.priceRange.minVariantPrice)}
+                  {Number(product.compareAtPriceRange.minVariantPrice.amount) > Number(product.priceRange.minVariantPrice.amount) ? (
+                    <s className="set-card__compare">
+                      <span className="sr-only">Regular price</span>
+                      {formatMoney(product.compareAtPriceRange.minVariantPrice)}
+                    </s>
+                  ) : null}
+                </p>
                 {isPreorderProduct(product) ? <p className="set-card__preorder">Pre-order · {PREORDER_SHIP_NOTE}</p> : null}
                 <span className="set-card__cta">{isPreorderProduct(product) ? "Pre-order now" : "Shop now"}</span>
               </div>
