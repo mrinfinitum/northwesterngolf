@@ -58,7 +58,11 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
     name: product.title,
     offers: firstVariant ? {
       "@type": "Offer",
-      availability: firstVariant.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      availability: !firstVariant.availableForSale
+        ? "https://schema.org/OutOfStock"
+        : firstVariant.currentlyNotInStock
+          ? "https://schema.org/PreOrder"
+          : "https://schema.org/InStock",
       price: firstVariant.price.amount,
       priceCurrency: firstVariant.price.currencyCode,
       url: `${siteUrl}/products/${product.handle}`,

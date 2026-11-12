@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { formatMoney } from "@/components/commerce/Money";
+import { PREORDER_SHIP_NOTE } from "@/config/promo";
+import { isPreorderProduct } from "@/lib/preorder";
 import type { SignatureSet } from "@/lib/signature-sets";
 import "./set-cards.css";
 
@@ -28,7 +30,8 @@ export function SetCards({ sets }: { sets: SignatureSet[] }) {
                 <h3 className="set-card__title">{label}</h3>
                 <p className="set-card__note">{note}</p>
                 <p className="set-card__price">{formatMoney(product.priceRange.minVariantPrice)}</p>
-                <span className="set-card__cta">Shop now</span>
+                {isPreorderProduct(product) ? <p className="set-card__preorder">Pre-order · {PREORDER_SHIP_NOTE}</p> : null}
+                <span className="set-card__cta">{isPreorderProduct(product) ? "Pre-order now" : "Shop now"}</span>
               </div>
             </Link>
           </li>

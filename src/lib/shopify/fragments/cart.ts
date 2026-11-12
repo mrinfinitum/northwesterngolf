@@ -42,6 +42,7 @@ export const CART_FRAGMENT = /* GraphQL */ `
             id
             title
             availableForSale
+            currentlyNotInStock
             price {
               amount
               currencyCode

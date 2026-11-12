@@ -1,3 +1,4 @@
+import { announcement } from "@/config/promo";
 import { accountUrl } from "@/config/site";
 import { AccountIcon } from "@/components/ui/icons";
 import { isRetailCartEnabled } from "@/lib/shopify/commerce-boundary";
@@ -14,6 +15,11 @@ export async function Header() {
 
   return (
     <HeaderFrame>
+      {announcement ? (
+        <p className="announcement-bar">
+          {announcement.href ? <a href={announcement.href}>{announcement.text}</a> : announcement.text}
+        </p>
+      ) : null}
       <div className="site-header__wrapper">
         <div className="site-header__main-nav">
           <div className="site-header__icons site-header__icons--leading">

@@ -167,6 +167,7 @@ export type CartLine = {
   id: string;
   merchandise: {
     availableForSale: boolean;
+    currentlyNotInStock: boolean;
     id: string;
     image: ShopifyImage | null;
     price: Money;

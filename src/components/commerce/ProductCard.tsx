@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { isPreorderProduct } from "@/lib/preorder";
 import type { Product } from "@/lib/shopify";
 import { formatMoney } from "./Money";
 
@@ -20,6 +21,8 @@ export function ProductCard({ product, priority = false }: { product: Product; p
     <article className="product-card">
       {!product.availableForSale ? (
         <span className="product-card__badge product-card__badge--sold-out">Sold out</span>
+      ) : isPreorderProduct(product) ? (
+        <span className="product-card__badge product-card__badge--preorder">Pre-order</span>
       ) : onSale ? (
         <span className="product-card__badge product-card__badge--sale">
           Save {formatMoney({ amount: savings.toFixed(2), currencyCode: price.currencyCode })}

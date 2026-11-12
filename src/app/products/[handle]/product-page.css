@@ -318,6 +318,7 @@
   padding: 3px 8px;
 }
 .nwg-pdp-badge--sale { background: #f83a3a; }
+.nwg-pdp-badge--preorder { background: #366683; }
 
 .nwg-pdp-rating { align-items: center; display: flex; gap: 6px; margin-left: auto; }
 .nwg-pdp-rating span { font-size: 14px; line-height: 1.6; }
@@ -431,6 +432,7 @@
 .nwg-pdp-buy:disabled { cursor: not-allowed; }
 .nwg-pdp-info__cart-message { font-size: 14px; margin-top: 12px; }
 .nwg-pdp-info__cart-message.is-error { color: #c21f1f; }
+.nwg-pdp-info__preorder-note { font-size: 14px; line-height: 1.4; margin: 12px 0 0; }
 
 .nwg-pdp-offers {
   display: grid;

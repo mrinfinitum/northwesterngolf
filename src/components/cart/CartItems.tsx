@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Cart } from "@/lib/shopify/types";
 import { formatMoney } from "@/components/commerce/Money";
+import { PREORDER_SHIP_NOTE } from "@/config/promo";
+import { isPreorderVariant } from "@/lib/preorder";
 
 export function CartItems({
   cart,
@@ -42,6 +44,9 @@ export function CartItems({
                 <p className="cart-item__options">
                   {options.map((option) => `${option.name}: ${option.value}`).join(" · ")}
                 </p>
+              ) : null}
+              {isPreorderVariant(line.merchandise) ? (
+                <p className="cart-item__preorder">Pre-order · {PREORDER_SHIP_NOTE}</p>
               ) : null}
               <p className="cart-item__price">{formatMoney(line.cost.totalAmount)}</p>
               <div className="cart-item__actions">

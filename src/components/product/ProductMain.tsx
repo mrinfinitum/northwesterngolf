@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState, useTransition, type CSSProperties } from 
 import { addCartLineAction } from "@/app/cart/actions";
 import { publishCartUpdate } from "@/components/cart/cart-events";
 import { formatMoney } from "@/components/commerce/Money";
+import { PREORDER_SHIP_NOTE } from "@/config/promo";
+import { isPreorderVariant } from "@/lib/preorder";
 import type { ProductInfoContent } from "@/lib/product-content";
 import type { Money, Product, ProductVariant } from "@/lib/shopify";
 import { ChevronSmallIcon, InfoCircleIcon, OfferIcon, ShopPayLogo } from "./icons";
@@ -86,6 +88,7 @@ export function ProductMain({
   const compareAt = variant?.compareAtPrice;
   const onSale = Boolean(compareAt && Number(compareAt.amount) > Number(price.amount));
   const available = Boolean(variant?.availableForSale);
+  const preorder = isPreorderVariant(variant);
   const terms = installments(price);
   const visibleOptions = useMemo(() => orderedOptions(product), [product]);
 
@@ -115,7 +118,7 @@ export function ProductMain({
     if (!variant || !cartEnabled || !available) return;
     setCartMessage(null);
     startAdding(async () => {
-      const result = await addCartLineAction(variant.id, 1);
+      const result = await addCartLineAction(variant.id, 1, preorder);
       setCartMessage({ ok: result.ok, text: result.message });
       if (result.ok && result.cart) publishCartUpdate(result.cart, true, result.message);
     });
@@ -162,6 +165,8 @@ export function ProductMain({
             ) : null}
             {!available ? (
               <span className="nwg-pdp-badge">Sold out</span>
+            ) : preorder ? (
+              <span className="nwg-pdp-badge nwg-pdp-badge--preorder">Pre-order</span>
             ) : onSale && compareAt ? (
               <span className="nwg-pdp-badge nwg-pdp-badge--sale">
                 Save {formatMoney({ amount: (Number(compareAt.amount) - Number(price.amount)).toFixed(2), currencyCode: price.currencyCode })}
@@ -245,8 +250,13 @@ export function ProductMain({
               onClick={addToCart}
               type="button"
             >
-              {isAdding ? "Adding…" : available ? "Add to cart" : "Sold out"}
+              {isAdding ? "Adding…" : !available ? "Sold out" : preorder ? "Pre-order now" : "Add to cart"}
             </button>
+            {preorder ? (
+              <p className="nwg-pdp-info__preorder-note">
+                <strong>Pre-order:</strong> {PREORDER_SHIP_NOTE}.
+              </p>
+            ) : null}
             {cartMessage ? (
               <p aria-live="polite" className={`nwg-pdp-info__cart-message${cartMessage.ok ? "" : " is-error"}`}>{cartMessage.text}</p>
             ) : null}
