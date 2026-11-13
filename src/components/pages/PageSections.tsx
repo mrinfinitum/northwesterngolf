@@ -28,7 +28,7 @@ function ArtDirectedImage({
   );
 }
 
-function Section({ contactPosted, first, section }: { contactPosted: boolean; first: boolean; section: PageSection }) {
+function Section({ first, section }: { first: boolean; section: PageSection }) {
   switch (section.type) {
     case "banner":
       return (
@@ -171,16 +171,14 @@ function Section({ contactPosted, first, section }: { contactPosted: boolean; fi
         </section>
       );
     case "contact":
-      return <ContactSection posted={contactPosted} section={section} />;
+      return <ContactSection section={section} />;
   }
 }
 
 export function PageSections({
-  contactPosted = false,
   sections,
   title,
 }: {
-  contactPosted?: boolean;
   sections: PageSection[];
   title: string;
 }) {
@@ -189,7 +187,7 @@ export function PageSections({
   return (
     <article className="nwg-page">
       {hasHeading ? null : <h1 className="nwg-visually-hidden">{title}</h1>}
-      {sections.map((section, index) => <Section contactPosted={contactPosted} first={index === 0} key={index} section={section} />)}
+      {sections.map((section, index) => <Section first={index === 0} key={index} section={section} />)}
     </article>
   );
 }

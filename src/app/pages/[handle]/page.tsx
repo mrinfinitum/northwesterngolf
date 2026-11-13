@@ -15,7 +15,6 @@ const fallbackDescriptions: Record<string, string> = {
 
 type ContentPageProps = {
   params: Promise<{ handle: string }>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
 export async function generateMetadata({ params }: ContentPageProps): Promise<Metadata> {
@@ -33,15 +32,14 @@ export async function generateMetadata({ params }: ContentPageProps): Promise<Me
   };
 }
 
-export default async function ContentPage({ params, searchParams }: ContentPageProps) {
+export default async function ContentPage({ params }: ContentPageProps) {
   const { handle } = await params;
   const page = await getPage(handle);
   if (!page) notFound();
 
   const sections = pageSections[handle];
   if (sections) {
-    const posted = (await searchParams).contact_posted === "true";
-    return <PageSections contactPosted={posted} sections={sections} title={page.title} />;
+    return <PageSections sections={sections} title={page.title} />;
   }
 
   return (

@@ -443,6 +443,9 @@
 .nwg-page-contact__submit:hover { background: var(--color-campaign, #ff711f); }
 .nwg-page-contact__submit:hover::after { transform: translateX(4px); }
 .nwg-page-contact__success { background: #fff4ec; border-radius: 12px; font-weight: 500; margin: 0 0 24px; padding: 14px 18px; }
+.nwg-page-contact__error { background: #fdecec; border-radius: 12px; color: #8a1c1c; font-weight: 500; margin: 0 0 24px; padding: 14px 18px; }
+.nwg-page-contact__trap { height: 1px; left: -10000px; overflow: hidden; position: absolute; width: 1px; }
+.nwg-page-contact__submit:disabled { cursor: progress; opacity: 0.7; }
 
 .nwg-page-contact__help { display: grid; gap: 12px; list-style: none; margin: clamp(24px, 3vw, 40px) auto 0; max-width: 1240px; padding: 0; }
 .nwg-page-contact__help-link { align-items: center; background: #fff; border: 1px solid transparent; border-radius: 16px; display: grid; gap: 4px 16px; grid-template-columns: minmax(0, 1fr) auto; padding: 22px 24px; text-decoration: none; transition: border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease; }
