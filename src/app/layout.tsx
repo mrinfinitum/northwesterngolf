@@ -13,7 +13,9 @@ const isProduction = process.env.VERCEL_ENV === "production";
 
 const barlow = Barlow({
   display: "swap",
-  style: ["normal", "italic"],
+  // No italic files: the CSS never sets italic, and the odd <em> in Shopify content is
+  // slanted by the browser. Halves the font preloads every page waits on (10 → 5).
+  style: ["normal"],
   subsets: ["latin"],
   variable: "--font-barlow",
   // 400 and 700 match the live theme; 500 for contact details, 600 for the header navigation, 800 for promo headlines.
