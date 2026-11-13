@@ -4,7 +4,8 @@ import { useEffect, useMemo, useState, useTransition, type CSSProperties } from 
 import { addCartLineAction } from "@/app/cart/actions";
 import { publishCartUpdate } from "@/components/cart/cart-events";
 import { formatMoney } from "@/components/commerce/Money";
-import { PREORDER_DELIVERY_NOTE } from "@/config/promo";
+import { PdpDeal } from "@/components/promo/PdpDeal";
+import { PREORDER_DELIVERY_NOTE, promoBar } from "@/config/promo";
 import { itemId, trackEcommerce } from "@/lib/analytics";
 import { isPreorderVariant } from "@/lib/preorder";
 import type { ProductInfoContent } from "@/lib/product-content";
@@ -196,6 +197,13 @@ export function ProductMain({
               </a>
             ) : null}
           </div>
+
+          {promoBar && onSale && compareAt && available ? (
+            <PdpDeal
+              percentOff={Math.round((1 - Number(price.amount) / Number(compareAt.amount)) * 100)}
+              promo={promoBar}
+            />
+          ) : null}
 
           {terms ? (
             <p className="nwg-pdp-info__block nwg-pdp-info__installments">
