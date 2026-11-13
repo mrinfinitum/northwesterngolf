@@ -23,18 +23,6 @@ function gtag(): Gtag | null {
   return typeof candidate === "function" ? (candidate as Gtag) : null;
 }
 
-/**
- * Queue a gtag command even if the tag script hasn't defined `gtag` yet (effects can run
- * before Next's afterInteractive scripts). The Google tag replays `dataLayer` when it loads;
- * it only accepts the `arguments` object, not a plain array.
- */
-const queue: Gtag = function () {
-  const w = window as unknown as { dataLayer?: unknown[] };
-  w.dataLayer = w.dataLayer || [];
-  // eslint-disable-next-line prefer-rest-params -- gtag requires the Arguments object
-  w.dataLayer.push(arguments);
-};
-
 /** Events only go out where the Google tag is rendered: production. */
 const enabled = process.env.NEXT_PUBLIC_VERCEL_ENV === "production";
 
@@ -44,9 +32,18 @@ export function trackEcommerce(
   items: AnalyticsItem[],
 ) {
   if (typeof window === "undefined" || !enabled || !items.length) return;
-  const send = gtag() ?? queue;
   const value = items.reduce((total, item) => total + item.price * item.quantity, 0);
-  send("event", name, { currency, items, value: Number(value.toFixed(2)) });
+  const params = { currency, items, value: Number(value.toFixed(2)) };
+  // Page-load events can fire before Next's afterInteractive script defines gtag and
+  // sends `config`; anything queued ahead of `config` has no destination and is dropped.
+  // Wait (up to ~10s) for gtag, so the event lands after `config`.
+  let tries = 0;
+  const attempt = () => {
+    const send = gtag();
+    if (send) send("event", name, params);
+    else if (++tries < 40) window.setTimeout(attempt, 250);
+  };
+  attempt();
 }
 
 const numericId = (gid: string) => gid.split("/").pop() ?? gid;
