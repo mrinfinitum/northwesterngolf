@@ -4,12 +4,12 @@ import { headers } from "next/headers";
 
 /**
  * Contact form → Resend. Needs RESEND_API_KEY in Vercel, and the sending domain
- * (northwestern.golf) verified in Resend. Messages go to CONTACT_TO_EMAIL with
+ * (send.northwestern.golf) verified in Resend. Messages go to CONTACT_TO_EMAIL with
  * Reply-To set to the visitor, so replying from the inbox answers them directly.
  */
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
 const DEFAULT_TO = "info@northwestern.golf";
-const DEFAULT_FROM = "Northwestern Golf Website <website@northwestern.golf>";
+const DEFAULT_FROM = "Northwestern Golf Website <website@send.northwestern.golf>";
 const FALLBACK_EMAIL = "info@northwestern.golf";
 
 export type ContactValues = { body: string; email: string; name: string; phone: string };
