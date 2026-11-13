@@ -42,6 +42,7 @@ export async function GET() {
     "## Policies",
     "",
     `- [Refund policy](${siteUrl}/policies/refund-policy)`,
+    `- [Shipping policy](${siteUrl}/policies/shipping-policy): $20 standard shipping to U.S. addresses`,
     `- [Privacy policy](${siteUrl}/policies/privacy-policy)`,
     `- [Terms of service](${siteUrl}/policies/terms-of-service)`,
     "",

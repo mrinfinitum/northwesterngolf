@@ -7,6 +7,7 @@
  * typed static data keyed by product handle. Media URLs point at the Shopify
  * CDN. Replace with a metafield/metaobject source in ./index.ts when available.
  */
+import { SHIPPING_RETURNS_HTML } from "@/config/shipping";
 import type { PdpSection, ProductPageTemplate } from "./types";
 
 const marqueeMakingGolfEasierSince1929100s100s: PdpSection = {
@@ -105,7 +106,7 @@ const faq: PdpSection = {
     },
     {
       question: "Can I order outside the U.S.?",
-      answerHtml: "<p>Yes, we ship internationally.<br><br>Shipping rates and delivery times are calculated at checkout based on your location.</p>"
+      answerHtml: "<p>Not yet. We currently ship to U.S. addresses only.<br><br>Standard shipping is $20, and faster FedEx options are priced at checkout. See our <a href=\"/policies/shipping-policy\">shipping policy</a>.</p>"
     }
   ]
 };
@@ -170,7 +171,7 @@ const faq2: PdpSection = {
     },
     {
       question: "Can I order outside the U.S.?",
-      answerHtml: "<p>Yes, we ship internationally.<br><br>Shipping rates and delivery times are calculated at checkout based on your location.</p>"
+      answerHtml: "<p>Not yet. We currently ship to U.S. addresses only.<br><br>Standard shipping is $20, and faster FedEx options are priced at checkout. See our <a href=\"/policies/shipping-policy\">shipping policy</a>.</p>"
     }
   ]
 };
@@ -239,7 +240,7 @@ const faq3: PdpSection = {
     },
     {
       question: "Can I order outside the U.S.?",
-      answerHtml: "<p>Yes, we ship internationally.<br><br>Shipping rates and delivery times are calculated at checkout based on your location.</p>"
+      answerHtml: "<p>Not yet. We currently ship to U.S. addresses only.<br><br>Standard shipping is $20, and faster FedEx options are priced at checkout. See our <a href=\"/policies/shipping-policy\">shipping policy</a>.</p>"
     }
   ]
 };
@@ -287,7 +288,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer easy 30-day returns and a 1-year warranty, so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -452,7 +453,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer <strong>easy 30-day returns</strong> and a <strong>1 year warranty, </strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -588,7 +589,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
           },
           {
             question: "Can I order outside the U.S.?",
-            answerHtml: "<p>Yes, we ship internationally.<br><br>Shipping rates and delivery times are calculated at checkout based on your location.</p>"
+            answerHtml: "<p>Not yet. We currently ship to U.S. addresses only.<br><br>Standard shipping is $20, and faster FedEx options are priced at checkout. See our <a href=\"/policies/shipping-policy\">shipping policy</a>.</p>"
           }
         ]
       },
@@ -632,7 +633,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer <strong>easy 30-day returns</strong> and a <strong>1 year warranty, </strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -787,7 +788,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer&nbsp;<strong>easy 30-day returns</strong>&nbsp;and a&nbsp;<strong>1 year warranty,&nbsp;</strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -916,7 +917,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
           },
           {
             question: "Can I order outside the U.S.?",
-            answerHtml: "<p>Yes, we ship internationally.<br><br>Shipping rates and delivery times are calculated at checkout based on your location.</p>"
+            answerHtml: "<p>Not yet. We currently ship to U.S. addresses only.<br><br>Standard shipping is $20, and faster FedEx options are priced at checkout. See our <a href=\"/policies/shipping-policy\">shipping policy</a>.</p>"
           }
         ]
       },
@@ -960,7 +961,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer <strong>easy 30-day returns</strong> and a <strong>1 year warranty, </strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -1068,7 +1069,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
           },
           {
             question: "Can I order outside the U.S.?",
-            answerHtml: "<p>Yes, we ship internationally.<br><br>Shipping rates and delivery times are calculated at checkout based on your location.</p>"
+            answerHtml: "<p>Not yet. We currently ship to U.S. addresses only.<br><br>Standard shipping is $20, and faster FedEx options are priced at checkout. See our <a href=\"/policies/shipping-policy\">shipping policy</a>.</p>"
           }
         ]
       },
@@ -1111,7 +1112,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer&nbsp;<strong>easy 30-day returns</strong>&nbsp;and a&nbsp;<strong>1 year warranty,&nbsp;</strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -1226,7 +1227,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer easy 30-day returns and a 1 year warranty, so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -1378,7 +1379,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer <strong>easy 30-day returns</strong> and a <strong>1 year warranty, </strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -1516,7 +1517,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
           },
           {
             question: "Can I order outside the U.S.?",
-            answerHtml: "<p>Yes, we ship internationally.<br><br>Shipping rates and delivery times are calculated at checkout based on your location.</p>"
+            answerHtml: "<p>Not yet. We currently ship to U.S. addresses only.<br><br>Standard shipping is $20, and faster FedEx options are priced at checkout. See our <a href=\"/policies/shipping-policy\">shipping policy</a>.</p>"
           }
         ]
       },
@@ -1559,7 +1560,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer <strong>easy 30-day returns</strong> and a <strong>1 year warranty, </strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -1696,7 +1697,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
           },
           {
             question: "Can I order outside the U.S.?",
-            answerHtml: "<p>Yes, we ship internationally.<br><br>Shipping rates and delivery times are calculated at checkout based on your location.</p>"
+            answerHtml: "<p>Not yet. We currently ship to U.S. addresses only.<br><br>Standard shipping is $20, and faster FedEx options are priced at checkout. See our <a href=\"/policies/shipping-policy\">shipping policy</a>.</p>"
           }
         ]
       },
@@ -1739,7 +1740,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer <strong>easy 30-day returns</strong> and a <strong>1 year warranty, </strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -1889,7 +1890,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer <strong>easy 30-day returns</strong> and a <strong>1 year warranty, </strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -2037,7 +2038,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
           },
           {
             question: "Can I order outside the U.S.?",
-            answerHtml: "<p>Yes, we ship internationally.<br><br>Shipping rates and delivery times are calculated at checkout based on your location.</p>"
+            answerHtml: "<p>Not yet. We currently ship to U.S. addresses only.<br><br>Standard shipping is $20, and faster FedEx options are priced at checkout. See our <a href=\"/policies/shipping-policy\">shipping policy</a>.</p>"
           }
         ]
       },
@@ -2082,7 +2083,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer <strong>easy 30-day returns</strong> and a <strong>1 year warranty, </strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -2220,7 +2221,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
           },
           {
             question: "Can I order outside the U.S.?",
-            answerHtml: "<p>Yes, we ship internationally.<br><br>Shipping rates and delivery times are calculated at checkout based on your location.</p>"
+            answerHtml: "<p>Not yet. We currently ship to U.S. addresses only.<br><br>Standard shipping is $20, and faster FedEx options are priced at checkout. See our <a href=\"/policies/shipping-policy\">shipping policy</a>.</p>"
           }
         ]
       },
@@ -2264,7 +2265,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer easy 30-day returns and a 1-year warranty, so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -2396,7 +2397,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
           },
           {
             question: "Can I order outside the U.S.?",
-            answerHtml: "<p>Yes, we ship internationally.<br><br>Shipping rates and delivery times are calculated at checkout based on your location.</p>"
+            answerHtml: "<p>Not yet. We currently ship to U.S. addresses only.<br><br>Standard shipping is $20, and faster FedEx options are priced at checkout. See our <a href=\"/policies/shipping-policy\">shipping policy</a>.</p>"
           }
         ]
       },
@@ -2439,7 +2440,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer <strong>easy 30-day returns</strong> and a <strong>1 year warranty, </strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -2570,7 +2571,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
           },
           {
             question: "Can I order outside the U.S.?",
-            answerHtml: "<p>Yes, we ship internationally.<br><br>Shipping rates and delivery times are calculated at checkout based on your location.</p>"
+            answerHtml: "<p>Not yet. We currently ship to U.S. addresses only.<br><br>Standard shipping is $20, and faster FedEx options are priced at checkout. See our <a href=\"/policies/shipping-policy\">shipping policy</a>.</p>"
           }
         ]
       },
@@ -2618,7 +2619,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer <strong>easy 30-day returns</strong> and a <strong>1 year warranty, </strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -2765,7 +2766,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer <strong>easy 30-day returns </strong>and a <strong>1 year warranty, </strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -2926,7 +2927,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer <strong>easy 30-day returns</strong> and a <strong>1 year warranty, </strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -3068,7 +3069,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer <strong>easy 30-day returns</strong> and a <strong>1 year warranty, </strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -3241,7 +3242,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer <strong>easy 30-day returns</strong> and a <strong>1 year warranty, </strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },
@@ -3381,7 +3382,7 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
         },
         {
           title: "SHIPPING & RETURNS",
-          html: "<p>We offer <strong>easy 30-day returns</strong> and a <strong>1 year warranty, </strong>so you can play, test, and get comfortable with your clubs. If the set isn’t right for you, we’ll help you make it right.</p>"
+          html: SHIPPING_RETURNS_HTML
         }
       ]
     },

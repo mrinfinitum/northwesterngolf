@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { openGraphBase } from "@/lib/seo";
 import { notFound } from "next/navigation";
-import { getPolicy } from "@/lib/shopify";
+import { SHIPPING_POLICY } from "@/config/shipping";
+import { getPolicy as getShopifyPolicy } from "@/lib/shopify";
 import "../../pages/pages.css";
 
 type PolicyPageProps = { params: Promise<{ handle: string }> };
@@ -13,7 +14,15 @@ type PolicyPageProps = { params: Promise<{ handle: string }> };
 function localizePolicyHtml(html: string) {
   return html
     .replace(/https?:\/\/(?:r1kikk-am\.myshopify\.com|(?:www\.)?northwestern\.golf)(\/policies\/[a-z-]+)/g, "$1")
-    .replace(/class="tab-section"/g, 'class="nwg-policy-tabs"');
+    .replace(/<div class="tab-section">([\s\S]*?)<\/div>/, (row, links: string) =>
+      `<div class="nwg-policy-tabs">${links}${links.includes("shipping-policy") ? "" : ' <a style="margin-left: 20px;" href="/policies/shipping-policy">Shipping Policy</a>'}</div>`);
+}
+
+/** Shopify has no shipping policy; serve the site's own until one is added in Admin. */
+async function getPolicy(handle: string) {
+  const policy = await getShopifyPolicy(handle);
+  if (policy) return policy;
+  return handle === SHIPPING_POLICY.handle ? SHIPPING_POLICY : null;
 }
 
 export async function generateMetadata({ params }: PolicyPageProps): Promise<Metadata> {
