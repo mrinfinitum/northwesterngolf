@@ -38,7 +38,6 @@ export async function GET() {
     `- [John Daly](${siteUrl}/pages/john-daly): the two-time major champion's partnership with Northwestern Golf and the Signature Sets`,
     `- [Our Story](${siteUrl}/pages/our-story): Northwestern Golf's history and values`,
     `- [Contact](${siteUrl}/pages/contact): customer support, phone, email and address`,
-    `- [Past Models](${siteUrl}/pages/past-models): discontinued Thunderbird and Talon SS clubs and sets (no longer sold)`,
     "",
     "## Policies",
     "",
