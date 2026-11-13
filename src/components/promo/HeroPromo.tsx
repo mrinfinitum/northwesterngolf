@@ -16,11 +16,12 @@ export function HeroPromo({ children, promo }: { children: ReactNode; promo: Pro
 
   return (
     <div className="hero-promo">
-      <p className="hero-promo__eyebrow">{promo.hero.eyebrow}</p>
-      <h1 className="hero-promo__title">
-        {promo.label}
+      {/* The H1 carries the page topic (the sets); the big Launch Event line is display text. */}
+      <h1 className="hero-promo__eyebrow">{promo.hero.eyebrow}</h1>
+      <p className="hero-promo__title">
+        {promo.label}{" "}
         <span className="hero-promo__offer">{promo.offer}</span>
-      </h1>
+      </p>
       {endsAt ? (
         <div className="hero-promo__timer">
           <p aria-hidden="true" className="hero-promo__timer-label">Ends in</p>

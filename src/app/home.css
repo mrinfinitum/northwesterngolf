@@ -36,8 +36,8 @@
 .home-hero--promo::after { background: linear-gradient(rgb(0 0 0 / 52%), rgb(0 0 0 / 52%)); }
 .home-hero--promo { min-height: 680px; }
 .hero-promo { align-items: center; display: flex; flex-direction: column; margin-inline: auto; max-width: 980px; }
-.hero-promo__eyebrow { color: #e2e2e2; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.16em; margin: 0 0 18px; text-transform: uppercase; }
-.home-hero .hero-promo__title { font-size: clamp(3.5rem, 7.5vw, 7rem); font-weight: 800; letter-spacing: -0.01em; line-height: 0.92; margin: 0; text-transform: uppercase; }
+.home-hero .hero-promo__eyebrow { color: #e2e2e2; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.16em; line-height: 1.4; margin: 0 0 18px; text-shadow: none; text-transform: uppercase; }
+.home-hero .hero-promo__title { font-size: clamp(3.5rem, 7.5vw, 7rem); font-weight: 800; letter-spacing: -0.01em; line-height: 0.92; margin: 0; text-shadow: 0 2px 24px rgb(0 0 0 / 35%); text-transform: uppercase; text-wrap: balance; }
 .hero-promo__offer { color: var(--color-campaign); display: block; font-size: 0.42em; letter-spacing: 0.01em; line-height: 1; margin-top: 0.3em; }
 .hero-promo__timer { backdrop-filter: blur(4px); background: rgb(0 0 0 / 55%); border: 1px solid rgb(255 255 255 / 14%); border-radius: 6px; margin-top: 32px; padding: 20px 28px 18px; }
 .hero-promo__timer-label { font-size: 0.8125rem; font-weight: 800; letter-spacing: 0.14em; margin: 0 0 12px; text-transform: uppercase; }
@@ -52,7 +52,7 @@
   .home-hero--promo { height: auto; min-height: 640px; }
   .home-hero--promo .home-hero__content { padding-block: 48px; position: relative; left: auto; top: auto; transform: none; margin-inline: auto; }
   .home-hero--promo { display: flex; align-items: center; }
-  .hero-promo__eyebrow { font-size: 0.6875rem; letter-spacing: 0.12em; }
+  .home-hero .hero-promo__eyebrow { font-size: 0.6875rem; letter-spacing: 0.12em; }
   .home-hero .hero-promo__title { font-size: 3.25rem; }
   .hero-promo__timer { padding: 14px 14px 12px; }
   .hero-promo .promo-clock__digits { font-size: 1.875rem; }

@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { legacyRedirects } from "./src/config/legacy-redirects";
 
 // Shopify customer accounts (new) for shop 72808693923, served on its primary
 // customer accounts domain (shopify.com/72808693923/account redirects here).
@@ -60,11 +61,12 @@ const nextConfig: NextConfig = {
     return [{ headers, source: "/:path*" }];
   },
   async redirects() {
-    return ["/account", "/account/:path*", "/customer_authentication/:path*"].map((source) => ({
+    const account = ["/account", "/account/:path*", "/customer_authentication/:path*"].map((source) => ({
       destination: SHOPIFY_CUSTOMER_ACCOUNT_URL,
       permanent: false,
       source,
     }));
+    return [...account, ...legacyRedirects];
   },
   images: {
     remotePatterns: [
