@@ -128,6 +128,7 @@ export default async function CollectionPage({ params, searchParams }: Collectio
               sortOptions: COLLECTION_SORT_OPTIONS,
               state,
             }}
+            list={{ id: handle, name: title }}
             products={listing.products}
           />
         )}

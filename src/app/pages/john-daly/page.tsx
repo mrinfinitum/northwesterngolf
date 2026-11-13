@@ -157,7 +157,7 @@ export default async function JohnDalyPage() {
             <p className="jd-eyebrow">Shop</p>
             <h2 className="jd-heading">Pick your set</h2>
           </div>
-          <SetCards sets={sets} />
+          <SetCards list={{ id: "john-daly-sets", name: "John Daly Page Sets" }} sets={sets} />
         </section>
       ) : null}
 

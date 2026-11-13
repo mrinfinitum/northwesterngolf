@@ -11,6 +11,7 @@ import {
 } from "@/components/cart/cart-events";
 import { useCart } from "@/components/cart/use-cart";
 import { BagIcon, CloseIcon } from "@/components/ui/icons";
+import { trackCart } from "@/lib/analytics";
 
 export function CartButton({ enabled }: { enabled: boolean }) {
   const [open, setOpen] = useState(false);
@@ -40,6 +41,12 @@ export function CartButton({ enabled }: { enabled: boolean }) {
     window.addEventListener(CART_UPDATED_EVENT, update);
     return () => window.removeEventListener(CART_UPDATED_EVENT, update);
   }, []);
+
+  // view_cart each time the drawer opens with something in it.
+  useEffect(() => {
+    if (open) trackCart("view_cart", cart);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- on open only, not on every cart change
+  }, [open]);
 
   useEffect(() => {
     if (!open) {

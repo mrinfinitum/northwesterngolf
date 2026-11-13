@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { ItemListTracker } from "@/components/analytics/ItemListTracker";
 import { ProductCard } from "@/components/commerce/ProductCard";
+import { listItems } from "@/lib/analytics";
 import type { Product } from "@/lib/shopify";
 import { FacetDrawer } from "./FacetDrawer";
 import { FacetForm, type FacetConfig } from "./FacetForm";
@@ -14,11 +16,14 @@ import { SortPopover } from "./SortPopover";
 export function ProductListing({
   clearHref,
   config,
+  list,
   products,
   showCount = true,
 }: {
   clearHref: string;
   config: FacetConfig;
+  /** GA4 item list (view_item_list / select_item). */
+  list: { id: string; name: string };
   products: Product[];
   /** Mobile "N products" line; the live search template omits it. */
   showCount?: boolean;
@@ -70,9 +75,11 @@ export function ProductListing({
                 {chips.length ? <div className="nwg-col-chips"><ActiveFacetChips chips={chips} /></div> : null}
               </div>
             ) : null}
-            <div className="nwg-col-grid">
-              {products.map((product, index) => <ProductCard key={product.id} priority={index < 3} product={product} />)}
-            </div>
+            <ItemListTracker items={listItems(products)} listId={list.id} listName={list.name}>
+              <div className="nwg-col-grid">
+                {products.map((product, index) => <ProductCard key={product.id} priority={index < 3} product={product} />)}
+              </div>
+            </ItemListTracker>
           </>
         ) : (
           <ListingEmptyState actionHref={clearHref} actionLabel="Clear all" headingLevel="h5" title="No products match those filters." />

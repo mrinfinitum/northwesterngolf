@@ -61,6 +61,16 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
         : firstVariant.currentlyNotInStock
           ? "https://schema.org/PreOrder"
           : "https://schema.org/InStock",
+      // From /policies/refund-policy: 30 days, by mail, buyer pays return shipping.
+      hasMerchantReturnPolicy: {
+        "@type": "MerchantReturnPolicy",
+        applicableCountry: "US",
+        merchantReturnDays: 30,
+        merchantReturnLink: `${siteUrl}/policies/refund-policy`,
+        returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
+        returnMethod: "https://schema.org/ReturnByMail",
+        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+      },
       price: firstVariant.price.amount,
       priceCurrency: firstVariant.price.currencyCode,
       url: `${siteUrl}/products/${product.handle}`,

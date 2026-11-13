@@ -18,8 +18,10 @@ const VERCEL_TOOLBAR = isPreview ? " https://vercel.live https://*.vercel.live" 
 // app adds). Origins from Google's CSP guide for GA4 and Google Ads:
 // https://developers.google.com/tag-platform/security/guides/csp
 const GOOGLE_SCRIPT = " https://*.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com";
-const GOOGLE_IMG = " https://*.google-analytics.com https://*.googletagmanager.com https://googleads.g.doubleclick.net https://www.google.com";
-const GOOGLE_CONNECT = " https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://googleads.g.doubleclick.net https://www.google.com https://pagead2.googlesyndication.com";
+// A wildcard doesn't cover the bare host, so analytics.google.com (GA4 hits),
+// stats.g.doubleclick.net (Google signals) and Merchant Center analytics are listed too.
+const GOOGLE_IMG = " https://*.google-analytics.com https://*.googletagmanager.com https://googleads.g.doubleclick.net https://stats.g.doubleclick.net https://www.google.com";
+const GOOGLE_CONNECT = " https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.googletagmanager.com https://googleads.g.doubleclick.net https://stats.g.doubleclick.net https://www.google.com https://pagead2.googlesyndication.com https://www.merchant-center-analytics.goog";
 const GOOGLE_FRAME = "https://td.doubleclick.net https://www.googletagmanager.com";
 
 // Static rendering is kept, so scripts use 'unsafe-inline' rather than per-request
@@ -52,6 +54,8 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  // ~20 KB of CSS, inlined so first-time mobile visitors don't wait on render-blocking stylesheets.
+  experimental: { inlineCss: true },
   poweredByHeader: false,
   async headers() {
     const headers = [...securityHeaders];
@@ -68,6 +72,8 @@ const nextConfig: NextConfig = {
     return [...account, ...legacyRedirects];
   },
   images: {
+    // AVIF first (typically 20–40% smaller than WebP), WebP for older browsers.
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "https",
