@@ -5,13 +5,21 @@
  * (no redirect chains). Sources: Shopify admin > URL redirects, plus Wayback Machine crawls.
  */
 
+// Every discontinued product line (Thunderbird, Talon SS, Brian Symonds wedges) is gone,
+// so its old URLs, pages and the Past Models showcase all land on the current sets.
 const SHOP = "/collections/all";
-const THUNDERBIRD = "/pages/thunderbird-full-set";
-const TALON = "/pages/talon-ss";
-const WEDGES = "/pages/wedges";
-const pastModel = (handle: string) => `/pages/past-models#${handle}`;
+const THUNDERBIRD = SHOP;
+const TALON = SHOP;
+const WEDGES = SHOP;
 
-/** Old product slugs (WordPress /product/x and mistyped Shopify /products/x) → Past Models tile. */
+/** Shopify pages for discontinued lines; redirected and kept out of the sitemap. */
+export const retiredPageHandles = new Set(["past-models", "talon-ss", "thunderbird-full-set", "wedges"]);
+
+/**
+ * Old product slugs (WordPress /product/x, and Shopify redirect targets that never existed),
+ * with the Shopify handle each one became. Any /products/x that no longer exists also
+ * redirects to the shop, from the product page itself.
+ */
 const oldProductSlugs: Record<string, string> = {
   "mens-talon-ss-full-set": "men-s-talon-ss-full-set",
   "mens-thunderbird-driver": "men-s-thunderbird-driver",
@@ -95,9 +103,10 @@ const pathRedirects: Record<string, string> = {
   "/womens-thunderbird-full-set": THUNDERBIRD,
 };
 
+for (const handle of retiredPageHandles) pathRedirects[`/pages/${handle}`] = SHOP;
+
 for (const [slug, handle] of Object.entries(oldProductSlugs)) {
-  pathRedirects[`/product/${slug}`] ??= pastModel(handle);
-  pathRedirects[`/products/${slug}`] ??= pastModel(handle);
+  for (const path of [`/product/${slug}`, `/products/${slug}`, `/products/${handle}`]) pathRedirects[path] ??= SHOP;
 }
 
 /** For next.config `redirects()`; trailing slashes are already normalised by Next. */
@@ -109,7 +118,7 @@ export const legacyRedirects = Object.entries(pathRedirects).map(([source, desti
 
 /**
  * Old Shopify collections that are now empty. Instead of an empty, noindexed page they
- * send visitors (and link equity) to the closest live page.
+ * send visitors (and link equity) to the current sets.
  */
 export const emptyCollectionRedirects: Record<string, string> = {
   "symonds-wedges": WEDGES,
