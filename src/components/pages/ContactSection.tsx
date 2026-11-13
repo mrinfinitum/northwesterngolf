@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ContactForm } from "./ContactForm";
+import { ShopifyContactForm } from "./ShopifyContactForm";
 import type { PageSection } from "./page-sections";
 
 type ContactConfig = Extract<PageSection, { type: "contact" }>;
@@ -65,7 +66,8 @@ export function ContactSection({ section }: { section: ContactConfig }) {
         </div>
 
         <div className="nwg-page-contact__form">
-          <ContactForm />
+          {/* Resend once its key is configured; Shopify's contact endpoint until then. */}
+          {process.env.RESEND_API_KEY ? <ContactForm /> : <ShopifyContactForm />}
         </div>
       </div>
 
