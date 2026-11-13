@@ -14,7 +14,7 @@ type PolicyPageProps = { params: Promise<{ handle: string }> };
 function localizePolicyHtml(html: string) {
   return html
     .replace(/https?:\/\/(?:r1kikk-am\.myshopify\.com|(?:www\.)?northwestern\.golf)(\/policies\/[a-z-]+)/g, "$1")
-    .replace(/<div class="tab-section">([\s\S]*?)<\/div>/, (row, links: string) =>
+    .replace(/<div[^>]*class="tab-section"[^>]*>([\s\S]*?)<\/div>/, (row, links: string) =>
       `<div class="nwg-policy-tabs">${links}${links.includes("shipping-policy") ? "" : ' <a style="margin-left: 20px;" href="/policies/shipping-policy">Shipping Policy</a>'}</div>`);
 }
 
