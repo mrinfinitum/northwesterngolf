@@ -5,6 +5,7 @@ import { addCartLineAction } from "@/app/cart/actions";
 import { publishCartUpdate } from "@/components/cart/cart-events";
 import { formatMoney } from "@/components/commerce/Money";
 import { PREORDER_DELIVERY_NOTE } from "@/config/promo";
+import { itemId, trackEcommerce } from "@/lib/analytics";
 import { isPreorderVariant } from "@/lib/preorder";
 import type { ProductInfoContent } from "@/lib/product-content";
 import type { Money, Product, ProductVariant } from "@/lib/shopify";
@@ -114,13 +115,28 @@ export function ProductMain({
     }
   }
 
+  // One view_item per product page view (not per option change).
+  useEffect(() => {
+    const viewed = initialVariant ?? product.variants[0];
+    if (!viewed) return;
+    trackEcommerce("view_item", viewed.price.currencyCode, [
+      { item_id: itemId(product.id, viewed.id), item_name: product.title, item_variant: viewed.title, price: Number(viewed.price.amount), quantity: 1 },
+    ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- once per product
+  }, [product.id]);
+
   function addToCart() {
     if (!variant || !cartEnabled || !available) return;
     setCartMessage(null);
     startAdding(async () => {
       const result = await addCartLineAction(variant.id, 1, preorder);
       setCartMessage({ ok: result.ok, text: result.message });
-      if (result.ok && result.cart) publishCartUpdate(result.cart, true, result.message);
+      if (result.ok && result.cart) {
+        publishCartUpdate(result.cart, true, result.message);
+        trackEcommerce("add_to_cart", variant.price.currencyCode, [
+          { item_id: itemId(product.id, variant.id), item_name: product.title, item_variant: variant.title, price: Number(variant.price.amount), quantity: 1 },
+        ]);
+      }
     });
   }
 

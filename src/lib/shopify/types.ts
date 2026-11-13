@@ -173,6 +173,7 @@ export type CartLine = {
     price: Money;
     product: {
       handle: string;
+      id: string;
       title: string;
     };
     selectedOptions: SelectedOption[];

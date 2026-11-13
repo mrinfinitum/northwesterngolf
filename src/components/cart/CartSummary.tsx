@@ -21,7 +21,7 @@ export function CartSummary({ cart, pending }: { cart: Cart; pending: boolean })
         </div>
       ) : null}
       <p>Taxes and shipping are calculated in Shopify checkout. Final totals may change.</p>
-      <CheckoutButton disabled={pending || cart.totalQuantity < 1} />
+      <CheckoutButton cart={cart} disabled={pending || cart.totalQuantity < 1} />
     </div>
   );
 }

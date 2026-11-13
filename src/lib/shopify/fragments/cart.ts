@@ -59,6 +59,7 @@ export const CART_FRAGMENT = /* GraphQL */ `
               width
             }
             product {
+              id
               handle
               title
             }
