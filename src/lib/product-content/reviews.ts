@@ -5,6 +5,10 @@
  *
  * No Okendo/Judge.me API credentials are available to this storefront; swap
  * `getProductReviews()` for a live widget or API call when they are.
+ *
+ * These were written for earlier Northwestern sets, so the page labels them that way,
+ * and the review titled "Thunderbird set" is left out (that line is discontinued).
+ * There is no write-a-review link: Okendo's points at the discontinued Thunderbird product.
  */
 
 export type ProductReview = {
@@ -23,24 +27,14 @@ export type ProductReviewSummary = {
   distribution: Record<1 | 2 | 3 | 4 | 5, number>;
   recommendPercent: number;
   reviews: ProductReview[];
-  writeReviewUrl: string;
 };
 
 const OKENDO_REVIEWS: ProductReviewSummary = {
   average: 5,
-  count: 3,
-  distribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 3 },
+  count: 2,
+  distribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 2 },
   recommendPercent: 100,
   reviews: [
-    {
-      body: "Great looking, great feel. I have played 50 years with clubs from various brands. These northwestern clubs are as good if not better and the price was unbelievably affordable.  Happy Happy Happy",
-      dateCreated: "2025-12-18T02:00:24.093Z",
-      helpful: { no: 0, yes: 0 },
-      rating: 5,
-      recommends: true,
-      reviewer: { name: "Clyde", verified: true },
-      title: "Thunderbird set",
-    },
     {
       body: "My dad used to rock a set back in the day and still have the clubs in my garage. The new clubs are fantastic - for the price you can’t beat it!",
       dateCreated: "2025-12-07T02:39:23.356Z",
@@ -60,8 +54,6 @@ const OKENDO_REVIEWS: ProductReviewSummary = {
       title: "Love these clubs!",
     },
   ],
-  writeReviewUrl:
-    "https://okendo.reviews/?subscriberId=16d46bae-43ff-4ec2-891b-0eef2577411c&productId=shopify-8893055697059&locale=en&okeChannel=reviews-widget-write-review-button",
 };
 
 export async function getProductReviews(handle: string): Promise<ProductReviewSummary> {

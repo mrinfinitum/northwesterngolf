@@ -972,3 +972,43 @@
 }
 
 /* Reviews: styles live in src/components/product/review-slider.css (shared with the homepage). */
+
+/* ---------- Phone sticky buy bar ---------- */
+.nwg-pdp-sticky { display: none; }
+@media (max-width: 999px) {
+  .nwg-pdp-sticky {
+    align-items: center;
+    background: var(--color-white, #fff);
+    border-top: 1px solid var(--color-border, #e5e5e5);
+    bottom: 0;
+    box-shadow: 0 -6px 18px rgb(0 0 0 / 8%);
+    display: flex;
+    gap: 12px;
+    left: 0;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    position: fixed;
+    right: 0;
+    transform: translateY(110%);
+    transition: transform 0.25s ease;
+    z-index: 30;
+  }
+  .nwg-pdp-sticky.is-visible { transform: none; }
+  .nwg-pdp-sticky__price { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
+  .nwg-pdp-sticky__price strong { font-size: 1.125rem; }
+  .nwg-pdp-sticky__price s { color: var(--color-muted, #666); font-size: 0.8125rem; }
+  .nwg-pdp-sticky__price span { color: var(--color-muted, #666); font-size: 0.75rem; }
+  .nwg-pdp-sticky__button {
+    background: rgb(var(--pdp-text));
+    border-radius: 999px;
+    color: var(--color-white, #fff);
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 700;
+    min-height: 48px;
+    padding: 0 18px;
+  }
+  .nwg-pdp-sticky__button:disabled { opacity: 0.6; }
+  /* Room so the bar never covers the end of the page. */
+  body:has(.nwg-pdp-sticky) { padding-bottom: 72px; }
+}
+@media (prefers-reduced-motion: reduce) { .nwg-pdp-sticky { transition: none; } }

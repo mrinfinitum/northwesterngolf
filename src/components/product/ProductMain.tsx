@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, useTransition, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState, useTransition, type CSSProperties } from "react";
 import { addCartLineAction } from "@/app/cart/actions";
 import { publishCartUpdate } from "@/components/cart/cart-events";
 import { formatMoney } from "@/components/commerce/Money";
@@ -110,6 +110,32 @@ export function ProductMain({
   const available = Boolean(variant?.availableForSale);
   const preorder = isPreorderVariant(variant);
   const terms = installments(price);
+  const buyLabel = isAdding ? "Adding…" : !available ? "Sold out" : preorder ? "Pre-order now" : "Add to cart";
+
+  // Phone sticky bar: shown while the main buy button is off screen.
+  const buyRef = useRef<HTMLDivElement>(null);
+  const [buyInView, setBuyInView] = useState(true);
+  useEffect(() => {
+    const target = buyRef.current;
+    if (!target) return;
+    const observer = new IntersectionObserver(([entry]) => setBuyInView(entry.isIntersecting));
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
+  // The option that actually varies (Flex, Hand); the sticky bar asks for it before adding.
+  const choiceName = useMemo(() => {
+    const names = product.variants[0]?.selectedOptions.map((option) => option.name) ?? [];
+    return names.find((name) => new Set(product.variants.map((item) => item.selectedOptions.find((option) => option.name === name)?.value)).size > 1);
+  }, [product.variants]);
+  const needsChoice = Boolean(choiceName) && !hasSelectedVariant;
+
+  function stickyBuy() {
+    if (needsChoice) {
+      buyRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+      return;
+    }
+    addToCart();
+  }
   const visibleOptions = useMemo(() => orderedOptions(product), [product]);
 
   useEffect(() => {
@@ -283,7 +309,7 @@ export function ProductMain({
             </div>
           ) : null}
 
-          <div className="nwg-pdp-info__block nwg-pdp-info__buy">
+          <div className="nwg-pdp-info__block nwg-pdp-info__buy" ref={buyRef}>
             <button
               className={`nwg-pdp-buy${available && cartEnabled ? "" : " is-subdued"}`}
               data-commerce-state={cartEnabled ? "retail" : "setup-pending"}
@@ -291,7 +317,7 @@ export function ProductMain({
               onClick={addToCart}
               type="button"
             >
-              {isAdding ? "Adding…" : !available ? "Sold out" : preorder ? "Pre-order now" : "Add to cart"}
+              {buyLabel}
             </button>
             {preorder ? (
               <p className="nwg-pdp-info__preorder-note">
@@ -338,6 +364,22 @@ export function ProductMain({
             </div>
           ) : null}
         </div>
+      </div>
+      {/* Phones only (CSS): price + buy button pinned to the bottom once the main button scrolls away. */}
+      <div aria-hidden={buyInView} className={`nwg-pdp-sticky${buyInView ? "" : " is-visible"}`} inert={buyInView}>
+        <div className="nwg-pdp-sticky__price">
+          <strong>{formatMoney(price)}</strong>
+          {onSale && compareAt ? <s>{formatMoney(compareAt)}</s> : null}
+          {choiceName && hasSelectedVariant ? <span>{selected[choiceName]}</span> : null}
+        </div>
+        <button
+          className="nwg-pdp-sticky__button"
+          disabled={!cartEnabled || !available || isAdding}
+          onClick={stickyBuy}
+          type="button"
+        >
+          {needsChoice && available ? `Choose ${choiceName}` : buyLabel}
+        </button>
       </div>
     </section>
   );

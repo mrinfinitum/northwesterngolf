@@ -28,9 +28,7 @@
 .nwg-review-slider__dots { align-items: center; display: flex; gap: 18px; grid-column: 1 / -1; justify-content: center; margin-top: 40px; }
 .nwg-review-slider__dot { background: #d6d6d2; border: 0; border-radius: 50%; cursor: pointer; height: 11px; padding: 0; transition: background-color 200ms ease, height 200ms ease, width 200ms ease; width: 11px; }
 .nwg-review-slider__dot[aria-current="true"] { background: var(--color-campaign, #ff711f); height: 26px; width: 26px; }
-.nwg-pdp-reviews__write-wrap { margin: 32px 0 0; }
-.nwg-pdp-reviews__write { border-bottom: 1px solid currentColor; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
-.nwg-pdp-reviews__write:hover { color: var(--color-campaign, #ff711f); }
+.nwg-pdp-reviews__note { color: var(--color-ink-subdued, #444); font-size: 0.875rem; margin: 6px 0 0; text-align: center; }
 @media (max-width: 699px) {
   .nwg-review-slider { grid-template-columns: minmax(0, 1fr); }
   .nwg-review-slider__arrow { display: none; }

@@ -28,13 +28,9 @@ export async function PdpReviews({ handle }: { handle: string }) {
           <Stars rating={summary.average} size="md" />
           <span><strong>{summary.average.toFixed(1)}</strong> out of 5 from {summary.count} reviews</span>
         </p>
+        <p className="nwg-pdp-reviews__note">From golfers playing earlier Northwestern sets.</p>
       </div>
       <ReviewSlider reviews={summary.reviews} />
-      <p className="nwg-pdp-reviews__write-wrap">
-        <a className="nwg-pdp-reviews__write" href={summary.writeReviewUrl} rel="noopener noreferrer" target="_blank">
-          Write a review<span className="sr-only"> (opens in a new tab)</span>
-        </a>
-      </p>
     </section>
   );
 }
