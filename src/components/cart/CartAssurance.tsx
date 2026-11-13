@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { PREORDER_DELIVERY_NOTE } from "@/config/promo";
+import { PREORDER_DELIVERY_NOTE, PREORDER_SHIP_BY } from "@/config/promo";
 
 const icon = (path: ReactNode) => (
   <svg aria-hidden="true" fill="none" height="22" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" viewBox="0 0 24 24" width="22">
@@ -27,11 +27,27 @@ const SHIELD = icon(
   </>,
 );
 
-/** Reassurance under the checkout button: heritage, pre-order timing, returns and warranty. */
+const CARD = icon(
+  <>
+    <rect height="14" rx="2" width="18" x="3" y="5" />
+    <path d="M3 10h18M7 15h4" />
+  </>,
+);
+
+const SHIP_DATE_ROW = { body: PREORDER_DELIVERY_NOTE, icon: TRUCK, title: "Ships by Dec 1" };
+const INSTALLMENTS_ROW = { body: "4 interest-free payments or monthly plans with Shop Pay at checkout.", icon: CARD, title: "Pay Over Time" };
+
+/** The Dec 1 ship promise only applies to pre-orders placed before the ship date. */
+function shipDateRowApplies(preorder: boolean) {
+  return preorder && Date.now() < Date.parse(PREORDER_SHIP_BY);
+}
+
+/** Reassurance under the checkout button: heritage, pre-order timing (or Shop Pay
+ * installments once that has passed or there is no pre-order), returns and warranty. */
 export function CartAssurance({ preorder }: { preorder: boolean }) {
   const items = [
     { body: "Northwestern has been part of the game for nearly 100 years.", icon: AWARD, title: "Golf Since 1929" },
-    ...(preorder ? [{ body: PREORDER_DELIVERY_NOTE, icon: TRUCK, title: "Ships by Dec 1" }] : []),
+    shipDateRowApplies(preorder) ? SHIP_DATE_ROW : INSTALLMENTS_ROW,
     { body: "30-day returns and a 1-year warranty on every set.", icon: SHIELD, title: "Secure Checkout" },
   ];
 

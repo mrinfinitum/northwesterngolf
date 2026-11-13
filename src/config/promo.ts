@@ -13,6 +13,9 @@
 export const PREORDER_SHIP_NOTE = "Ships by Dec 1";
 
 /** Longer reassurance on the product page. */
+/** After this, the cart stops promising the Dec 1 ship date. */
+export const PREORDER_SHIP_BY = "2026-12-01T23:59:59-06:00";
+
 export const PREORDER_DELIVERY_NOTE = "Every pre-order ships by December 1, in plenty of time for Christmas.";
 
 export type PromoBar = {
