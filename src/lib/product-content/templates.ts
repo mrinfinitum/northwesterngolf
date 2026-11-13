@@ -915,10 +915,6 @@ export const PRODUCT_TEMPLATES: Record<string, ProductPageTemplate> = {
             answerHtml: "<p>Every set is backed by a manufacturer warranty.<br><br>If something fails due to craftsmanship or materials, we’ll take care of it. That’s how it should work.</p>"
           },
           {
-            question: "What happens if something breaks?",
-            answerHtml: "<p>Every set is backed by a manufacturer warranty.<br><br>If something fails due to craftsmanship or materials, we’ll take care of it. That’s how it should work.</p>"
-          },
-          {
             question: "Can I order outside the U.S.?",
             answerHtml: "<p>Yes, we ship internationally.<br><br>Shipping rates and delivery times are calculated at checkout based on your location.</p>"
           }

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { getCartAction } from "@/app/cart/actions";
+import { CartAssurance } from "@/components/cart/CartAssurance";
 import { CartItems } from "@/components/cart/CartItems";
 import { CartSummary } from "@/components/cart/CartSummary";
 import {
@@ -122,12 +123,19 @@ export function CartButton({ enabled }: { enabled: boolean }) {
               )}
               {error ? <p aria-live="polite" className="cart-error">{error}</p> : null}
               {notice ? <p aria-live="polite" className="cart-success">{notice}</p> : null}
+              {/* Reassurance and links scroll with the items, so on a phone the pinned
+                  footer stays short (subtotal + checkout) and every item stays visible. */}
+              {cart?.lines.length ? (
+                <div className="cart-drawer__extras">
+                  <CartAssurance />
+                  <Link className="cart-view-link" href="/cart" onClick={() => setOpen(false)}>View full cart</Link>
+                  <Link className="cart-continue-link cart-continue-link--drawer" href="/collections/all" onClick={() => setOpen(false)}>Continue shopping</Link>
+                </div>
+              ) : null}
             </div>
             {cart?.lines.length ? (
               <footer className="cart-drawer__footer">
-                <CartSummary cart={cart} pending={pending} />
-                <Link className="cart-view-link" href="/cart" onClick={() => setOpen(false)}>View full cart</Link>
-                <Link className="cart-continue-link cart-continue-link--drawer" href="/collections/all" onClick={() => setOpen(false)}>Continue shopping</Link>
+                <CartSummary assurance={false} cart={cart} pending={pending} />
               </footer>
             ) : null}
           </aside>

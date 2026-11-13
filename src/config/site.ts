@@ -170,6 +170,8 @@ export const homepageContent = {
  * Approved theme-owned Our Story content. This stays isolated from Shopify Page
  * body data until the custom sections have a structured Shopify content model.
  */
+// Brand-level quotes only: ones naming discontinued lines (Thunderbird, wedges,
+// 3HL/6HL woods) were dropped since those products are no longer sold.
 export const testimonials = [
   {
     author: "David P",
@@ -182,38 +184,8 @@ export const testimonials = [
       "I have more fun playing Northwestern clubs! I hit the ball straighter, higher, and farther than what I played previously! Result - I score better!",
   },
   {
-    author: "Rick B",
-    quote:
-      "I could not hit a 3-wood high enough from the fairway to get effective carry and distance. I tried the new Northwestern 3HL 3 wood and I can finally hit a 3 wood from the fairway! Thank-you, Northwestern!",
-  },
-  {
-    author: "Holly G",
-    quote:
-      "I purchased a full set of Northwestern Thunderbird clubs and I LOVE them! They are so easy to hit compared to what I was playing before. 5 stars!",
-  },
-  {
     author: "Mike K",
     quote:
       "Finally, a company has created high-quality price affordable equipment! Thank you, Northwestern!",
-  },
-  {
-    author: "Jake H",
-    quote:
-      "I am playing the Northwestern wedges and they have replaced my $200 wedges in my bag! They are amazingly solid and only $79.99!",
-  },
-  {
-    author: "Steve P",
-    quote:
-      "I absolutely love my new Thunderbird irons! I am one club longer, and I love the feel! The 5 hybrid is the best hybrid that I have ever hit!",
-  },
-  {
-    author: "Brian P",
-    quote:
-      "I bought a full set of Thunderbird clubs and I love them! The irons are the best set of irons that I have ever owned.",
-  },
-  {
-    author: "Verified Customer",
-    quote:
-      "I tried the 6HL fairway wood in place of a hybrid and I have never hit an easier fairway wood! Perfect for my 210 distance. I highly recommend this club!",
   },
 ] as const;

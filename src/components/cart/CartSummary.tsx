@@ -3,7 +3,8 @@ import { formatMoney } from "@/components/commerce/Money";
 import { CartAssurance } from "./CartAssurance";
 import { CheckoutButton } from "./CheckoutButton";
 
-export function CartSummary({ cart, pending }: { cart: Cart; pending: boolean }) {
+/** `assurance` off in the drawer, which shows it in the scrolling area instead of the pinned footer. */
+export function CartSummary({ assurance = true, cart, pending }: { assurance?: boolean; cart: Cart; pending: boolean }) {
   const discount = cart.discountApplications.reduce(
     (total, application) => total + Number(application.totalAllocatedAmount.amount),
     0,
@@ -23,7 +24,7 @@ export function CartSummary({ cart, pending }: { cart: Cart; pending: boolean })
       ) : null}
       <p>Taxes and shipping calculated at checkout.</p>
       <CheckoutButton cart={cart} disabled={pending || cart.totalQuantity < 1} />
-      <CartAssurance />
+      {assurance ? <CartAssurance /> : null}
     </div>
   );
 }
