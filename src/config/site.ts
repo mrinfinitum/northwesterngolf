@@ -52,6 +52,7 @@ export const footerGroups: FooterGroup[] = [
     heading: "Information",
     links: [
       { href: "/policies/refund-policy", label: "Return Policy" },
+      { href: "/policies/shipping-policy", label: "Shipping Policy" },
       { href: "/policies/privacy-policy", label: "Privacy Policy" },
       { href: "/policies/terms-of-service", label: "Terms & Conditions" },
     ],

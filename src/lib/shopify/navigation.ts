@@ -64,6 +64,17 @@ export async function getFooterNavigation(): Promise<FooterGroup[]> {
 
   return menus.map((menu, index) => {
     const links = menu ? toLinks(menu.items) : [];
-    return menu && links.length ? { heading: menu.title, links } : footerGroups[index];
+    const group = menu && links.length ? { heading: menu.title, links } : footerGroups[index];
+    return footerMenuHandles[index] === "information" ? withShippingPolicy(group) : group;
   });
+}
+
+/** The Shopify "information" menu has no shipping link; add one after the return policy. */
+function withShippingPolicy(group: FooterGroup): FooterGroup {
+  const href = "/policies/shipping-policy";
+  if (group.links.some((link) => link.href === href)) return group;
+  const links = [...group.links];
+  const returns = links.findIndex((link) => link.href === "/policies/refund-policy");
+  links.splice(returns + 1 || links.length, 0, { href, label: "Shipping Policy" });
+  return { ...group, links };
 }

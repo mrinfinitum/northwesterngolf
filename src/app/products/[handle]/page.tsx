@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { permanentRedirect } from "next/navigation";
 import { ProductPageScrollReset } from "@/components/commerce/ProductPageScrollReset";
 import { PdpSections } from "@/components/product/PdpSections";
+import { SHIPPING } from "@/config/shipping";
 import { siteUrl } from "@/config/site";
 import { ProductMain } from "@/components/product/ProductMain";
 import { getProductPageContent } from "@/lib/product-content";
@@ -73,6 +74,12 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
       },
       price: firstVariant.price.amount,
       priceCurrency: firstVariant.price.currencyCode,
+      // From src/config/shipping.ts (Shopify's only zone is the United States).
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingDestination: { "@type": "DefinedRegion", addressCountry: SHIPPING.country },
+        shippingRate: { "@type": "MonetaryAmount", currency: "USD", value: SHIPPING.standardPrice },
+      },
       url: `${siteUrl}/products/${product.handle}`,
     } : undefined,
     sku: firstVariant?.sku || undefined,
