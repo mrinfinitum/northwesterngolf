@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { allProductsCollection, collectionDefaultSort, FALLBACK_COLLECTION_SORT } from "@/components/collection/collection-config";
 import {
   activeFilterInputs,
@@ -15,6 +15,7 @@ import {
   type CollectionSortKey,
   type ProductSortKey,
 } from "@/lib/shopify/listing";
+import { emptyCollectionDestination, missingLegacyCollections } from "@/config/legacy-redirects";
 import { metadataTitle, openGraphBase } from "@/lib/seo";
 import "../collection.css";
 
@@ -95,7 +96,12 @@ export default async function CollectionPage({ params, searchParams }: Collectio
     effectiveSort = collectionDefaultSort[handle] ?? FALLBACK_COLLECTION_SORT;
     const [sortKey, reverse] = state.sort ? collectionSortKeys[state.sort] : (["COLLECTION_DEFAULT", false] as const);
     const collection = await getCollectionListing(handle, { filters, reverse, sortKey });
-    if (!collection) notFound();
+    if (!collection) {
+      if (missingLegacyCollections.has(handle)) permanentRedirect("/collections/all");
+      notFound();
+    }
+    // Old collections with nothing in them send visitors to the closest live page.
+    if (!collection.products.length && !filters.length) permanentRedirect(emptyCollectionDestination(handle));
     listing = collection;
     title = collection.title;
   }

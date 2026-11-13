@@ -7,6 +7,12 @@ import { getPage } from "@/lib/shopify";
 import { isThinPage, metadataTitle, openGraphBase } from "@/lib/seo";
 import "../pages.css";
 
+/** Descriptions for designed (image-led) Shopify pages that have no body text or SEO description. */
+const fallbackDescriptions: Record<string, string> = {
+  "talon-ss":
+    "The Talon SS Full Set from Northwestern Golf: a forgiving, easy-launching complete set with a stand bag for men, women and seniors. See the set and the current John Daly Signature Sets.",
+};
+
 type ContentPageProps = {
   params: Promise<{ handle: string }>;
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -17,7 +23,7 @@ export async function generateMetadata({ params }: ContentPageProps): Promise<Me
   const page = await getPage(handle);
   if (!page) return { title: "Page not found" };
   const title = page.seo.title || page.title;
-  const description = page.seo.description || page.bodySummary || undefined;
+  const description = page.seo.description || page.bodySummary || fallbackDescriptions[page.handle] || undefined;
   return {
     title: metadataTitle(title),
     description,
