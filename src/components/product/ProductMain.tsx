@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState, useTransition, type CSSProperties } from 
 import { addCartLineAction } from "@/app/cart/actions";
 import { publishCartUpdate } from "@/components/cart/cart-events";
 import { formatMoney } from "@/components/commerce/Money";
+import { PREORDER_DELIVERY_NOTE } from "@/config/promo";
+import { isPreorderVariant } from "@/lib/preorder";
 import type { ProductInfoContent } from "@/lib/product-content";
 import type { Money, Product, ProductVariant } from "@/lib/shopify";
 import { ChevronSmallIcon, InfoCircleIcon, OfferIcon, ShopPayLogo } from "./icons";
@@ -86,6 +88,7 @@ export function ProductMain({
   const compareAt = variant?.compareAtPrice;
   const onSale = Boolean(compareAt && Number(compareAt.amount) > Number(price.amount));
   const available = Boolean(variant?.availableForSale);
+  const preorder = isPreorderVariant(variant);
   const terms = installments(price);
   const visibleOptions = useMemo(() => orderedOptions(product), [product]);
 
@@ -115,11 +118,14 @@ export function ProductMain({
     if (!variant || !cartEnabled || !available) return;
     setCartMessage(null);
     startAdding(async () => {
-      const result = await addCartLineAction(variant.id, 1);
+      const result = await addCartLineAction(variant.id, 1, preorder);
       setCartMessage({ ok: result.ok, text: result.message });
       if (result.ok && result.cart) publishCartUpdate(result.cart, true, result.message);
     });
   }
+
+  // "Junior … Set – Ages 5-8": show the trailing qualifier as a smaller subtitle.
+  const [titleMain, titleSub] = product.title.split(/\s+[–—-]\s+(?=[^–—]*$)/);
 
   return (
     <section className="nwg-pdp-main">
@@ -132,7 +138,15 @@ export function ProductMain({
         />
 
         <div className="nwg-pdp-info">
-          <h1 className="nwg-pdp-info__title">{product.title}</h1>
+          <h1 className="nwg-pdp-info__title">
+            {titleMain}
+            {titleSub ? (
+              <>
+                <span className="sr-only"> – </span>
+                <span className="nwg-pdp-info__subtitle">{titleSub}</span>
+              </>
+            ) : null}
+          </h1>
 
           {info.introHtml ? (
             <div className="nwg-pdp-info__block nwg-pdp-info__intro nwg-pdp-prose" dangerouslySetInnerHTML={{ __html: info.introHtml }} />
@@ -149,6 +163,7 @@ export function ProductMain({
                 {formatMoney(compareAt)}
               </s>
             ) : null}
+            {preorder ? <span className="nwg-pdp-badge nwg-pdp-badge--preorder">Pre-order</span> : null}
             {!available ? (
               <span className="nwg-pdp-badge">Sold out</span>
             ) : onSale && compareAt ? (
@@ -234,8 +249,13 @@ export function ProductMain({
               onClick={addToCart}
               type="button"
             >
-              {isAdding ? "Adding…" : available ? "Add to cart" : "Sold out"}
+              {isAdding ? "Adding…" : !available ? "Sold out" : preorder ? "Pre-order now" : "Add to cart"}
             </button>
+            {preorder ? (
+              <p className="nwg-pdp-info__preorder-note">
+                <strong>Pre-order.</strong> {PREORDER_DELIVERY_NOTE}
+              </p>
+            ) : null}
             {cartMessage ? (
               <p aria-live="polite" className={`nwg-pdp-info__cart-message${cartMessage.ok ? "" : " is-error"}`}>{cartMessage.text}</p>
             ) : null}

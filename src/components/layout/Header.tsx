@@ -1,3 +1,4 @@
+import { promoBar } from "@/config/promo";
 import { accountUrl } from "@/config/site";
 import { AccountIcon } from "@/components/ui/icons";
 import { isRetailCartEnabled } from "@/lib/shopify/commerce-boundary";
@@ -6,6 +7,7 @@ import { CartButton } from "./CartButton";
 import { DesktopNavigation } from "./DesktopNavigation";
 import { HeaderFrame } from "./HeaderFrame";
 import { Logo } from "./Logo";
+import { PromoBar } from "./PromoBar";
 import { MobileNavigation } from "./MobileNavigation";
 import { SearchShell } from "./SearchShell";
 
@@ -13,6 +15,8 @@ export async function Header() {
   const navigation = await getMainNavigation();
 
   return (
+    <>
+    {promoBar ? <PromoBar promo={promoBar} /> : null}
     <HeaderFrame>
       <div className="site-header__wrapper">
         <div className="site-header__main-nav">
@@ -32,5 +36,6 @@ export async function Header() {
         </div>
       </div>
     </HeaderFrame>
+    </>
   );
 }

@@ -1,10 +1,10 @@
 import { formatMoney } from "@/components/commerce/Money";
 import { siteUrl, socialLinks } from "@/config/site";
-import { pastModelGroups } from "@/lib/product-content/past-models";
+import { signatureSetContents } from "@/lib/product-content";
 import { getProducts, isShopifyConfigured, type Product } from "@/lib/shopify";
 
 // llms.txt (https://llmstxt.org): a plain-markdown map of the site for AI assistants.
-// Products on sale come from Shopify; regenerate hourly like the rest of the catalogue.
+// Product data comes from Shopify; regenerate hourly like the rest of the catalogue.
 export const revalidate = 3600;
 
 function price(product: Product) {
@@ -13,8 +13,12 @@ function price(product: Product) {
 }
 
 function productEntry(product: Product) {
-  const description = product.description.trim();
-  return `- [${product.title}](${siteUrl}/products/${product.handle}): ${price(product)}${product.availableForSale ? "" : " (currently sold out)"}.${description ? ` ${description}` : ""}`;
+  const contents = signatureSetContents[product.handle];
+  const lines = [
+    `- [${product.title}](${siteUrl}/products/${product.handle}): ${price(product)}${product.availableForSale ? "" : " (currently sold out)"}. ${product.description.trim()}`,
+  ];
+  if (contents) lines.push(`  - In the set: ${contents.join(", ")}`);
+  return lines.join("\n");
 }
 
 export async function GET() {
@@ -23,21 +27,18 @@ export async function GET() {
   const body = [
     "# Northwestern Golf",
     "",
-    "> Northwestern Golf has made golf clubs for everyday golfers since 1929. The site sells complete golf club sets online at northwestern.golf, and keeps an archive of discontinued Thunderbird and Talon SS models.",
+    "> Northwestern Golf makes golf clubs for real golfers, priced for the people. Its current line is the John Daly Signature Sets: complete men's and junior golf club sets, each with a matching stand bag, sold online at northwestern.golf.",
     "",
     "## Club sets",
     "",
     ...(products.length ? products.map(productEntry) : [`- [Shop all club sets](${siteUrl}/collections/all)`]),
     "",
-    "## Past models (no longer sold)",
-    "",
-    ...pastModelGroups.map((group) => `- [${group.heading}](${siteUrl}/pages/past-models#${group.id}): ${group.models.map((model) => model.title).join(", ")}`),
-    "",
     "## About",
     "",
+    `- [John Daly](${siteUrl}/pages/john-daly): the two-time major champion's partnership with Northwestern Golf and the Signature Sets`,
     `- [Our Story](${siteUrl}/pages/our-story): Northwestern Golf's history and values`,
-    `- [John Daly](${siteUrl}/pages/john-daly): the two-time major champion's partnership with Northwestern Golf`,
     `- [Contact](${siteUrl}/pages/contact): customer support, phone, email and address`,
+    `- [Past Models](${siteUrl}/pages/past-models): discontinued Thunderbird and Talon SS clubs and sets (no longer sold)`,
     "",
     "## Policies",
     "",

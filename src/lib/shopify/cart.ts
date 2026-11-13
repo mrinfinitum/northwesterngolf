@@ -64,16 +64,19 @@ export async function getCartById(id: string): Promise<ServerCart | null> {
   return data.cart ? normalizeCart(data.cart) : null;
 }
 
+export type CartLineAttribute = { key: string; value: string };
+
 export async function createCart(
   merchandiseId: string,
   quantity: number,
+  attributes: CartLineAttribute[] = [],
 ): Promise<ServerCart> {
   const data = await shopifyFetch<{ cartCreate: CartPayload }>({
     cache: "no-store",
     query: CART_CREATE_MUTATION,
     variables: {
       input: {
-        lines: [{ merchandiseId, quantity }],
+        lines: [{ attributes, merchandiseId, quantity }],
       },
     },
   });
@@ -85,13 +88,14 @@ export async function addCartLine(
   cartId: string,
   merchandiseId: string,
   quantity: number,
+  attributes: CartLineAttribute[] = [],
 ): Promise<ServerCart> {
   const data = await shopifyFetch<{ cartLinesAdd: CartPayload }>({
     cache: "no-store",
     query: CART_LINES_ADD_MUTATION,
     variables: {
       cartId,
-      lines: [{ merchandiseId, quantity }],
+      lines: [{ attributes, merchandiseId, quantity }],
     },
   });
 

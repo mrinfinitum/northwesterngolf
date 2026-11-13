@@ -12,6 +12,7 @@ import {
   readCartId,
   writeCartId,
 } from "@/lib/shopify/cart-session";
+import { PREORDER_SHIP_NOTE } from "@/config/promo";
 import { getStoreDomain } from "@/lib/shopify";
 import { isRetailCartEnabled } from "@/lib/shopify/commerce-boundary";
 import type {
@@ -95,11 +96,15 @@ export async function getCartAction(): Promise<CartActionResult> {
 export async function addCartLineAction(
   merchandiseId: string,
   quantity: number,
+  preorder = false,
 ): Promise<CartActionResult> {
   if (!isRetailCartEnabled()) return unavailable();
   if (!validId(merchandiseId, VARIANT_ID_PREFIX) || !validQuantity(quantity)) {
     return { cart: null, message: "Choose a valid product option and quantity.", ok: false };
   }
+
+  // Saved on the order line, so checkout, the confirmation email and the 3PL see it.
+  const attributes = preorder ? [{ key: "Pre-order", value: PREORDER_SHIP_NOTE }] : [];
 
   try {
     const cartId = await readCartId();
@@ -107,14 +112,14 @@ export async function addCartLineAction(
 
     if (cartId) {
       try {
-        cart = await addCartLine(cartId, merchandiseId, quantity);
+        cart = await addCartLine(cartId, merchandiseId, quantity, attributes);
       } catch (error) {
         const existing = await getCartById(cartId).catch(() => null);
         if (existing) throw error;
-        cart = await createCart(merchandiseId, quantity);
+        cart = await createCart(merchandiseId, quantity, attributes);
       }
     } else {
-      cart = await createCart(merchandiseId, quantity);
+      cart = await createCart(merchandiseId, quantity, attributes);
     }
 
     await writeCartId(cart.id);

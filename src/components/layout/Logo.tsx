@@ -6,7 +6,8 @@ const LOGO_LIGHT_URL = "https://cdn.shopify.com/s/files/1/0728/0869/3923/files/N
 
 export function Logo() {
   return (
-    <Link aria-label="Northwestern Golf home" className="site-header__logo" href="/">
+    <Link aria-label="Northwestern Golf × John Daly, home" className="site-header__logo" href="/">
+      <span className="site-header__wordmark">
       <Image
         alt="Northwestern Golf"
         className="site-header__logo-image"
@@ -24,6 +25,18 @@ export function Logo() {
         sizes="200px"
         src={LOGO_LIGHT_URL}
         width={220}
+      />
+      </span>
+      {/* Orange brush-stroke X between the wordmark and the caricature. */}
+      <img alt="" aria-hidden="true" className="site-header__cross" height={100} src="/images/brush-x.svg" width={100} />
+      {/* John Daly caricature: line art in black, or white on transparent headers. */}
+      <img alt="" className="site-header__daly" height={254} src="/images/daly/jd-caricature-sm.png" width={200} />
+      <img
+        alt=""
+        className="site-header__daly site-header__daly--transparent"
+        height={254}
+        src="/images/daly/jd-caricature-white-sm.png"
+        width={200}
       />
     </Link>
   );

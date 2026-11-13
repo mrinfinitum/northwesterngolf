@@ -11,10 +11,10 @@ export const COLLECTIONS_QUERY = /* GraphQL */ `
         handle
         id
         image { ...image }
+        products(first: 1) { nodes { id } }
         seo { ...seo }
         title
         updatedAt
-        products(first: 1) { nodes { id } }
       }
     }
   }
