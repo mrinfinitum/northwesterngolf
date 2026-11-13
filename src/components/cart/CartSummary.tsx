@@ -1,5 +1,7 @@
 import type { Cart } from "@/lib/shopify/types";
 import { formatMoney } from "@/components/commerce/Money";
+import { isPreorderVariant } from "@/lib/preorder";
+import { CartAssurance } from "./CartAssurance";
 import { CheckoutButton } from "./CheckoutButton";
 
 export function CartSummary({ cart, pending }: { cart: Cart; pending: boolean }) {
@@ -22,6 +24,7 @@ export function CartSummary({ cart, pending }: { cart: Cart; pending: boolean })
       ) : null}
       <p>Taxes and shipping are calculated in Shopify checkout. Final totals may change.</p>
       <CheckoutButton cart={cart} disabled={pending || cart.totalQuantity < 1} />
+      <CartAssurance preorder={cart.lines.some((line) => isPreorderVariant(line.merchandise))} />
     </div>
   );
 }
