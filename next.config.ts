@@ -8,9 +8,9 @@ const SHOPIFY_CUSTOMER_ACCOUNT_URL = "https://account.northwestern.golf/";
 const isDev = process.env.NODE_ENV === "development";
 const isPreview = process.env.VERCEL_ENV === "preview";
 
-// Shopify serves product images and Instafeed serves Instagram media; the
-// contact form posts to the Shopify storefront, which redirects back here.
-const SHOPIFY_STORE_ORIGIN = `https://${process.env.SHOPIFY_STORE_DOMAIN?.trim() || "r1kikk-am.myshopify.com"}`;
+// Shopify serves product images and Instafeed serves Instagram media. Forms post to
+// this site, except the fallback contact form, which posts to Shopify's primary domain.
+const SHOPIFY_FORM_ORIGIN = "https://checkout.northwestern.golf";
 const MEDIA_ORIGINS = "https://cdn.shopify.com https://*.cdninstagram.com https://*.fbcdn.net";
 // The Vercel toolbar is injected on preview deployments only.
 const VERCEL_TOOLBAR = isPreview ? " https://vercel.live https://*.vercel.live" : "";
@@ -36,7 +36,7 @@ const contentSecurityPolicy = [
   `frame-src ${GOOGLE_FRAME}${isPreview ? " https://vercel.live" : ""}`,
   "object-src 'none'",
   "base-uri 'self'",
-  `form-action 'self' ${SHOPIFY_STORE_ORIGIN} https://northwestern.golf https://www.northwestern.golf`,
+  `form-action 'self' ${SHOPIFY_FORM_ORIGIN}`,
   "frame-ancestors 'none'",
   "upgrade-insecure-requests",
 ].join("; ");
