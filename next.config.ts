@@ -14,17 +14,25 @@ const MEDIA_ORIGINS = "https://cdn.shopify.com https://*.cdninstagram.com https:
 // The Vercel toolbar is injected on preview deployments only.
 const VERCEL_TOOLBAR = isPreview ? " https://vercel.live https://*.vercel.live" : "";
 
+// Google tag GT-5R3QNQJ8 (GA4 + the Google Ads destination Shopify's Google & YouTube
+// app adds). Origins from Google's CSP guide for GA4 and Google Ads:
+// https://developers.google.com/tag-platform/security/guides/csp
+const GOOGLE_SCRIPT = " https://*.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com";
+const GOOGLE_IMG = " https://*.google-analytics.com https://*.googletagmanager.com https://googleads.g.doubleclick.net https://www.google.com";
+const GOOGLE_CONNECT = " https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://googleads.g.doubleclick.net https://www.google.com https://pagead2.googlesyndication.com";
+const GOOGLE_FRAME = "https://td.doubleclick.net https://www.googletagmanager.com";
+
 // Static rendering is kept, so scripts use 'unsafe-inline' rather than per-request
 // nonces (Next.js "Without Nonces" CSP); everything else is locked to known origins.
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}${VERCEL_TOOLBAR}`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}${GOOGLE_SCRIPT}${VERCEL_TOOLBAR}`,
   `style-src 'self' 'unsafe-inline'${VERCEL_TOOLBAR}`,
-  `img-src 'self' data: blob: ${MEDIA_ORIGINS}${isPreview ? " https://vercel.live https://vercel.com" : ""}`,
+  `img-src 'self' data: blob: ${MEDIA_ORIGINS}${GOOGLE_IMG}${isPreview ? " https://vercel.live https://vercel.com" : ""}`,
   `media-src 'self' ${MEDIA_ORIGINS}`,
   `font-src 'self'${isPreview ? " https://vercel.live https://assets.vercel.com" : ""}`,
-  `connect-src 'self'${isPreview ? " https://vercel.live wss://ws-us3.pusher.com" : ""}${isDev ? " ws:" : ""}`,
-  `frame-src ${isPreview ? "https://vercel.live" : "'none'"}`,
+  `connect-src 'self'${GOOGLE_CONNECT}${isPreview ? " https://vercel.live wss://ws-us3.pusher.com" : ""}${isDev ? " ws:" : ""}`,
+  `frame-src ${GOOGLE_FRAME}${isPreview ? " https://vercel.live" : ""}`,
   "object-src 'none'",
   "base-uri 'self'",
   `form-action 'self' ${SHOPIFY_STORE_ORIGIN} https://northwestern.golf https://www.northwestern.golf`,
