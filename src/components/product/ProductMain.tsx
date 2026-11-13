@@ -6,7 +6,7 @@ import { publishCartUpdate } from "@/components/cart/cart-events";
 import { formatMoney } from "@/components/commerce/Money";
 import { PdpDeal } from "@/components/promo/PdpDeal";
 import { PREORDER_DELIVERY_NOTE, promoBar } from "@/config/promo";
-import { itemId, trackEcommerce } from "@/lib/analytics";
+import { itemCategory, itemId, trackEcommerce, type AnalyticsItem } from "@/lib/analytics";
 import { isPreorderVariant } from "@/lib/preorder";
 import type { ProductInfoContent } from "@/lib/product-content";
 import type { Money, Product, ProductVariant } from "@/lib/shopify";
@@ -58,6 +58,24 @@ function installments(price: Money) {
   if (amount >= 50) return { lead: "4 interest-free installments, or from ", monthly: money(monthly), perPayment: false };
   if (amount >= 35) return { lead: "2 interest-free installments of ", monthly: money(amount / 2), perPayment: true };
   return null;
+}
+
+/** A product variant as a GA4 item, with category and any sale discount. */
+function gaItem(
+  product: { id: string; title: string },
+  variant: { compareAtPrice?: { amount: string } | null; id: string; price: { amount: string }; title: string },
+): AnalyticsItem {
+  const price = Number(variant.price.amount);
+  const compareAt = Number(variant.compareAtPrice?.amount ?? 0);
+  return {
+    ...(compareAt > price ? { discount: Number((compareAt - price).toFixed(2)) } : {}),
+    item_category: itemCategory(product.title),
+    item_id: itemId(product.id, variant.id),
+    item_name: product.title,
+    item_variant: variant.title,
+    price,
+    quantity: 1,
+  };
 }
 
 export function ProductMain({
@@ -121,7 +139,7 @@ export function ProductMain({
     const viewed = initialVariant ?? product.variants[0];
     if (!viewed) return;
     trackEcommerce("view_item", viewed.price.currencyCode, [
-      { item_id: itemId(product.id, viewed.id), item_name: product.title, item_variant: viewed.title, price: Number(viewed.price.amount), quantity: 1 },
+      gaItem(product, viewed),
     ]);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- once per product
   }, [product.id]);
@@ -135,7 +153,7 @@ export function ProductMain({
       if (result.ok && result.cart) {
         publishCartUpdate(result.cart, true, result.message);
         trackEcommerce("add_to_cart", variant.price.currencyCode, [
-          { item_id: itemId(product.id, variant.id), item_name: product.title, item_variant: variant.title, price: Number(variant.price.amount), quantity: 1 },
+          gaItem(product, variant),
         ]);
       }
     });

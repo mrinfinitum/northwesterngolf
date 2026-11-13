@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useRef } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { sendContactMessage, type ContactState } from "@/lib/contact/actions";
 
 const initialState: ContactState = { message: "", status: "idle" };
@@ -14,6 +15,11 @@ export function ContactForm() {
   // Timestamp for the "filled in too fast" bot check; set after mount.
   useEffect(() => {
     if (startedAt.current) startedAt.current.value = String(Date.now());
+  }, [state]);
+
+  // A sent message is a lead (mark generate_lead as a key event in GA).
+  useEffect(() => {
+    if (state.status === "sent") trackEvent("generate_lead", { form_name: "contact", lead_source: "contact_page" });
   }, [state]);
 
   return (

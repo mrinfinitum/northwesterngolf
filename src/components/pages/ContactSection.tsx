@@ -45,7 +45,7 @@ export function ContactSection({ section }: { section: ContactConfig }) {
       <div className="nwg-page-contact__card">
         <div className="nwg-page-contact__info">
           <div className="nwg-page-contact__photo">
-            <Image alt="John Daly checking his Northwestern Signature driver" fill sizes="(min-width: 1000px) 520px, 100vw" src="/images/daly/jd-inspect.jpg" />
+            <Image alt="John Daly checking his Northwestern Signature driver" fill priority sizes="(min-width: 1000px) 520px, 100vw" src="/images/daly/jd-inspect.jpg" />
           </div>
           <div className="nwg-page-contact__info-body">
             <p className="nwg-page-contact__eyebrow">{section.smallTitle}</p>

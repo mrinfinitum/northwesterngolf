@@ -30,11 +30,13 @@ export function Logo() {
       {/* Orange brush-stroke X between the wordmark and the caricature. */}
       <img alt="" aria-hidden="true" className="site-header__cross" height={100} src="/images/brush-x.svg" width={100} />
       {/* John Daly caricature: line art in black, or white on transparent headers. */}
-      <img alt="" className="site-header__daly" height={254} src="/images/daly/jd-caricature-sm.png" width={200} />
-      <img
+      {/* Shown 44–60px tall; the optimizer serves a small WebP instead of the 200px PNG. */}
+      <Image alt="" className="site-header__daly" height={254} loading="eager" sizes="48px" src="/images/daly/jd-caricature-sm.png" width={200} />
+      <Image
         alt=""
         className="site-header__daly site-header__daly--transparent"
         height={254}
+        sizes="48px"
         src="/images/daly/jd-caricature-white-sm.png"
         width={200}
       />

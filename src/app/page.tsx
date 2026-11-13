@@ -83,7 +83,7 @@ export default async function Home() {
             <h2 className="club-row__heading">{featured.heading}</h2>
             <Link className="club-row__all" href={featured.href}>{featured.linkLabel}</Link>
           </div>
-          <SetCards sets={sets} />
+          <SetCards list={{ id: "homepage-sets", name: "Homepage Sets" }} sets={sets} />
         </section>
       ) : products.length ? (
         <ClubSlider heading={featured.heading} href={featured.href} linkLabel={featured.linkLabel} slides={products.map(toSlide)} />

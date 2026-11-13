@@ -104,6 +104,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               sortOptions: SEARCH_SORT_OPTIONS,
               state,
             }}
+            list={{ id: "search", name: "Search results" }}
             products={products.products}
             showCount={false}
           />

@@ -1,4 +1,6 @@
+import { ItemListTracker } from "@/components/analytics/ItemListTracker";
 import { ProductCard } from "@/components/commerce/ProductCard";
+import { listItems } from "@/lib/analytics";
 import type { RelatedProductsSection } from "@/lib/product-content";
 import { getProduct, getProductRecommendations, type Product } from "@/lib/shopify";
 
@@ -22,11 +24,13 @@ export async function PdpRelatedProducts({ handle, section }: { handle: string; 
   return (
     <section aria-labelledby="nwg-pdp-related-heading" className="nwg-pdp-related">
       <h2 className="nwg-pdp-related__heading" id="nwg-pdp-related-heading">{section.heading}</h2>
-      <div className="nwg-pdp-related__list">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      <ItemListTracker items={listItems(products)} listId="related-products" listName={section.heading}>
+        <div className="nwg-pdp-related__list">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </ItemListTracker>
     </section>
   );
 }

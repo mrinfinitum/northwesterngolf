@@ -1,14 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ItemListTracker } from "@/components/analytics/ItemListTracker";
 import { formatMoney } from "@/components/commerce/Money";
+import { listItems } from "@/lib/analytics";
 import { PREORDER_SHIP_NOTE } from "@/config/promo";
 import { isPreorderProduct } from "@/lib/preorder";
 import type { SignatureSet } from "@/lib/signature-sets";
 import "./set-cards.css";
 
 /** Signature Set cards: image, uppercase name with price, note and "Shop now". */
-export function SetCards({ sets }: { sets: SignatureSet[] }) {
+export function SetCards({ list = { id: "signature-sets", name: "Signature Sets" }, sets }: { list?: { id: string; name: string }; sets: SignatureSet[] }) {
   return (
+    <ItemListTracker items={listItems(sets.map((set) => set.product))} listId={list.id} listName={list.name}>
     <ul className="set-cards">
       {sets.map(({ handle, label, note, product }) => {
         const image = product.featuredImage ?? product.images[0];
@@ -46,5 +49,6 @@ export function SetCards({ sets }: { sets: SignatureSet[] }) {
         );
       })}
     </ul>
+    </ItemListTracker>
   );
 }

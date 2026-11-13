@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { trackCart } from "@/lib/analytics";
 import type { Cart } from "@/lib/shopify/types";
 import { CartItems } from "./CartItems";
 import { CartSummary } from "./CartSummary";
@@ -9,6 +11,11 @@ import { useCart } from "./use-cart";
 
 export function CartPageClient({ enabled, initialCart }: { enabled: boolean; initialCart: Cart | null }) {
   const { cart, error, notice, pending, removeLine, updateQuantity } = useCart(initialCart);
+
+  // One view_cart per visit to the cart page.
+  useEffect(() => {
+    if (enabled) trackCart("view_cart", initialCart);
+  }, [enabled, initialCart]);
 
   // With the commerce gate closed nothing can be added, so the cart is empty.
   if (!enabled || !cart?.lines.length) {
