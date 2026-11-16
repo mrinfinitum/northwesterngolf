@@ -135,3 +135,20 @@ export const missingLegacyCollections = new Set(["men-s-collection", "seniors-co
 export function emptyCollectionDestination(handle: string) {
   return emptyCollectionRedirects[handle] ?? SHOP;
 }
+
+/**
+ * policies.northwestern.golf was a GoHighLevel site; Google still has its pages. Once the
+ * subdomain is added to this Vercel project (and its DNS pointed here), these send each
+ * old policy to the matching page on www, and anything else to the homepage.
+ */
+const POLICIES_HOST = [{ type: "host" as const, value: "policies.northwestern.golf" }];
+const WWW = "https://www.northwestern.golf";
+export const policiesHostRedirects = [
+  ...Object.entries({
+    "/privacy-policy": "/policies/privacy-policy",
+    "/return-policy": "/policies/refund-policy",
+    "/shipping-policy": "/policies/shipping-policy",
+    "/terms-of-usage-and-conditions": "/policies/terms-of-service",
+  }).map(([source, path]) => ({ destination: `${WWW}${path}`, has: POLICIES_HOST, permanent: true, source })),
+  { destination: `${WWW}/`, has: POLICIES_HOST, permanent: true, source: "/:path*" },
+];
