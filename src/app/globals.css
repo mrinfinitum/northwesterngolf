@@ -692,6 +692,8 @@ button:hover > .circle-chevron { background: var(--color-brand); color: var(--co
   text-align: center;
 }
 .site-footer__bottom p { margin: 0; }
+.site-footer__bottom { column-gap: 24px; flex-wrap: wrap; row-gap: 8px; }
+.site-footer__bottom a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 
 @media (max-width: 768px) {
   .site-footer__row, .site-footer__menus { align-items: center; flex-direction: column; gap: 0; margin-left: 0; text-align: center; }

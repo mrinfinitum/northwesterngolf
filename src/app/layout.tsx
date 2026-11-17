@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import { Barlow } from "next/font/google";
+import { GoogleTag } from "@/components/analytics/GoogleTag";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { siteUrl } from "@/config/site";
@@ -54,7 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main id="main-content">{children}</main>
         <Footer />
       </body>
-      {isProduction ? <GoogleAnalytics gaId={GOOGLE_TAG_ID} /> : null}
+      {isProduction ? <GoogleTag id={GOOGLE_TAG_ID} /> : null}
     </html>
   );
 }

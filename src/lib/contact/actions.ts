@@ -34,6 +34,12 @@ const escapeHtml = (value: string) =>
 
 function rateLimited(ip: string) {
   const now = Date.now();
+  // Drop expired IPs so a flood of spoofed or rotating addresses can't grow the map forever.
+  if (recent.size > 1000) {
+    for (const [key, times] of recent) {
+      if (times.every((time) => now - time >= WINDOW_MS)) recent.delete(key);
+    }
+  }
   const hits = (recent.get(ip) ?? []).filter((time) => now - time < WINDOW_MS);
   hits.push(now);
   recent.set(ip, hits);

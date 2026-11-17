@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getFooterNavigation } from "@/lib/shopify/navigation";
 import { SocialLinks } from "./SocialLinks";
+import { PRIVACY_CHOICES_PATH } from "@/lib/privacy";
 
 export async function Footer() {
   const groups = await getFooterNavigation();
@@ -31,6 +32,7 @@ export async function Footer() {
       </div>
       <div className="site-footer__row site-footer__bottom">
         <p>© {new Date().getFullYear()} Northwestern Golf. All rights reserved.</p>
+        <p><Link href={PRIVACY_CHOICES_PATH}>Your Privacy Choices</Link></p>
       </div>
     </footer>
   );

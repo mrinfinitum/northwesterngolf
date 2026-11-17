@@ -3,6 +3,7 @@ import { openGraphBase } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { SHIPPING_POLICY } from "@/config/shipping";
 import { getPolicy as getShopifyPolicy } from "@/lib/shopify";
+import { sanitizeShopifyHtml } from "@/lib/sanitize";
 import "../../pages/pages.css";
 
 type PolicyPageProps = { params: Promise<{ handle: string }> };
@@ -49,7 +50,7 @@ export default async function PolicyPage({ params }: PolicyPageProps) {
     <div className="nwg-page-default">
       <article className="nwg-page-default__inner">
         {bodyHasH1 ? null : <h1 className="nwg-visually-hidden">{policy.title}</h1>}
-        <div className="nwg-prose" dangerouslySetInnerHTML={{ __html: localizePolicyHtml(policy.body) }} />
+        <div className="nwg-prose" dangerouslySetInnerHTML={{ __html: localizePolicyHtml(sanitizeShopifyHtml(policy.body)) }} />
       </article>
     </div>
   );

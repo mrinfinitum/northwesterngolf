@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getArticle } from "@/lib/shopify";
+import { sanitizeShopifyHtml } from "@/lib/sanitize";
 import { metadataTitle, openGraphBase } from "@/lib/seo";
 import "../../blogs.css";
 
@@ -60,7 +61,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           width={article.image.width ?? 1200}
         />
       ) : null}
-      <div className="nwg-article__body" dangerouslySetInnerHTML={{ __html: article.contentHtml }} />
+      <div className="nwg-article__body" dangerouslySetInnerHTML={{ __html: sanitizeShopifyHtml(article.contentHtml) }} />
     </article>
   );
 }

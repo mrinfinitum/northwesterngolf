@@ -792,3 +792,37 @@
     height: 640px;
   }
 }
+
+/* "Do not sell or share" control on /pages/data-sharing-opt-out (replaces Shopify's form). */
+.nwg-privacy-choices {
+  border: 1px solid #d9d6df;
+  border-radius: 8px;
+  display: grid;
+  font-size: 16px;
+  gap: 16px;
+  justify-items: start;
+  line-height: 1.6;
+  margin-top: 32px;
+  padding: 24px;
+}
+.nwg-privacy-choices h2 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+  text-transform: uppercase;
+}
+.nwg-privacy-choices h2:not(:first-child) { margin-top: 16px; }
+.nwg-privacy-choices p { margin: 0; }
+.nwg-privacy-choices a { text-decoration: underline; }
+.nwg-privacy-choices__undo {
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  text-decoration: underline;
+}
+.nwg-privacy-choices__note { color: #6b6678; font-size: 14px; }
