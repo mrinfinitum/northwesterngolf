@@ -46,7 +46,10 @@ function SearchForm({ query, withButton = false }: { query: string; withButton?:
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
   const params = await searchParams;
-  const query = single(params.q)?.trim() ?? "";
+  // Capped like predictive search: the query is echoed into the page, so a crafted
+  // link can't put a long block of attacker text (e.g. a prompt-injection "notice")
+  // on this domain for shoppers or AI agents to read.
+  const query = single(params.q)?.trim().slice(0, 100) ?? "";
 
   if (!query) return <SearchPrompt query="" title="Search" />;
 
