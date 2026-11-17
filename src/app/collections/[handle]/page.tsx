@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
   if (handle === "all") {
     const title = "John Daly Golf Club Sets: Men's & Junior";
     const description =
-      "Shop all John Daly golf clubs from Northwestern Golf: the men's complete set and junior golf club sets for ages 5-8 and 9-12, each with a matching stand bag.";
+      "Shop all John Daly golf clubs: the men's complete set and junior golf club sets for ages 5-8 and 9-12, each with a matching stand bag.";
     return {
       title: metadataTitle(title),
       description,
