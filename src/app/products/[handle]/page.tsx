@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { permanentRedirect } from "next/navigation";
 import { ProductPageScrollReset } from "@/components/commerce/ProductPageScrollReset";
 import { PdpSections } from "@/components/product/PdpSections";
-import { productSeo } from "@/config/seo-keywords";
 import { SHIPPING } from "@/config/shipping";
 import { siteUrl } from "@/config/site";
 import { ProductMain } from "@/components/product/ProductMain";
@@ -22,9 +21,8 @@ export async function generateMetadata({ params }: Pick<ProductPageProps, "param
   const product = await getProduct(handle);
   if (!product) return { title: "Product not found" };
 
-  const override = productSeo[product.handle];
-  const title = override?.title || product.seo.title || product.title;
-  const description = override?.description || product.seo.description || product.description.slice(0, 160);
+  const title = product.seo.title || product.title;
+  const description = product.seo.description || product.description.slice(0, 160);
   const images = product.featuredImage ? [{ alt: product.featuredImage.altText || product.title, url: product.featuredImage.url }] : [];
 
   return {
