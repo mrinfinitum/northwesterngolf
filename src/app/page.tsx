@@ -11,16 +11,17 @@ import { Hero } from "@/components/content/Hero";
 import { ImageOverlay } from "@/components/content/ImageOverlay";
 import { ProofPoints } from "@/components/content/ProofPoints";
 import { Testimonials } from "@/components/content/Testimonials";
+import { HOME_DESCRIPTION, HOME_TITLE } from "@/config/seo-keywords";
 import { homepageContent } from "@/config/site";
 import { getCollection, getProducts, type Product } from "@/lib/shopify";
 import "./home.css";
 
-const HOME_TITLE = "Northwestern Golf | John Daly Signature Golf Club Sets";
 
 export const metadata: Metadata = {
   title: { absolute: HOME_TITLE },
+  description: HOME_DESCRIPTION,
   alternates: { canonical: "/" },
-  openGraph: { ...openGraphBase, title: HOME_TITLE, url: "/" },
+  openGraph: { ...openGraphBase, description: HOME_DESCRIPTION, title: HOME_TITLE, url: "/" },
 };
 
 async function getFeaturedProducts(): Promise<Product[]> {
