@@ -53,9 +53,9 @@ const DEFAULT_COLLECTION_QUERY = { filters: [], reverse: false, sortKey: "COLLEC
 export async function generateMetadata({ params }: CollectionPageProps): Promise<Metadata> {
   const { handle } = await params;
   if (handle === "all") {
-    const title = "Shop All Golf Club Sets";
+    const title = "John Daly Golf Club Sets: Men's & Junior";
     const description =
-      "Shop every Northwestern Golf club set: the Men's John Daly Signature Set and the Junior Signature Sets for ages 5-8 and 9-12, each with a matching stand bag.";
+      "Shop all John Daly golf clubs from Northwestern Golf: the men's complete set and junior golf club sets for ages 5-8 and 9-12, each with a matching stand bag.";
     return {
       title: metadataTitle(title),
       description,

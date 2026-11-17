@@ -7,10 +7,10 @@ import { metadataTitle, openGraphBase } from "@/lib/seo";
 import "./john-daly.css";
 
 const description =
-  "Two-time major champion John Daly and Northwestern Golf: the John Daly Signature Sets for men and juniors. Grip it. Rip it. Afford it.";
+  "John Daly golf clubs from Northwestern Golf: the two-time major champion's Signature Sets for men and juniors. Grip it. Rip it. Afford it.";
 
 export const metadata: Metadata = {
-  title: metadataTitle("John Daly"),
+  title: metadataTitle("John Daly Golf Clubs & Signature Sets"),
   description,
   alternates: { canonical: "/pages/john-daly" },
   openGraph: { ...openGraphBase, description, title: "John Daly × Northwestern Golf", url: "/pages/john-daly" },

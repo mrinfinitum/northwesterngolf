@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { legacyRedirects } from "./src/config/legacy-redirects";
+import { legacyRedirects, policiesHostRedirects } from "./src/config/legacy-redirects";
 
 // Shopify customer accounts (new) for shop 72808693923, served on its primary
 // customer accounts domain (shopify.com/72808693923/account redirects here).
@@ -69,7 +69,7 @@ const nextConfig: NextConfig = {
       permanent: false,
       source,
     }));
-    return [...account, ...legacyRedirects];
+    return [...policiesHostRedirects, ...account, ...legacyRedirects];
   },
   images: {
     // AVIF first (typically 20–40% smaller than WebP), WebP for older browsers.
