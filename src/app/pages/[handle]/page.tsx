@@ -4,6 +4,7 @@ import { pageSections } from "@/components/pages/page-sections";
 import { PageSections } from "@/components/pages/PageSections";
 import { noindexPageHandles } from "@/config/site";
 import { getPage } from "@/lib/shopify";
+import { sanitizeShopifyHtml } from "@/lib/sanitize";
 import { isThinPage, metadataTitle, openGraphBase } from "@/lib/seo";
 import "../pages.css";
 
@@ -46,7 +47,7 @@ export default async function ContentPage({ params }: ContentPageProps) {
     <div className="nwg-page-default">
       <article className="nwg-page-default__inner">
         <h1 className="nwg-page-default__title">{page.title}</h1>
-        <div className="nwg-prose" dangerouslySetInnerHTML={{ __html: page.body }} />
+        <div className="nwg-prose" dangerouslySetInnerHTML={{ __html: sanitizeShopifyHtml(page.body) }} />
       </article>
     </div>
   );
